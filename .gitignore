@@ -1,0 +1,5 @@
+# These executable files will be OS and compiler specific, so I think it's best that we not have them uploaded
+# to the remote repo while we work on this project. - Remy
+
+*.exe
+*.out
