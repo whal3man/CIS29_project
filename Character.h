@@ -16,6 +16,7 @@ class Character
 
         int getX();
         int getY();
+        int getZ();
         int getHP();
         int getAge();
         string getName();
@@ -39,6 +40,8 @@ class Character
         void setAgility(int agility);
         void setLuck(int luck);
 
+        virtual void runCharacterCreation(const bool DEBUG) = 0;
+
     protected:
         int hp;
         int age;
@@ -46,6 +49,7 @@ class Character
 
         int x;
         int y;
+        int z;
 
         int strength;
         int perception;

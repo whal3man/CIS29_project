@@ -1,4 +1,5 @@
 #include "Character.h"
+#include <iostream>
 
 Character::Character()
 {
@@ -13,6 +14,9 @@ Character::Character()
     intelligence = 5;
     agility = 5;
     luck = 5;
+    x = 0;
+    y = 0;
+    z = 9;
 }
 
 void Character::moveUp()
@@ -45,6 +49,11 @@ int Character::getY()
     return y;
 }
 
+int Character::getZ()
+{
+    return z;
+}
+
 int Character::getHP()
 {
     return hp;
@@ -52,47 +61,47 @@ int Character::getHP()
 
 int Character::getAge()
 {
-     return age;
+    return age;
 }
 
 string Character::getName()
 {
-     return name;
+    return name;
 }
 
 int Character::getStrength()
 {
-     return strength;
+    return strength;
 }
 
 int Character::getPerception()
 {
-     return perception;
+    return perception;
 }
 
 int Character::getEndurance()
 {
-     return endurance;
+    return endurance;
 }
 
 int Character::getCharisma()
 {
-     return charisma;
+    return charisma;
 }
 
 int Character::getIntelligence()
 {
-     return intelligence;
+    return intelligence;
 }
 
 int Character::getAgility()
 {
-     return agility;
+    return agility;
 }
 
 int Character::getLuck()
 {
-     return luck;
+    return luck;
 }
 
 void Character::setLoc(int x_, int y_)
