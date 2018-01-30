@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include "include/Player.h"
+#include "include/Enemy.h"
 #include "include/Map.h"
 using namespace std;
 
