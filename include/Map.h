@@ -10,10 +10,10 @@ class Map
         Map();
         Map(int rows_, int cols_, int floors_, int startingX = 0, int startingY = 0, int startingZ = 9);
 
-        std::vector<std::vector<std::vector<Tile>>> getMap() { return gameMap; }
+        std::vector< std::vector< std::vector<Tile> > > getMap() { return gameMap; }
         Tile getTile(int x, int y, int z) { return gameMap[x][y][z]; }
         void setTile(int x, int y, int z, Tile t) { gameMap[x][y][z] = t; }
-        void setMap(std::vector<std::vector<std::vector<Tile>>> val) { gameMap = val; }
+        void setMap(std::vector< std::vector< std::vector<Tile> > > val) { gameMap = val; }
 
         int numRows() { return rowCount; }
         int numCols() { return colCount; }
@@ -26,7 +26,7 @@ class Map
     protected:
 
     private:
-        std::vector<std::vector<std::vector<Tile>>> gameMap;
+        std::vector< std::vector< std::vector<Tile> > > gameMap;
         int rowCount;
         int colCount;
         int floorCount;
