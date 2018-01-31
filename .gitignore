@@ -3,3 +3,6 @@
 
 *.exe
 *.out
+
+# Because I work with Vim, these files end up being created that will just get in the way for you guys
+*.swp
