@@ -28,7 +28,7 @@ class Character
         int getAgility();
         int getLuck();
 
-        void setLoc(int x, int y);
+        void setLoc(int x, int y, int z);
         void setHP(int hp);
         void setAge(int age);
         void setName(string name);
@@ -61,5 +61,7 @@ class Character
     private:
 
 };
+
+Character::Character() {}
 
 #endif // CHARACTER_H
