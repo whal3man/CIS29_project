@@ -7,8 +7,7 @@
 class Map
 {
     public:
-        Map();
-        Map(int rows_, int cols_, int floors_, int startingX = 0, int startingY = 0, int startingZ = 9);
+        Map(int rows_ = 10, int cols_ = 10, int floors_ = 10, int startingX = 0, int startingY = 0, int startingZ = 9);
 
         std::vector<std::vector<std::vector<Tile>>> getMap() { return gameMap; }
         Tile getTile(int x, int y, int z) { return gameMap[x][y][z]; }
@@ -22,6 +21,7 @@ class Map
         void print();
 
         void updatePlayerLoc(int x, int y, int z);
+        Tile playerTile();
 
     protected:
 

@@ -2,6 +2,7 @@
 #define TILE_H
 
 #include <vector>
+#include <map>
 
 //TODO: Make vector have monster type
 class Tile
@@ -22,6 +23,9 @@ class Tile
         void playerIn() { player = true; }
         void playerOut() { player = false; }
 
+        void setWall(std::string dir, bool val = true) { walls[dir] = val; }
+        bool checkWall(std::string dir) { return walls[dir]; }
+
     protected:
 
     private:
@@ -30,6 +34,7 @@ class Tile
         int caps;
         bool elevator;
         bool player;
+        std::map<std::string, bool> walls;
 };
 
 #endif // TILE_H
