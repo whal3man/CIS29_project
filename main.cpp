@@ -42,7 +42,6 @@ int main()
         {
             pchar.moveLeft();
         }
-//        else if(input == "right" && !currentTile.checkWall("right"))
         else if(input == "right" && !currentTile.checkWall("right"))
         {
             pchar.moveRight();
