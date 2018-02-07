@@ -1,7 +1,7 @@
 #include "Character.h"
 #include <iostream>
 
-Character::Character()
+Character::Character(int startingX, int startingY, int startingZ)
 {
     hp = 100;
     age = 0;
@@ -14,9 +14,9 @@ Character::Character()
     intelligence = 5;
     agility = 5;
     luck = 5;
-    x = 0;
-    y = 0;
-    z = 9;
+    x = startingX;
+    y = startingY;
+    z = startingZ;
 }
 
 void Character::moveUp()

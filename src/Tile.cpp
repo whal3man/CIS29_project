@@ -9,4 +9,8 @@ Tile::Tile()
     caps = randInt(1, 100);
     elevator = false;
     player = false;
+    setWall("up", false);
+    setWall("down", false);
+    setWall("left", false);
+    setWall("right", false);
 }
