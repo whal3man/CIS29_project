@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include "Tile.h"
+#include "Enemy.h"
 #include <vector>
 
 class Map
@@ -27,6 +28,7 @@ class Map
 
     private:
         std::vector<std::vector<std::vector<Tile>>> gameMap;
+        std::vector<Enemy> enemies;
         int rowCount;
         int colCount;
         int floorCount;
