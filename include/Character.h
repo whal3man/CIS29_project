@@ -7,7 +7,7 @@ using namespace std;
 class Character
 {
     public:
-        Character();
+        Character(int startingX = 0, int startingY = 0, int startingZ = 9);
 
         void moveUp();
         void moveDown();
