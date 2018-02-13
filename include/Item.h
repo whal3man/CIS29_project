@@ -11,32 +11,52 @@ public:
 	~Item();
 
 	// General Item Functions
-	std::string getItemName();
-	enum getItemType();
-	int getSellValue();
-	int getBuyValue();
-	void setItemValue(int number);
+	std::string getItemName() const
+		{ return ItemName; }
+	enum getItemType() const
+		{ return itemType; }
+	int getSellValue() const
+		{ return sellValue; }
+	int getBuyValue() const
+		{ return buyValue; }
+	void setBuyValue(int number);
+		{ buyValue = number; }
 	void setSellValue(int number);
-	void setItemName(std::string ItemName);
-	void setItemType(enum ItemName);
+		{ sellValue = number; }
+	void setItemName(std::string name);
+		{ ItemName = name; }
+	void setItemType(enum type);
+		{ itemType = type; }
 
 	// Weapon Type Functions
-	int getAmmoCount();
-	int getEnergyCount();
-	int getBaseDamage();
+	int getAmmoCount() const;
+		{ return ammoCount; }
+	int getEnergyCount() const;
+		{ return energyCount; }
+	int getBaseDamage() const;
+		{ return baseDamage; }
 	void setAmmoCount(int number);
+		{ ammoCount = number; }
 	void setEnergyCount(int number);
+		{ energyCount = number; }
 	void setBaseDamage(int number);
+		{ baseDamage = number; }
 	
 	// Recovery Type Functions
-	int getHpRestore();
-	void setHpRestore(enum pakType); // Different pak Types give different HP
-	void setPakType(enum pakType);
+	int getHpRestore() const;
+		{ return hpRestore; }
+	void setHpRestore(enum type); // Defined in item.h
+	void setPakType(enum type);
+		{ pakType = type; }
 
 	// Armor Type Functions
-	enum getArmorType();
-	int getDamageResistance(enum armorType);
-	void setArmorType(enum armorType);
+	enum getArmorType() const;
+		{ return armorType; }
+	int getDamageResistance() const;
+		{ return damageResistance; }
+	void setDamageResistance(); // Defined in item.h, dependent on armorType
+	void setArmorType(enum type);
+		{ armorType = type; }
 
 private:
 	std::string itemName;
@@ -55,7 +75,7 @@ private:
 
 	// For Armor Items
 	enum armorType {JUMPSUIT, COMBATARMOR, POWERARMOR};
-	int damageResistance; // will reduce damage taken from a hit
+	int damageResistance; // Scalar value that modifies damage taken from a hit
 };
 
 #endif // ITEM_H
