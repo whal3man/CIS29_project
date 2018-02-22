@@ -29,33 +29,33 @@ public:
 		{ itemType = type; }
 
 	// Weapon Type Functions
-	int getAmmoCount() const;
+	int getAmmoCount() const
 		{ return ammoCount; }
-	int getEnergyCount() const;
+	int getEnergyCount() const
 		{ return energyCount; }
-	int getBaseDamage() const;
+	int getBaseDamage() const
 		{ return baseDamage; }
-	void setAmmoCount(int number);
+	void setAmmoCount(int number)
 		{ ammoCount = number; }
-	void setEnergyCount(int number);
+	void setEnergyCount(int number)
 		{ energyCount = number; }
-	void setBaseDamage(int number);
+	void setBaseDamage(int number)
 		{ baseDamage = number; }
 	
 	// Recovery Type Functions
-	int getHpRestore() const;
+	int getHpRestore() const
 		{ return hpRestore; }
 	void setHpRestore(enum type); // Defined in item.h
-	void setPakType(enum type);
+	void setPakType(enum type)
 		{ pakType = type; }
 
 	// Armor Type Functions
-	enum getArmorType() const;
+	enum getArmorType() const
 		{ return armorType; }
-	int getDamageResistance() const;
+	int getDamageResistance() const
 		{ return damageResistance; }
 	void setDamageResistance(); // Defined in item.h, dependent on armorType
-	void setArmorType(enum type);
+	void setArmorType(enum type)
 		{ armorType = type; }
 
 private:
