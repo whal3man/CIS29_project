@@ -1,9 +1,23 @@
-#include "item.h"
+#include "../include/Item.h"
+//#include <iostream>
+
+Item::Item()
+{
+	/*setItemName("UNDEFINED");
+	setSellValue(0);
+	setItemValue(0);*/
+}
+
+Item::~Item()
+{
+
+}
+
 // Most of the accessor functions have been defined inline in the specification file, since they're very short.
 
 // I'm assuming we're having health points going from 0 - 100. Can scale as project progresses.
-void Item::setHpRestore(enum type) { 
-	switch(type) {
+void Item::setHpRestore() {
+	switch(pakType) {
 		case (REGULAR): hpRestore = 20;
 			break;
 		case (SUPER): hpRestore = 40;
@@ -16,11 +30,12 @@ void Item::setHpRestore(enum type) {
 
 // I arbitrarily chose these scalars; can be redefined as needed
 void Item::setDamageResistance() {
-	switch(armorType)
+	switch(armorType) {
 		case (JUMPSUIT): damageResistance = 0.1;
 			break;
 		case (COMBATARMOR): damageResistance = 0.4;
 			break;
 		case (POWERARMOR): damageResistance = 0.7;
 			break;
+	}
 }
