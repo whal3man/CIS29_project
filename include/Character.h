@@ -1,6 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include "../include/Inventory.h"
 #include <string>
 using namespace std;
 
@@ -42,7 +43,11 @@ class Character
 
         virtual void runCharacterCreation(const bool DEBUG) = 0;
 
+        void use(string itemName);
+
     protected:
+        Inventory inventory;
+
         int hp;
         int age;
         string name;

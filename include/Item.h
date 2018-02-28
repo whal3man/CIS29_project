@@ -10,22 +10,28 @@ public:
 	Item();
 	~Item();
 
+	enum ItemType {WEAPON, RECOVERY, LOOT, ARMOR};
+
+	enum PakType {REGULAR, SUPER, ULTRA};  // In order of power
+
+	enum ArmorType {JUMPSUIT, COMBATARMOR, POWERARMOR};
+
 	// General Item Functions
 	std::string getItemName() const
-		{ return ItemName; }
-	enum getItemType() const
+		{ return itemName; }
+	ItemType getItemType() const
 		{ return itemType; }
 	int getSellValue() const
 		{ return sellValue; }
 	int getBuyValue() const
 		{ return buyValue; }
-	void setBuyValue(int number);
+	void setBuyValue(int number)
 		{ buyValue = number; }
-	void setSellValue(int number);
+	void setSellValue(int number)
 		{ sellValue = number; }
-	void setItemName(std::string name);
-		{ ItemName = name; }
-	void setItemType(enum type);
+	void setItemName(std::string name)
+		{ itemName = name; }
+	void setItemType(ItemType type)
 		{ itemType = type; }
 
 	// Weapon Type Functions
@@ -41,41 +47,44 @@ public:
 		{ energyCount = number; }
 	void setBaseDamage(int number)
 		{ baseDamage = number; }
-	
+
 	// Recovery Type Functions
 	int getHpRestore() const
 		{ return hpRestore; }
-	void setHpRestore(enum type); // Defined in item.h
-	void setPakType(enum type)
+	void setHpRestore(); // Defined in item.h
+	void setPakType(PakType type)
 		{ pakType = type; }
+    PakType getPakType() const
+    { return pakType; }
 
 	// Armor Type Functions
-	enum getArmorType() const
+	ArmorType getArmorType() const
 		{ return armorType; }
 	int getDamageResistance() const
 		{ return damageResistance; }
 	void setDamageResistance(); // Defined in item.h, dependent on armorType
-	void setArmorType(enum type)
+	void setArmorType(ArmorType type)
 		{ armorType = type; }
 
 private:
 	std::string itemName;
-	enum itemType {WEAPON, RECOVERY, LOOT, ARMOR}; 
+    int itemValue;
+    ItemType itemType;
 	int sellValue;
 	int buyValue;
-	
+
 	// For Weapons
-	int ammoCount; 
-	int energyCount; 
+	int ammoCount;
+	int energyCount;
 	int baseDamage; // will likely be subject to other modifiers later on
-	
+
 	// For recovery items
 	int hpRestore; // For stimpaks, amount of HP restored
-	enum pakType {REGULAR, SUPER, ULTRA};  // In order of power
+	PakType pakType;
 
 	// For Armor Items
-	enum armorType {JUMPSUIT, COMBATARMOR, POWERARMOR};
 	int damageResistance; // Scalar value that modifies damage taken from a hit
+	ArmorType armorType;
 };
 
 #endif // ITEM_H

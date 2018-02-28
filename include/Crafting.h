@@ -15,12 +15,12 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "item.h"
+#include "Item.h"
 #include "Inventory.h"
 class craftedItem: public Item, public Inventory
 {
 private:
-   
+
 public:
     void UI()
     {
@@ -39,16 +39,16 @@ public:
         }
         else if (i == "shish kebab")
         {
-            
+
         }
-        
+
     }
     void craftStimpak()
     {
         Item Stimpak{};//create an item object with stats of a stimpak
         Inventory::removing(""); //remove two items that are in the inventory these are strings that will be
         Inventory::removing("");
-        
+
         Inventory::add(Stimpak); // add the new item into the inventory
     }
     void craftDeathClawGauntlet()
@@ -56,52 +56,52 @@ public:
         Item DeathClawGauntlet{};//create an item object with stats of a stimpak
         Inventory::removing("");
         Inventory::removing("");
-        
+
         Inventory::add(DeathClawGauntlet);
     }
     void craftShishKebab()
     {
         Item ShishKebab{};//create an item object with stats of a stimpak
-        
+
         Inventory::removing("");
         Inventory::removing("");
-        
+
         Inventory::add(ShishKebab);
     }
     void shortSword()
     {
         Item shortSword{};//create an item object with stats of a stimpak
-        
+
         Inventory::removing("");
         Inventory::removing("");
-        
+
         Inventory::add(shortSword);
     }
     void longSword()
     {
         Item longSword{};//create an item object with stats of a stimpak
-        
+
         Inventory::removing("");
         Inventory::removing("");
-        
+
         Inventory::add(longSword);
     }
     void craftLightArmor()
     {
         Item LightArmor{};//create an item object with stats of a stimpak
-        
+
         Inventory::removing("");
         Inventory::removing("");
-        
+
         Inventory::add(LightArmor);
     }
     void craftHeavyArmor()
     {
         Item HeavyArmor{};//create an item object with stats of a stimpak
-        
+
         Inventory::removing("");
         Inventory::removing("");
-        
+
         Inventory::add(HeavyArmor);
     }
 };

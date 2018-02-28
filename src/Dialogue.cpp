@@ -6,12 +6,12 @@ Includes a function that might be adopted { intro(Player play) }
 
 ***********11111111111111111111111111111111111111***************/
 
-#include "Dialogue.h"
+#include "../include/Dialogue.h"
 //#include <iostream>
 //#include <string>
 
 /*=========================================================
-This function is a possible replacement 
+This function is a possible replacement
 for Player introduction (beginning of runCharacterCreation)
 ==========================================================*/
 void intro(Player play) {
@@ -31,7 +31,7 @@ void intro(Player play) {
 
 /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 hello()
-Virtual void function for inherited classes 
+Virtual void function for inherited classes
 (Merchant, Monster, Others) to define later on
 ============$$$$$$$$$$$$$$$$$$$$=============*/
 void Dialogue::hello()
@@ -49,7 +49,7 @@ goodbye()
 Virtual void function for inherited classes
 (Merchant, Monster, Others) to define later on
 ====================@@@@@@@@@@@@@@@@@@@@=====*/
-void Dialogue::goodbye() 
+void Dialogue::goodbye()
 {
 	/*if (self)	cout << "See you,wouldn't want to smell ya!\n";
 	if (merchant) cout << "Thank you for your patronage!\n";

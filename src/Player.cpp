@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "../include/Player.h"
 #include <iostream>
 
 void Player::runCharacterCreation(const bool DEBUG)

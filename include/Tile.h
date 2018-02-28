@@ -4,14 +4,10 @@
 #include <vector>
 #include <map>
 
-//TODO: Make vector have monster type
 class Tile
 {
     public:
         Tile();
-
-        std::vector<int> getMonsters() { return monsters; }
-        void addToMonsters(int val) { monsters.push_back(val); }
 
         int getCaps() { return caps; }
         void setCaps(int val) { caps = val; }
@@ -23,17 +19,20 @@ class Tile
         void playerIn() { player = true; }
         void playerOut() { player = false; }
 
+        bool containsMonster() { return monster; }
+        void monsterIn() { monster = true; }
+        void monsterOut() { monster = false; }
+
         void setWall(std::string dir, bool val = true) { walls[dir] = val; }
         bool checkWall(std::string dir) { return walls[dir]; }
 
     protected:
 
     private:
-        // Monsters currently in room
-        std::vector<int> monsters;
         int caps;
         bool elevator;
         bool player;
+        bool monster;
         std::map<std::string, bool> walls;
 };
 

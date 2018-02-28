@@ -1,22 +1,22 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
+#include "../include/Item.h"
 #include <vector>
 #include <iostream>
 
 using namespace std;
 
-class Inventory: public Character
+class Inventory
 {
-    private:
-        vector<Item> vec;
+    public:
+        vector<Item> items;
         int healthKitNum;
 
-    public:
         Inventory();
         ~Inventory();
         void add(Item obj);
-        void removing(string name);
+        void remove(string name);
         void display();
         void use(string name);
 

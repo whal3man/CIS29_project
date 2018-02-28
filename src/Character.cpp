@@ -1,4 +1,4 @@
-#include "Character.h"
+#include "../include/Character.h"
 #include <iostream>
 
 Character::Character(int startingX, int startingY, int startingZ)
@@ -17,6 +17,28 @@ Character::Character(int startingX, int startingY, int startingZ)
     x = startingX;
     y = startingY;
     z = startingZ;
+}
+
+void Character::use(string itemName)
+{
+    for(int a = 0; a < inventory.items.size(); a++)
+    {
+        if(inventory.items[a].getItemName() == itemName)
+        {
+            if(itemName == "healthKit")
+            {
+                //Assuming the player has a maximum of hp of 100 and the health kit is worth 20
+                int hp = getHP();
+                if(hp <= 80 && hp >= 1)//the players hp cant be not less than or equal to 0
+                    hp = hp + 20;
+                if(hp >= 81 && hp >= 100)
+                    hp = 100 - hp;
+                setHP(hp);
+            }
+
+            inventory.remove(itemName);
+        }
+    }
 }
 
 void Character::moveUp()

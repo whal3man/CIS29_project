@@ -1,10 +1,13 @@
-#include "Map.h"
+#include "../include/Map.h"
+#include "../include/RandNumber.h"
 #include <vector>
 #include <iostream>
 #include <iomanip>
 
-Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int startingZ)
+Map::Map(double monsterSpawnRate_, int rows_, int cols_, int floors_, int startingX, int startingY, int startingZ)
 {
+    monsterSpawnRate = monsterSpawnRate_;
+
     rowCount = rows_;
     colCount = cols_;
     floorCount = floors_;
@@ -28,6 +31,15 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                 if(x == cols_-1) t.setWall("right");
                 if(y == rows_-1) t.setWall("down");
 
+
+                if(x == playerX && y == playerY && z == playerZ) t.playerIn();
+                else {
+                    if(randDouble(0,1) < monsterSpawnRate)
+                    {
+                        t.monsterIn();
+                    }
+                }
+
                 setTile(x, y, z, t);
             }
         }
@@ -46,6 +58,7 @@ void Map::print()
             Tile currentTile = getTile(x, y, currentFloor);
 
             if(currentTile.containsPlayer()) std::cout << std::setw(spacesBetweenTiles) << "[P]";
+            else if(currentTile.containsMonster()) std::cout << std::setw(spacesBetweenTiles) << "[M]";
             else std::cout << std::setw(spacesBetweenTiles) << "[ ]";
         }
         std::cout << std::endl;
@@ -67,6 +80,54 @@ void Map::updatePlayerLoc(int x, int y, int z)
     currentFloor = z;
 
     gameMap[playerX][playerY][playerZ].playerIn();
+}
+
+void Map::updateMonsterLocs()
+{
+    for(int y = 0; y < numRows(); y++)
+    {
+        for(int x = 0; x < numCols(); x++)
+        {
+            Tile currentTile = getTile(x, y, currentFloor);
+
+            if(currentTile.containsMonster())
+            {
+                double dir = randDouble(0,1);
+                if(dir >= 0 && dir < .25 && !currentTile.checkWall("left"))
+                {
+                    if(!gameMap[x-1][y][currentFloor].containsPlayer())
+                    {
+                        gameMap[x-1][y][currentFloor].monsterIn();
+                        gameMap[x][y][currentFloor].monsterOut();
+                    }
+                }
+                else if(dir >= .25 && dir < .50 && !currentTile.checkWall("right"))
+                {
+                    if(!gameMap[x+1][y][currentFloor].containsPlayer())
+                    {
+                        gameMap[x+1][y][currentFloor].monsterIn();
+                        gameMap[x][y][currentFloor].monsterOut();
+                    }
+                }
+                else if(dir >= .50 && dir < .75 && !currentTile.checkWall("up"))
+                {
+                    if(!gameMap[x][y-1][currentFloor].containsPlayer())
+                    {
+                        gameMap[x][y-1][currentFloor].monsterIn();
+                        gameMap[x][y][currentFloor].monsterOut();
+                    }
+                }
+                else if(dir >= .75 && dir < 1 && !currentTile.checkWall("down"))
+                {
+                    if(!gameMap[x][y+1][currentFloor].containsPlayer())
+                    {
+                        gameMap[x][y+1][currentFloor].monsterIn();
+                        gameMap[x][y][currentFloor].monsterOut();
+                    }
+                }
+            }
+        }
+    }
 }
 
 Tile Map::playerTile()

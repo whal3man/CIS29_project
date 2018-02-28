@@ -7,7 +7,7 @@ Exception Handling? Not yet
 
 *********444444444444*******/
 
-#include "RandoSpeak.h"
+#include "../include/RandoSpeak.h"
 
 RandoSpeak::RandoSpeak()
 {

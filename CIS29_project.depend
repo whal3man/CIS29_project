@@ -1,0 +1,104 @@
+# depslib dependency file v1.0
+1519804346 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\dialogue.cpp
+	"../include/Dialogue.h"
+
+1519803482 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\dialogue.h
+	"Player.h"
+	<iostream>
+	<string>
+
+1519803482 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\player.h
+	"Character.h"
+	<string>
+
+1519805682 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\character.h
+	"../include/Inventory.h"
+	<string>
+
+1519808378 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\main.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+	"include/Player.h"
+	"include/Map.h"
+
+1519809012 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\map.h
+	"Tile.h"
+	"Enemy.h"
+	<vector>
+
+1519807616 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\tile.h
+	<vector>
+	<map>
+
+1519806878 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\enemy.h
+	"Character.h"
+	"Item.h"
+	"RandNumber.h"
+	<vector>
+
+1519805222 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\item.h
+	<string>
+	<iostream>
+
+1519806380 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\randnumber.h
+	<random>
+
+1519804729 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\include\item.cpp
+	"item.h"
+
+1519808960 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\map.cpp
+	"../include/Map.h"
+	"../include/RandNumber.h"
+	<vector>
+	<iostream>
+	<iomanip>
+
+1519805877 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\character.cpp
+	"../include/Character.h"
+	<iostream>
+
+1519804865 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\randospeak.cpp
+	"../include/RandoSpeak.h"
+
+1519803482 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\randospeak.h
+	"Dialogue.h"
+
+1519804871 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\player.cpp
+	"../include/Player.h"
+	<iostream>
+
+1519807527 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\tile.cpp
+	"../include/Tile.h"
+	"../include/RandNumber.h"
+	<vector>
+	<iostream>
+
+1519807070 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\item.cpp
+	"../include/Item.h"
+
+1519805250 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\merchant.cpp
+	"../include/Merchant.h"
+
+1519803482 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\merchant.h
+	"Dialogue.h"
+	"Item.h"
+	<vector>
+	<iomanip>
+
+1519805859 c:\users\trinity\documents\school\advanceddc++\cis29_project\include\inventory.h
+	"../include/Item.h"
+	<vector>
+	<iostream>
+
+1519805972 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\inventory.cpp
+	"../include/Inventory.h"
+	<algorithm>
+	<iostream>
+
+1519806359 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\randnumber.cpp
+	"../include/RandNumber.h"
+
+1519806447 source:c:\users\trinity\documents\school\advanceddc++\cis29_project\src\enemy.cpp
+	"../include/Enemy.h"
+

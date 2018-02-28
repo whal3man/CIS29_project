@@ -8,7 +8,7 @@ Exception Handling? Not yet
 
 ***********************222222222222222222222222222222222222222222*******/
 
-#include "Merchant.h"
+#include "../include/Merchant.h"
 //#include <iostream>
 
 
@@ -40,7 +40,7 @@ that user bought from merchant (DEBUGGING)
 void Merchant::showVector()
 {
 	Item temp;
-	
+
 	int size = Load.size();
 
 	if (size < 1) cout << "\nThere is nothing to show!\n";
@@ -60,7 +60,7 @@ void Merchant::showVector()
 		temp = Load[i];
 
 		cout << "For Product # " << (i + 1) << ": " << temp.getItemName << ", " << temp.getBuyValue << endl;
-		
+
 	}*/
 }
 
@@ -94,7 +94,7 @@ char Merchant::yesOrno() {
 purchase() - vector <Item> function
 Transaction management (main fntn of Merchant class)
 Comprised of various functions, private and public.
-Returns a vector of Items that user 'bought' 
+Returns a vector of Items that user 'bought'
 ===================++++++++++++++++===============*/
 vector <Item> Merchant::purchase()
 {
@@ -110,10 +110,10 @@ vector <Item> Merchant::purchase()
 		/*std::cout << "Type Y or N: ";
 		std::cin >> choice;
 		choice = tolower(choice);*/
-		if (choice == 'y' || choice == 'n') 
-		{ 
+		if (choice == 'y' || choice == 'n')
+		{
 			flag = 1;
-			if (choice == 'y') tran = 1;	
+			if (choice == 'y') tran = 1;
 			else tran = 0;
 		}
 		else std::cout << "\nI did not understand. Do you need anything?\n";
@@ -126,7 +126,7 @@ vector <Item> Merchant::purchase()
 		if (choice == 'y' || choice == 'n') flag = 1;
 		else std::cout << "Please try again!\n";*/
 	}
-	
+
 	// Go further into the interaction
 	if (tran)
 	{
@@ -138,18 +138,18 @@ vector <Item> Merchant::purchase()
 		{
 			flag = 0;
 
-			while (!flag) 
+			while (!flag)
 			{
-				
+
 				itemMenu();
 				cin >> choice, choice = toupper(choice);
 				switch (choice)
 				{
-				case 'P': temp.setItemName("POTION"); temp.setItemValue(15); flag = 1; break;
-				case 'R': temp.setItemName("REVIVE"); temp.setItemValue(25); flag = 1; break;
-				case 'B': temp.setItemName("BOMB"); temp.setItemValue(30); flag = 1; break;
-				case 'O': temp.setItemName("LAMP OIL"); temp.setItemValue(10); flag = 1; break;
-				case 'L': temp.setItemName("LAMP"); temp.setItemValue(50); flag = 1; break;
+				case 'P': temp.setItemName("POTION"); temp.setBuyValue(15); flag = 1; break;
+				case 'R': temp.setItemName("REVIVE"); temp.setBuyValue(25); flag = 1; break;
+				case 'B': temp.setItemName("BOMB"); temp.setBuyValue(30); flag = 1; break;
+				case 'O': temp.setItemName("LAMP OIL"); temp.setBuyValue(10); flag = 1; break;
+				case 'L': temp.setItemName("LAMP"); temp.setBuyValue(50); flag = 1; break;
 				default: std::cout << "This is not valid! Please try again...\n"; break;
 				}
 				cin.ignore(1000, '\n');
@@ -174,10 +174,10 @@ vector <Item> Merchant::purchase()
 				//cin.ignore(100, '\n');
 			}
 
-			while (tran&&end) 
+			while (tran&&end)
 			{
 				flag = 0;
-				
+
 				while (!flag)
 				{
 					cout << "\nDone shopping?\n";
@@ -199,7 +199,7 @@ vector <Item> Merchant::purchase()
 	}
 	// Exit the interaction
 	if (!tran && Load.size() > 0) goodbye();
-	
+
 	else if (!tran && Load.size() < 1) changeofmind();
 
 	return Load;

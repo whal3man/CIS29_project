@@ -8,7 +8,7 @@
 class Map
 {
     public:
-        Map(int rows_ = 10, int cols_ = 10, int floors_ = 10, int startingX = 0, int startingY = 0, int startingZ = 9);
+        Map(double monsterSpawnRate_ = .30, int rows_ = 10, int cols_ = 10, int floors_ = 10, int startingX = 0, int startingY = 0, int startingZ = 9);
 
         std::vector<std::vector<std::vector<Tile>>> getMap() { return gameMap; }
         Tile getTile(int x, int y, int z) { return gameMap[x][y][z]; }
@@ -24,11 +24,14 @@ class Map
         void updatePlayerLoc(int x, int y, int z);
         Tile playerTile();
 
+        void updateMonsterLocs();
+
     protected:
 
     private:
         std::vector<std::vector<std::vector<Tile>>> gameMap;
         std::vector<Enemy> enemies;
+        double monsterSpawnRate;
         int rowCount;
         int colCount;
         int floorCount;
