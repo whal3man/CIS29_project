@@ -5,13 +5,19 @@
 #include "include/Map.h"
 using namespace std;
 
-void displayCommands()
+void displayHelp()
 {
     system("cls");
+    cout << "Tile codes: [P] = Player. [M] = Enemy. [I] = Item. [E] = Elevator. \nCommands:\n";
     cout << "[w] north: move north\n";
     cout << "[s] south: move south\n";
     cout << "[a] west: move west\n";
     cout << "[d] east: move east\n";
+    cout << "[v] elevator: use an elevator to travel up a floor\n";
+    cout << "[p] pick: pick up an item\n";
+    cout << "[e] equip: equip an item\n";
+    cout << "[u] unequip: unequip an item\n";
+    cout << "[f] attack: attack an enemy\n";
     cout << "[q] help: display the list of valid commands\n";
     cout << "[x] quit: quit the game\n";
     system("pause");
@@ -49,15 +55,17 @@ int main()
 {
     const bool DEBUG = true;
 
-    int rows = 10, cols = 10, floors = 10;
-    int startingX = 0, startingY = 0, startingZ = 9;
+    // Map generation settings
+    int rows = 5, cols = 5, floors = 2;
+    int startingX = 0, startingY = 0, startingZ = floors-1;
     double monsterSpawnRate = .05;
+    double itemSpawnRate = .25;
     Player pchar(startingX, startingY, startingZ);
     pchar.runCharacterCreation(DEBUG);
-    Map gameMap(monsterSpawnRate, rows, cols, floors, startingX, startingY, startingZ);
+    Map gameMap(rows, cols, floors, startingX, startingY, startingZ, monsterSpawnRate, itemSpawnRate);
 
     string input = "";
-    while(input != "quit" && input != "x") {
+    while(input != "quit" && input != "x" && !pchar.wonGame()) {
         gameMap.print();
         Tile currentTile = gameMap.playerTile();
         cout << "Walls: ";
@@ -66,7 +74,19 @@ int main()
         if(currentTile.checkWall("left")) cout << " west ";
         if(currentTile.checkWall("right")) cout << " east ";
 
-        cout << "\nPlease enter a command.\n";
+        cout << "\nEnemies in tile: \n";
+        gameMap.displayEnemiesInPlayerTile();
+
+        cout << "\nItems in tile: \n";
+        gameMap.displayItemsInPlayerTile();
+
+        cout << "\nPlayer inventory: \n";
+        pchar.displayInventory();
+
+        cout << "\nItem equipped: \n\t";
+        cout << pchar.getEquippedItem() << endl;
+
+        cout << "\nPlease enter a command. (\"help\" or \"q\" for help)\n";
         cin >> input;
         input = clean(input);
         if((input == "up" || input == "north" || input == "w") && !currentTile.checkWall("up"))
@@ -85,20 +105,69 @@ int main()
         {
             pchar.moveRight();
         }
+        else if((input == "elevator" || input == "v") && currentTile.containsElevator())
+        {
+            pchar.goUpFloor();
+        }
+        else if((input == "pick up" || input == "pick" || input == "p") && currentTile.containsItem())
+        {
+            int itemNumber;
+            cout << "Please enter the list number of the item to pick up (0 to cancel). ";
+            cin >> itemNumber;
+            int idx = itemNumber-1;
+            if(idx >= 0 && idx < gameMap.playerTile().getNumItems())
+            {
+                pchar.addToInventory(gameMap.playerTile().getItem(idx));
+                gameMap.playerTile().removeItem(idx);
+            }
+        }
+        else if((input == "equip" || input == "e") && pchar.hasItemsInInventory())
+        {
+            int itemNumber;
+            cout << "Please enter the list number of the item to equip (0 to cancel). ";
+            cin >> itemNumber;
+            int idx = itemNumber-1;
+            if(idx >= 0 && idx < pchar.numItemsInInventory())
+            {
+                pchar.equip(idx);
+            }
+        }
+        else if((input == "unequip" || input == "u") && pchar.getEquippedItem() != pchar.defaultItem)
+        {
+            pchar.unequip();
+        }
+        else if((input == "attack" || input == "fight" || input == "f") && currentTile.containsEnemy() && pchar.getEquippedItem() != pchar.defaultItem)
+        {
+            int enemyNumber;
+            cout << "Please enter the list number of the enemy to attack (0 to cancel). ";
+            cin >> enemyNumber;
+            int idx = enemyNumber-1;
+            if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
+            {
+                pchar.attack(gameMap.playerTile().getEnemy(idx));
+            }
+        }
         else if(input == "help" || input == "q")
         {
-            displayCommands();
+            displayHelp();
         }
-        else if(input != "x")
+        else if(input == "x")
         {
-            cout << "Invalid command.\n";
-            displayCommands();
+            system("cls");
+            cout << "Thanks for playing!";
         }
 
         gameMap.updatePlayerLoc(pchar.getX(), pchar.getY(), pchar.getZ());
-        gameMap.updateMonsterLocs();
+
+        if(!DEBUG) gameMap.updateMonsterLocs();
 
         system("cls");
+    }
+
+    if(pchar.wonGame())
+    {
+        cout << "~~~~~~~~ You win! Great job! Thanks for playing. ~~~~~~~~ \nStats: ";
+        cout << pchar;
     }
 
     return 0;

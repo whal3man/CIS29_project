@@ -19,13 +19,19 @@ Character::Character(int startingX, int startingY, int startingZ)
     z = startingZ;
 }
 
-void Character::use(string itemName)
+void Character::takeDamageFrom(Item& i)
 {
-    for(int a = 0; a < inventory.items.size(); a++)
+    if(i.itemType == "RANGED WEAPON") i.ammoCount--;
+    hp -= i.damage;
+}
+
+void Character::use(string name)
+{
+    for(int i = 0; i < inventory.items.size(); i++)
     {
-        if(inventory.items[a].getItemName() == itemName)
+        if(inventory.items[i].itemName == name)
         {
-            if(itemName == "healthKit")
+            if(name == "healthKit")
             {
                 //Assuming the player has a maximum of hp of 100 and the health kit is worth 20
                 int hp = getHP();
@@ -36,7 +42,7 @@ void Character::use(string itemName)
                 setHP(hp);
             }
 
-            inventory.remove(itemName);
+            inventory.remove(inventory.items[i]);
         }
     }
 }
@@ -59,6 +65,16 @@ void Character::moveLeft()
 void Character::moveRight()
 {
     x++;
+}
+
+void Character::goUpFloor()
+{
+    z--;
+}
+
+void Character::goDownFloor()
+{
+    z++;
 }
 
 int Character::getX()

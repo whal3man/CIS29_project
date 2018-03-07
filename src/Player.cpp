@@ -78,3 +78,26 @@ void Player::runCharacterCreation(const bool DEBUG)
         setIntelligence(getIntelligence()+1);
     }
 }
+
+void Player::equip(int i)
+{
+    equipped = inventory[i];
+}
+
+void Player::unequip()
+{
+    equipped = defaultItem;
+}
+
+void Player::attack(Character& e)
+{
+    e.takeDamageFrom(equipped);
+}
+
+void Player::displayInventory()
+{
+    for(int i = 0; i < inventory.getNumItems(); i++)
+    {
+        cout << "\t" << i+1 << ". " << inventory[i] << endl;
+    }
+}

@@ -10,16 +10,19 @@ using namespace std;
 class Inventory
 {
     public:
+        Inventory() {}
+        ~Inventory() {}
+
         vector<Item> items;
-        int healthKitNum;
+        void add(Item obj) { items.push_back(obj); }
+        void remove(const Item& obj);
+        int getNumItems() { return items.size(); }
 
-        Inventory();
-        ~Inventory();
-        void add(Item obj);
-        void remove(string name);
-        void display();
-        void use(string name);
+        bool containsItems() { return (getNumItems() != 0); }
 
+        bool contains(const Item& obj);
+
+        Item& operator[](int idx) { return items[idx]; }
 };
 
 #endif // INVENTORY_H

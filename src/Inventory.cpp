@@ -2,35 +2,17 @@
 #include <algorithm>
 #include <iostream>
 using namespace std;
-Inventory::Inventory()
-{
 
-}
-Inventory::~Inventory()
-{
-
-}
-void Inventory::add(Item obj)
-{
-    items.push_back(obj);
-    if(obj.getItemName() == "healthKit")
-        healthKitNum++;
-}
-void Inventory::remove(string name)
+void Inventory::remove(const Item& obj)
 {
     //if there is more than one health kit than it removes the first one that it finds
-    for(int a = 0; a < items.size();a++)
-    {
-        if(items[a].getItemName() == name)
-        {
-            if(items[a].getItemName() == "healthKit")
-                healthKitNum--;
-            items.erase(items.begin() + a);
-            break;
-        }
-    }
+    auto idx = find(items.begin(), items.end(), obj);
+    if(idx != items.end()) items.erase(idx);
 }
-void Inventory::display()
+
+bool Inventory::contains(const Item& obj)
 {
-        cout<<"Health Kit: "<<healthKitNum<<endl;
+    auto idx = find(items.begin(), items.end(), obj);
+    if(idx != items.end()) return true;
+    return false;
 }

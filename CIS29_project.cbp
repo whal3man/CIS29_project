@@ -12,6 +12,9 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -31,6 +34,33 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/Character.h" />
+		<Unit filename="include/Crafting.h" />
+		<Unit filename="include/Dialogue.h" />
+		<Unit filename="include/Enemy.h" />
+		<Unit filename="include/Hunter.h" />
+		<Unit filename="include/Inventory.h" />
+		<Unit filename="include/Item.h" />
+		<Unit filename="include/Map.h" />
+		<Unit filename="include/Merchant.h" />
+		<Unit filename="include/Patrol.h" />
+		<Unit filename="include/Player.h" />
+		<Unit filename="include/RandNumber.h" />
+		<Unit filename="include/RandoSpeak.h" />
+		<Unit filename="include/Sentry.h" />
+		<Unit filename="include/Tile.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/Character.cpp" />
+		<Unit filename="src/Dialogue.cpp" />
+		<Unit filename="src/Enemy.cpp" />
+		<Unit filename="src/Inventory.cpp" />
+		<Unit filename="src/Item.cpp" />
+		<Unit filename="src/Map.cpp" />
+		<Unit filename="src/Merchant.cpp" />
+		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/RandNumber.cpp" />
+		<Unit filename="src/RandoSpeak.cpp" />
+		<Unit filename="src/Tile.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

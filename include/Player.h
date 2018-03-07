@@ -12,10 +12,18 @@ class Player : public Character
 
         void runCharacterCreation(const bool DEBUG);
 
-    protected:
+        void displayInventory();
 
-    private:
+        void equip(int i);
+        void unequip();
+        Item& getEquippedItem() { return equipped; }
 
+        Item defaultItem = Item("No item equipped", "\"equip\" or \"e\" to equip from inventory");
+        Item equipped = defaultItem;
+
+        void attack(Character& e);
+
+        bool wonGame() { return (z < 0); }
 };
 
 #endif // PLAYER_H

@@ -7,19 +7,19 @@
 class Item
 {
 public:
-	Item();
+//    enum ItemType {WEAPON, RECOVERY, ARMOR, MISC};
+
+//	enum PakType {REGULAR, SUPER, ULTRA};  // In order of power
+
+//	enum ArmorType {JUMPSUIT, COMBATARMOR, POWERARMOR};
+    Item() {}
+	Item(std::string itemName_, std::string itemType_, int itemValue = 10, int sellValue = 10, int buyValue = 10);
 	~Item();
-
-	enum ItemType {WEAPON, RECOVERY, LOOT, ARMOR};
-
-	enum PakType {REGULAR, SUPER, ULTRA};  // In order of power
-
-	enum ArmorType {JUMPSUIT, COMBATARMOR, POWERARMOR};
 
 	// General Item Functions
 	std::string getItemName() const
 		{ return itemName; }
-	ItemType getItemType() const
+	std::string getItemType() const
 		{ return itemType; }
 	int getSellValue() const
 		{ return sellValue; }
@@ -31,60 +31,74 @@ public:
 		{ sellValue = number; }
 	void setItemName(std::string name)
 		{ itemName = name; }
-	void setItemType(ItemType type)
+	void setItemType(std::string type)
 		{ itemType = type; }
 
 	// Weapon Type Functions
 	int getAmmoCount() const
 		{ return ammoCount; }
-	int getEnergyCount() const
-		{ return energyCount; }
 	int getBaseDamage() const
 		{ return baseDamage; }
 	void setAmmoCount(int number)
 		{ ammoCount = number; }
-	void setEnergyCount(int number)
-		{ energyCount = number; }
-	void setBaseDamage(int number)
-		{ baseDamage = number; }
+	void setDamage(int number)
+		{ damage = number; }
 
 	// Recovery Type Functions
-	int getHpRestore() const
-		{ return hpRestore; }
-	void setHpRestore(); // Defined in item.h
-	void setPakType(PakType type)
-		{ pakType = type; }
-    PakType getPakType() const
-    { return pakType; }
+//	int getHpRestore() const
+//		{ return hpRestore; }
+//	void setHpRestore(); // Defined in item.h
+//	void setPakType(PakType type)
+//		{ pakType = type; }
+//    PakType getPakType() const
+//    { return pakType; }
 
 	// Armor Type Functions
-	ArmorType getArmorType() const
-		{ return armorType; }
-	int getDamageResistance() const
-		{ return damageResistance; }
-	void setDamageResistance(); // Defined in item.h, dependent on armorType
-	void setArmorType(ArmorType type)
-		{ armorType = type; }
+//	ArmorType getArmorType() const
+//		{ return armorType; }
+//	int getDamageResistance() const
+//		{ return damageResistance; }
+//	void setDamageResistance(); // Defined in item.h, dependent on armorType
+//	void setArmorType(ArmorType type)
+//		{ armorType = type; }
 
-private:
+		friend bool operator==(const Item& lhs, const Item& rhs)
+        {
+            return (lhs.itemName == rhs.itemName);
+        }
+
+        friend bool operator!=(const Item& lhs, const Item& rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        friend std::ostream& operator<<(std::ostream& os, const Item& i)
+        {
+            os << i.itemName << " (" << i.itemType;
+            if(i.itemType == "WEAPON") os << ", Damage = " << i.damage;
+            if(i.itemType == "RANGED WEAPON") os << ", Ammo Count = " << i.ammoCount;
+            os << ")";
+            return os;
+        }
+
 	std::string itemName;
     int itemValue;
-    ItemType itemType;
+    std::string itemType;
 	int sellValue;
 	int buyValue;
 
 	// For Weapons
 	int ammoCount;
-	int energyCount;
 	int baseDamage; // will likely be subject to other modifiers later on
+	int damage;
 
 	// For recovery items
-	int hpRestore; // For stimpaks, amount of HP restored
-	PakType pakType;
+//	int hpRestore; // For stimpaks, amount of HP restored
+//	PakType pakType;
 
 	// For Armor Items
-	int damageResistance; // Scalar value that modifies damage taken from a hit
-	ArmorType armorType;
+//	int damageResistance; // Scalar value that modifies damage taken from a hit
+//	ArmorType armorType;
 };
 
 #endif // ITEM_H

@@ -1,17 +1,20 @@
 #include "../include/Enemy.h"
 
+const std::vector<std::string> Enemy::possibleNames = {"Grognak The Destroyer", "Deathclaw", "Radscorpion", "Raider Clasher"};
+
 Enemy::Enemy() : Character() {}
 
-Enemy::Enemy(int X, int Y, int Z, std::string N, int Age, int HP,
+Enemy::Enemy(int X, int Y, int Z, std::string N, int HP,  std::vector <Item> LOOT, int Age,
              int S, int P, int E, int C, int I, int A, int L,
-             int R, std::vector <Item> LOOT)
+             int R)
 {
     x = X;
     y = Y;
     z = Z;
     name = N;
-    age = Age;
     hp = HP;
+    loot = LOOT;
+    age = Age;
     strength = S;
     perception = P;
     endurance = E;
@@ -20,12 +23,9 @@ Enemy::Enemy(int X, int Y, int Z, std::string N, int Age, int HP,
     agility = A;
     luck = L;
     aggro_radius = R;
-    loot = LOOT;
 }
 
 // Assume each monster will call this function once after the player moves.
 void Enemy::act()
 {
 }
-
-Enemy::~Enemy() {}
