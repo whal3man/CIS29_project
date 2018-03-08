@@ -4,7 +4,6 @@
 #include <iostream>
 #include <iomanip>
 
-const std::vector<Item> possibleItems = {Item("Hunting Rifle", "RANGED WEAPON"), Item("Large Club", "MELEE WEAPON")};// Item("Steel", "MATERIAL"), Item("Leather", "MATERIAL"), Item("Blood Pack", "MATERIAL"), Item("Claw", "MATERIAL"), Item("Gas Container", "MATERIAL"), Item("Leather Strip", "MATERIAL"), Item("Buckles", "MATERIAL"), Item("Small Hilt", "MATERIAL"), Item("Large Hilt", "MATERIAL")};
 
 Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int startingZ, double monsterSpawnRate_, double itemSpawnRate_)
 {
@@ -53,7 +52,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                 else
                 {
                     // Monster Generation
-                    // Some bits randomly created, so no preset list in Map
+                    // Some bits randomly created,
                     if(randDouble(0,1) < monsterSpawnRate)
                     {
                         vector<Item> loot; // Need to fill this
@@ -66,12 +65,12 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                     }
 
                     // Item Generation
-                    // Every healthkit/rifle/whatever is the exact same, so preset list in Map
+                    // Every healthkit/rifle/whatever is the exact same
                     if(randDouble(0,1) < itemSpawnRate)
                     {
-                        int s = possibleItems.size();
+                        int s = Item::possibleItems.size();
                         int randIndex = randInt(0, s-1);
-                        Item newItem = possibleItems[randIndex];
+                        Item newItem = Item::possibleItems[randIndex];
                         t.addItem(newItem);
                     }
                 }

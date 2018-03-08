@@ -1,6 +1,8 @@
 #include "../include/Item.h"
 #include <iostream>
 
+const std::vector<Item> Item::possibleItems = {Item("Hunting Rifle", "RANGED WEAPON"), Item("Large Club", "MELEE WEAPON")};// Item("Steel", "MATERIAL"), Item("Leather", "MATERIAL"), Item("Blood Pack", "MATERIAL"), Item("Claw", "MATERIAL"), Item("Gas Container", "MATERIAL"), Item("Leather Strip", "MATERIAL"), Item("Buckles", "MATERIAL"), Item("Small Hilt", "MATERIAL"), Item("Large Hilt", "MATERIAL")};
+
 // Possible types: WEAPON, RECOVERY, ARMOR, MATERIAL, MISC
 // Stats:
 // Weapons: ammoCount, baseDamage

@@ -2,6 +2,7 @@
 #define ITEM_H
 
 #include <string>
+#include <vector>
 #include <iostream>
 
 class Item
@@ -12,6 +13,8 @@ public:
 //	enum PakType {REGULAR, SUPER, ULTRA};  // In order of power
 
 //	enum ArmorType {JUMPSUIT, COMBATARMOR, POWERARMOR};
+    static const std::vector<Item> possibleItems;
+
     Item() {}
 	Item(std::string itemName_, std::string itemType_, int itemValue = 10, int sellValue = 10, int buyValue = 10);
 	~Item();
