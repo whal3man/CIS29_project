@@ -58,7 +58,7 @@ int main()
     // Map generation settings
     int rows = 5, cols = 5, floors = 2;
     int startingX = 0, startingY = 0, startingZ = floors-1;
-    double monsterSpawnRate = .05;
+    double monsterSpawnRate = .10;
     double itemSpawnRate = .25;
     Player pchar(startingX, startingY, startingZ);
     pchar.runCharacterCreation(DEBUG);
@@ -159,7 +159,7 @@ int main()
 
         gameMap.updatePlayerLoc(pchar.getX(), pchar.getY(), pchar.getZ());
 
-        if(!DEBUG) gameMap.updateMonsterLocs();
+        gameMap.updateEnemyLocs();
 
         system("cls");
     }

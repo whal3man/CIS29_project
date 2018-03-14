@@ -4,13 +4,14 @@ const std::vector<std::string> Enemy::possibleNames = {"Grognak The Destroyer", 
 
 Enemy::Enemy() : Character() {}
 
-Enemy::Enemy(int X, int Y, int Z, std::string N, int HP,  std::vector <Item> LOOT, int Age,
-             int S, int P, int E, int C, int I, int A, int L,
-             int R)
+Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::vector <Item> LOOT, int Age,
+             int S, int P, int E, int C, int I, int A, int L)
 {
-    x = X;
-    y = Y;
+    x = ax = X;
+    y = ay = Y;
     z = Z;
+    bx = BX;
+    by = BY;
     name = N;
     hp = HP;
     loot = LOOT;
@@ -22,10 +23,40 @@ Enemy::Enemy(int X, int Y, int Z, std::string N, int HP,  std::vector <Item> LOO
     intelligence = I;
     agility = A;
     luck = L;
-    aggro_radius = R;
+
+    // Compute dx and dy (direction of movement)
+    dx = dy = 0;
+    if (ax != bx) dx = 1;
+    else if (ay != by) dy = 1;
+
+    // Make sure ax <= bx and ay <= by
+    if (ax > bx)
+    {
+        int tmp = ax;
+        ax = bx;
+        bx = tmp;
+    }
+    if (ay > by)
+    {
+        int tmp = ay;
+        ay = by;
+        by = tmp;
+    }
+
+    allowMove = true;
 }
 
-// Assume each monster will call this function once after the player moves.
-void Enemy::act()
+std::string Enemy::getDir()
 {
+    if (dx == 1) return "right";
+    else if (dx == -1) return "left";
+    else if (dy == 1) return "down";
+    else if (dy == -1) return "up";
+    else return "none";
+}
+
+void Enemy::revDir()
+{
+    dx *= -1;
+    dy *= -1;
 }

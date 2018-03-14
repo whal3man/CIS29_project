@@ -9,21 +9,38 @@
 #include <vector>
 #include <string>
 
-// The Enemy class is an abstract class.
 class Enemy : public Character
 {
-public:
-    int aggro_radius;
+protected:
     std::vector <Item> loot;
+    int ax, ay, bx, by, dx, dy;     // Assume either ax == bx, or ay == by
+
+public:
     static const std::vector<std::string> possibleNames;
+    bool allowMove;
 
     Enemy();
     ~Enemy() {}
 
-    Enemy(int X, int Y, int Z, std::string N, int HP, std::vector <Item> LOOT, int Age = 20,
-          int S = 5, int P = 5, int E = 5, int C = 5, int I = 5, int A = 5, int L = 5, int R = 5);
+    Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP, std::vector <Item> LOOT, int Age = 20,
+          int S = 5, int P = 5, int E = 5, int C = 5, int I = 5, int A = 5, int L = 5);
 
-    void act();
+    std::vector<Item> getLoot() { return loot; }
+    void setLoot (std::vector<Item> l) { loot = l; }
+    int getAX() { return ax; }
+    void setAX (int ax_) { ax = ax_; }
+    int getAY() { return ay; }
+    void setAY (int ay_) { ay = ay_; }
+    int getBX() { return bx; }
+    void setBX (int bx_) { bx = bx_; }
+    int getBY() { return by; }
+    void setBY (int by_) { by = by_; }
+    int getDX() { return dx; }
+    void setDX (int dx_) { dx = dx_; }
+    int getDY() { return dy; }
+    void setDY (int dy_) { dy = dy_; }
+    std::string getDir();
+    void revDir();
 
     friend bool operator==(const Enemy& lhs, const Enemy& rhs)
     {

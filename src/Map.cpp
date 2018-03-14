@@ -59,15 +59,33 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                         vector<Item> loot; // Need to fill this
                         int s = Enemy::possibleNames.size();
                         int randIndex = randInt(0, s-1);
+                        int randDist = randInt(0, 3);
+                        int nx = x, ny = y;
+                        if (randInt(0, 1) == 0)
+                        {
+                            if (randInt(0, 1) == 0) nx -= randDist;
+                            else nx += randDist;
+                            if (nx < 0) nx = 0;
+                            else if (nx > cols_ - 1) nx = cols_ - 1;
+                        }
+                        else
+                        {
+                            if (randInt(0, 1) == 0) ny -= randDist;
+                            else ny += randDist;
+                            if (ny < 0) ny = 0;
+                            else if (ny > rows_ - 1) ny = rows_ - 1;
+                        }
                         std::string newEnemyName = Enemy::possibleNames[randIndex];
                         int randHP = randInt(minMonsterHP, maxMonsterHP+1);
-                        Enemy newEnemy(x, y, z, newEnemyName, randHP, loot);
+                        Enemy newEnemy(x, y, z, nx, ny, newEnemyName, randHP, loot);
                         t.enemyIn(newEnemy);
+                        std::cout << "Enemy generated at (" << x << ", " << y << ", " << z
+                                  << "); will move to (" << nx << ", " << ny << ", " << z << ")\n";
                     }
 
                     // Item Generation
                     // Every healthkit/rifle/whatever is the exact same, so preset list in Map
-                    if(randDouble(0,1) < itemSpawnRate)
+                    else if(randDouble(0,1) < itemSpawnRate)
                     {
                         int s = possibleItems.size();
                         int randIndex = randInt(0, s-1);
@@ -126,13 +144,34 @@ void Map::updatePlayerLoc(int x, int y, int z)
     gameMap[playerX][playerY][playerZ].playerIn();
 }
 
-void Map::updateMonsterLocs()
+bool Map::moveEnemy(Enemy& enemy)
+{
+    int x = enemy.getX();
+    int y = enemy.getY();
+    int z = enemy.getZ();
+    int nx = x + enemy.getDX();
+    int ny = y + enemy.getDY();
+
+    if (gameMap[x][y][z].checkWall(enemy.getDir())) return false;
+    if (nx < enemy.getAX() || nx > enemy.getBX()) return false;
+    if (ny < enemy.getAY() || ny > enemy.getBY()) return false;
+
+    // Move the enemy.
+    gameMap[x][y][z].enemyOut(enemy);
+    enemy.setLoc(nx, ny);
+    enemy.allowMove = false;
+    gameMap[nx][ny][z].enemyIn(enemy);
+
+    return true;
+}
+
+void Map::updateEnemyLocs()
 {
     for(int y = 0; y < numRows(); y++)
     {
         for(int x = 0; x < numCols(); x++)
         {
-            Tile currentTile = getTile(x, y, currentFloor);
+            Tile& currentTile = getTile(x, y, currentFloor);
 
             if(currentTile.containsEnemy())
             {
@@ -140,39 +179,33 @@ void Map::updateMonsterLocs()
                 for(int i = numEnemies-1; i >= 0; i--)
                 {
                     Enemy enemy = currentTile.enemies[i];
-                    double dir = randDouble(0,1);
-                    if(dir >= 0 && dir < .25 && !currentTile.checkWall("left"))
+
+                    // If movement fails for whatever reason, reverse direction.
+                    if (enemy.allowMove)
                     {
-                        if(!gameMap[x-1][y][currentFloor].containsPlayer())
+                        if (moveEnemy(enemy) == false)
                         {
-                            gameMap[x-1][y][currentFloor].enemyIn(enemy);
-                            gameMap[x][y][currentFloor].enemyOut(enemy);
+                            currentTile.enemies[i].revDir();
                         }
                     }
-                    else if(dir >= .25 && dir < .50 && !currentTile.checkWall("right"))
-                    {
-                        if(!gameMap[x+1][y][currentFloor].containsPlayer())
-                        {
-                            gameMap[x+1][y][currentFloor].enemyIn(enemy);
-                            gameMap[x][y][currentFloor].enemyOut(enemy);
-                        }
-                    }
-                    else if(dir >= .50 && dir < .75 && !currentTile.checkWall("up"))
-                    {
-                        if(!gameMap[x][y-1][currentFloor].containsPlayer())
-                        {
-                            gameMap[x][y-1][currentFloor].enemyIn(enemy);
-                            gameMap[x][y][currentFloor].enemyOut(enemy);
-                        }
-                    }
-                    else if(dir >= .75 && dir < 1 && !currentTile.checkWall("down"))
-                    {
-                        if(!gameMap[x][y+1][currentFloor].containsPlayer())
-                        {
-                            gameMap[x][y+1][currentFloor].enemyIn(enemy);
-                            gameMap[x][y][currentFloor].enemyOut(enemy);
-                        }
-                    }
+                }
+            }
+        }
+    }
+
+    // Reset the movement flag.
+    for(int y = 0; y < numRows(); y++)
+    {
+        for(int x = 0; x < numCols(); x++)
+        {
+            Tile& currentTile = getTile(x, y, currentFloor);
+
+            if(currentTile.containsEnemy())
+            {
+                int numEnemies = currentTile.getNumEnemies();
+                for(int i = numEnemies-1; i >= 0; i--)
+                {
+                    currentTile.enemies[i].allowMove = true;
                 }
             }
         }
