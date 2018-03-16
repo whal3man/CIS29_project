@@ -25,7 +25,8 @@ class Map
         void updatePlayerLoc(int x, int y, int z);
         Tile& playerTile();
 
-        void updateMonsterLocs();
+        bool moveEnemy(Enemy& e);
+        void updateEnemyLocs();
 
         void displayEnemiesInPlayerTile();
         void displayItemsInPlayerTile();
