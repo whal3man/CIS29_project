@@ -1,4 +1,6 @@
 #include "../include/Enemy.h"
+#include <string>
+#include <vector>
 
 const std::vector<std::string> Enemy::possibleNames = {"Grognak The Destroyer", "Deathclaw", "Radscorpion", "Raider Clasher"};
 

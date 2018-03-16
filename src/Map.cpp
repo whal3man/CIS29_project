@@ -1,3 +1,4 @@
+#include "../include/Item.h"
 #include "../include/Map.h"
 #include "../include/RandNumber.h"
 #include <vector>
@@ -78,18 +79,13 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                         int randHP = randInt(minMonsterHP, maxMonsterHP+1);
                         Enemy newEnemy(x, y, z, nx, ny, newEnemyName, randHP, loot);
                         t.enemyIn(newEnemy);
-                        std::cout << "Enemy generated at (" << x << ", " << y << ", " << z
-                                  << "); will move to (" << nx << ", " << ny << ", " << z << ")\n";
+//                        std::cout << "Enemy generated at (" << x << ", " << y << ", " << z << "); will move to (" << nx << ", " << ny << ", " << z << ")\n";
                     }
 
                     // Item Generation
-<<<<<<< HEAD
-                    // Every healthkit/rifle/whatever is the exact same
+
+                    // Every healthkit/rifle/whatever is the exact same, so preset list
                     if(randDouble(0,1) < itemSpawnRate)
-=======
-                    // Every healthkit/rifle/whatever is the exact same, so preset list in Map
-                    else if(randDouble(0,1) < itemSpawnRate)
->>>>>>> movement_update
                     {
                         int s = Item::possibleItems.size();
                         int randIndex = randInt(0, s-1);
