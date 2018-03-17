@@ -6,14 +6,16 @@
 #include <iomanip>
 
 
-Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int startingZ, double monsterSpawnRate_, double itemSpawnRate_)
+Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int startingZ, double monsterSpawnRate_, double chestSpawnRate_)
 {
     // Settings not important enough to include in constructor
     int maxMonsterHP = 100;
     int minMonsterHP = 80;
+    int minItemsPerChest = 3;
+    int maxItemsPerChest = 6;
 
     monsterSpawnRate = monsterSpawnRate_;
-    itemSpawnRate = itemSpawnRate_;
+    chestSpawnRate = chestSpawnRate_;
 
     rowCount = rows_;
     colCount = cols_;
@@ -95,14 +97,18 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                     }
 
                     // Item Generation
-
                     // Every healthkit/rifle/whatever is the exact same, so preset list
-                    if(randDouble(0,1) < itemSpawnRate)
+                    if(randDouble(0,1) < chestSpawnRate)
                     {
-                        int s = Item::possibleItems.size();
-                        int randIndex = randInt(0, s-1);
-                        Item newItem = Item::possibleItems[randIndex];
-                        t.addItem(newItem);
+                        int numItems = randInt(minItemsPerChest, maxItemsPerChest);
+                        for(int i = 0; i < numItems; i++)
+                        {
+                            int s = Item::possibleItems.size();
+                            int randIndex = randInt(0, s-1);
+                            Item newItem = Item::possibleItems[randIndex];
+                            t.addItem(newItem);
+                        }
+                        t.makeChest();
                     }
                 }
 
@@ -126,10 +132,12 @@ void Map::print()
 
             if(currentTile.containsPlayer())
                 std::cout << std::setw(spacesBetweenTiles) << "[P]";
-            else if(currentTile.containsElevator())
-                std::cout << std::setw(spacesBetweenTiles) << "[E]";
             else if(currentTile.containsEnemy())
                 std::cout << std::setw(spacesBetweenTiles) << "[M]";
+            else if(currentTile.containsElevator())
+                std::cout << std::setw(spacesBetweenTiles) << "[E]";
+            else if(currentTile.isChest())
+                std::cout << std::setw(spacesBetweenTiles) << "[C]";
             else if(currentTile.containsItem())
                 std::cout << std::setw(spacesBetweenTiles) << "[I]";
             else
@@ -338,8 +346,15 @@ void Map::displayEnemiesInPlayerTile()
 void Map::displayItemsInPlayerTile()
 {
     Tile t = playerTile();
-    for(int i = 0; i < t.items.size(); i++)
+    if(t.isChest())
     {
-        cout << "\t" << i+1 << ". " << t.items[i] << endl;
+        cout << "\tUnlock this chest with \"[l]\" to view its contents\n";
+    }
+    else
+    {
+        for(int i = 0; i < t.items.size(); i++)
+        {
+            cout << "\t" << i+1 << ". " << t.items[i] << endl;
+        }
     }
 }

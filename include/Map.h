@@ -39,7 +39,7 @@ class Map
     private:
         std::vector<std::vector<std::vector<Tile>>> gameMap;
         double monsterSpawnRate;
-        double itemSpawnRate;
+        double chestSpawnRate;
         int rowCount;
         int colCount;
         int floorCount;

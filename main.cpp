@@ -6,19 +6,22 @@
 #include "include/Inventory.h"
 #include "include/Item.h"
 #include "include/Enemy.h"
+#include "include/RandNumber.h"
+#include "include/Minigames.h"
 #include <iomanip>
 using namespace std;
 
 void displayHelp()
 {
     system("cls");
-    cout << "Tile codes: [P] = Player. [M] = Enemy. [I] = Item. [E] = Elevator. \nCommands:\n";
+    cout << "Tile codes: [P] = Player. [M] = Enemy. [C] = Chest. [I] = Item. [E] = Elevator. \nCommands:\n";
     cout << "[w] north: move north\n";
     cout << "[s] south: move south\n";
     cout << "[a] west: move west\n";
     cout << "[d] east: move east\n";
     cout << "[v] elevator: use an elevator to travel up a floor\n";
     cout << "[p] pick: pick up an item\n";
+    cout << "[l] unlock: try to unlock a chest\n";
     cout << "[e] equip: equip an item\n";
     cout << "[n] unequip: unequip an item\n";
     cout << "[u] use: attempt  to use an item\n";
@@ -72,16 +75,16 @@ int main()
     int rows = 5, cols = 5, floors = 2;
     int startingX = 0, startingY = 0, startingZ = floors-1;
     double monsterSpawnRate = .10;
-    double itemSpawnRate = .25;
+    double chestSpawnRate = .15;
     Player pchar(startingX, startingY, startingZ);
     pchar.runCharacterCreation(DEBUG);
-    Map gameMap(rows, cols, floors, startingX, startingY, startingZ, monsterSpawnRate, itemSpawnRate);
+    Map gameMap(rows, cols, floors, startingX, startingY, startingZ, monsterSpawnRate, chestSpawnRate);
 
     string input = "";
     while(input != "quit" && input != "x" && !pchar.wonGame() && !pchar.lostGame())
     {
         gameMap.print();
-        Tile currentTile = gameMap.playerTile();
+        Tile& currentTile = gameMap.playerTile();
         cout << "Walls: ";
         if(currentTile.checkWall("up"))
             cout << " north ";
@@ -136,6 +139,11 @@ int main()
         {
             pchar.goUpFloor();
             justMoved = true;
+        }
+        else if((input == "l" || input == "unlock" || input == "lockpick") && currentTile.isChest())
+        {
+            int low = 1, high = 10;
+            if(guessingGame(low, high)) currentTile.unlockChest();
         }
         else if((input == "pick up" || input == "pick" || input == "p") && currentTile.containsItem())
         {

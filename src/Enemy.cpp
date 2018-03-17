@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-const std::vector<std::string> Enemy::possibleNames = {"Grognak The Destroyer", "Deathclaw", "Radscorpion", "Raider Clasher"};
+const std::vector<std::string> Enemy::possibleNames = {"Grognak The Destroyer", "Deathclaw", "Radscorpion", "Raider Clasher", "Ghoul", "Rabid Dog", "Yao Guai", "Super Mutant", "Assaultron", "Mobile Turret"};
 
 Enemy::Enemy() : Character() {}
 

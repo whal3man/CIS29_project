@@ -10,6 +10,7 @@ Tile::Tile()
     caps = randInt(1, 100);
     elevator = false;
     player = false;
+    chest = false;
     setWall("up", false);
     setWall("down", false);
     setWall("left", false);

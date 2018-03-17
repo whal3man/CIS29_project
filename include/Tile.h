@@ -17,6 +17,10 @@ class Tile
         bool containsElevator() { return elevator; }
         void makeElevator() { elevator = true; }
 
+        bool isChest() { return chest; }
+        void makeChest() { chest = true; }
+        void unlockChest() { chest = false; }
+
         bool containsPlayer() { return player; }
         void playerIn() { player = true; }
         void playerOut() { player = false; }
@@ -42,6 +46,7 @@ class Tile
         int caps;
         bool elevator;
         bool player;
+        bool chest;
         std::map<std::string, bool> walls;
 };
 
