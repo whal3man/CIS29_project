@@ -101,3 +101,13 @@ void Player::displayInventory()
         cout << "\t" << i+1 << ". " << inventory[i] << endl;
     }
 }
+
+void Player::fillInventory()//to be used for demonstration to show that crafting works , will fill inventory with crafting reagents, call it with "fillInventory"
+{
+    Item bloodPack("Blood Pack", "MATERIAL");
+    Item steel("Steel", "MATERIAL");
+    Item leather("Leather","MATERIAL");
+    addToInventory(bloodPack);
+    addToInventory(steel);
+    addToInventory(leather);
+}

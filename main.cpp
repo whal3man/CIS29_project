@@ -3,6 +3,9 @@
 #include <cstdlib>
 #include "include/Player.h"
 #include "include/Map.h"
+#include "include/Inventory.h"
+#include "include/Item.h"
+#include <iomanip>
 using namespace std;
 
 void displayHelp()
@@ -18,8 +21,12 @@ void displayHelp()
     cout << "[e] equip: equip an item\n";
     cout << "[u] unequip: unequip an item\n";
     cout << "[f] attack: attack an enemy\n";
+    cout << "[c] craft: open crafting menu\n";
     cout << "[q] help: display the list of valid commands\n";
     cout << "[x] quit: quit the game\n";
+    cout << "For cheaters:\n";
+    cout << "fill: fills inventory with crafting items\n";
+
     system("pause");
 }
 
@@ -44,7 +51,8 @@ string clean(const string& s)
         }
     }
 
-    for(int i = 0; i < r.size(); i++) {
+    for(int i = 0; i < r.size(); i++)
+    {
         r[i] = tolower(r[i]);
     }
 
@@ -53,6 +61,7 @@ string clean(const string& s)
 
 int main()
 {
+
     const bool DEBUG = true;
 
     // Map generation settings
@@ -65,14 +74,19 @@ int main()
     Map gameMap(rows, cols, floors, startingX, startingY, startingZ, monsterSpawnRate, itemSpawnRate);
 
     string input = "";
-    while(input != "quit" && input != "x" && !pchar.wonGame()) {
+    while(input != "quit" && input != "x" && !pchar.wonGame())
+    {
         gameMap.print();
         Tile currentTile = gameMap.playerTile();
         cout << "Walls: ";
-        if(currentTile.checkWall("up")) cout << " north ";
-        if(currentTile.checkWall("down")) cout << " south ";
-        if(currentTile.checkWall("left")) cout << " west ";
-        if(currentTile.checkWall("right")) cout << " east ";
+        if(currentTile.checkWall("up"))
+            cout << " north ";
+        if(currentTile.checkWall("down"))
+            cout << " south ";
+        if(currentTile.checkWall("left"))
+            cout << " west ";
+        if(currentTile.checkWall("right"))
+            cout << " east ";
 
         cout << "\nEnemies in tile: \n";
         gameMap.displayEnemiesInPlayerTile();
@@ -150,6 +164,18 @@ int main()
         else if(input == "help" || input == "q")
         {
             displayHelp();
+        }
+        else if (input == "c" || input == "craft" || input == "Crafting")
+        {
+            string choice = pchar.inventory.getCraftingChoice(); // "e" to exit
+            if(choice != "e")
+            {
+                pchar.inventory.craft(choice);
+            }
+        }
+        else if (input == "fill")
+        {
+            pchar.fillInventory();
         }
         else if(input == "x")
         {

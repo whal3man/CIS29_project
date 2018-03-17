@@ -63,7 +63,6 @@ public:
         return os;
     }
 
-protected:
     Inventory inventory;
 
     int hp;

@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <iomanip>
+using namespace std;
 
 void Inventory::remove(const Item& obj)
 {
@@ -134,4 +136,25 @@ void Inventory::craft(const std::string& itemName)
             cout << "You do not have the items to craft Heavy Armor.\n";
         }
     }
+}
+
+string Inventory::getCraftingChoice()
+{
+    system("cls");
+    string option;
+    cout << "List of items that can be crafted: " <<endl;
+    cout <<setw(20)<<left <<"ITEM"<<setw(5) <<"|" << "REAGENTS NEEDED" <<setw(10)<<endl;
+    cout << "-----------------------------------------------------------------------------\n";
+    cout <<setw(20)<<left <<"Stimpak"<<setw(5) <<"|" << "Blood Pack , Steel" <<endl;
+    cout <<setw(20)<< left<<"DeathClaw Gauntlet"<<setw(5) <<"|" << "Leather , Steel , Claw" <<endl;
+    cout <<setw(20)<< left<<"ShishKebab"<<setw(5) <<"|" << "Steel , Leather , Gas Container" <<endl;
+    cout <<setw(20)<< left<<"Shortsword"<<setw(5) <<"|" << "Steel, Leather" <<endl;
+    cout <<setw(20)<< left<<"Longsword"<<setw(5) <<"|" << "Steel , Leather" <<endl;
+    cout <<setw(20)<< left<<"Light Armor"<<setw(5) <<"|" << "Leather , Buckles" <<endl;
+    cout <<setw(20)<< left<<"Heavy Armor"<<setw(5) <<"|" << "Steel , Buckles" <<endl;
+
+    cout << "\nWhat would you like to craft? (Type e to exit) \n" <<endl;
+    cin >> option;
+
+    return option;
 }

@@ -23,6 +23,8 @@ class Player : public Character
 
         void attack(Character& e);
 
+        void fillInventory();
+
         bool wonGame() { return (z < 0); }
 };
 
