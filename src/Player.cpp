@@ -79,21 +79,6 @@ void Player::runCharacterCreation(const bool DEBUG)
     }
 }
 
-void Player::equip(int i)
-{
-    equipped = inventory[i];
-}
-
-void Player::unequip()
-{
-    equipped = defaultItem;
-}
-
-void Player::attack(Character& e)
-{
-    e.takeDamageFrom(equipped);
-}
-
 void Player::displayInventory()
 {
     for(int i = 0; i < inventory.getNumItems(); i++)
@@ -104,10 +89,25 @@ void Player::displayInventory()
 
 void Player::fillInventory()//to be used for demonstration to show that crafting works , will fill inventory with crafting reagents, call it with "fillInventory"
 {
-    Item bloodPack("Blood Pack", "MATERIAL");
-    Item steel("Steel", "MATERIAL");
-    Item leather("Leather","MATERIAL");
-    addToInventory(bloodPack);
-    addToInventory(steel);
-    addToInventory(leather);
+    addToInventory(Item("Blood Pack"));
+    addToInventory(Item("Steel"));
+    addToInventory(Item("Leather"));
+    addToInventory(Item("Mini Nuke"));
+    addToInventory(Item("Heavy Armor"));
+    addToInventory(Item("Stimpak"));
+}
+
+bool Player::use(int idx)
+{
+    Item toUse = inventory[idx];
+
+    if(toUse.itemType == "RECOVERY")
+    {
+        hp += toUse.hpRestore;
+        removeFromInventory(toUse);
+        cout << "Restored " << toUse.hpRestore << " hp.\n";
+        system("pause");
+        return true;
+    }
+    else return false;
 }

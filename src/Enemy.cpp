@@ -16,7 +16,6 @@ Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::v
     by = BY;
     name = N;
     hp = HP;
-    loot = LOOT;
     age = Age;
     strength = S;
     perception = P;
@@ -25,6 +24,24 @@ Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::v
     intelligence = I;
     agility = A;
     luck = L;
+
+    // Add loot to inventory
+    bool equippedWeapon = false;
+    bool equippedArmor = false;
+    for(int i = 0; i < LOOT.size(); i++)
+    {
+        inventory.add(LOOT[i]);
+        if(!equippedWeapon && LOOT[i].itemType == "MELEE WEAPON" || LOOT[i].itemType == "RANGED WEAPON")
+        {
+            equip(i);
+            equippedWeapon = true;
+        }
+        if(!equippedArmor && LOOT[i].itemType == "ARMOR")
+        {
+            equip(i);
+            equippedArmor = true;
+        }
+    }
 
     // Compute dx and dy (direction of movement)
     dx = dy = 0;
@@ -46,6 +63,7 @@ Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::v
     }
 
     allowMove = true;
+    alive = true;
 }
 
 std::string Enemy::getDir()

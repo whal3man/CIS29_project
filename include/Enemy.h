@@ -12,7 +12,6 @@
 class Enemy : public Character
 {
 protected:
-    std::vector <Item> loot;
     int ax, ay, bx, by, dx, dy;     // Assume either ax == bx, or ay == by
 
 public:
@@ -25,8 +24,7 @@ public:
     Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP, std::vector <Item> LOOT, int Age = 20,
           int S = 5, int P = 5, int E = 5, int C = 5, int I = 5, int A = 5, int L = 5);
 
-    std::vector<Item> getLoot() { return loot; }
-    void setLoot (std::vector<Item> l) { loot = l; }
+    Inventory getLoot() { return inventory; }
     int getAX() { return ax; }
     void setAX (int ax_) { ax = ax_; }
     int getAY() { return ay; }
@@ -49,7 +47,10 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Enemy& e)
     {
-        os << e.name << " (HP: " << e.hp << ")";
+        os << e.name;
+        if(e.isAlive()) cout << "(Alive)";
+        else cout << "(Dead)";
+        os << "\n\tHP: " << e.hp << ", Equipped:\n\t\tWeapon: " << e.equippedWeapon << "\n\t\tArmor: " << e.equippedArmor;
         return os;
     }
 };

@@ -14,9 +14,10 @@ public:
 
 //	enum ArmorType {JUMPSUIT, COMBATARMOR, POWERARMOR};
     static const std::vector<Item> possibleItems;
+    static const std::vector<Item> possibleWeapons;
 
     Item() {}
-	Item(std::string itemName_, std::string itemType_, int itemValue = 10, int sellValue = 10, int buyValue = 10);
+	Item(std::string itemName_, std::string itemType_ = "MISC", int itemValue = 10, int sellValue = 10, int buyValue = 10);
 	~Item();
 
 	// General Item Functions
@@ -59,8 +60,8 @@ public:
 	// Armor Type Functions
 //	ArmorType getArmorType() const
 //		{ return armorType; }
-//	int getDamageResistance() const
-//		{ return damageResistance; }
+	int getDamageResistance() const
+		{ return damageResistance; }
 //	void setDamageResistance(); // Defined in item.h, dependent on armorType
 //	void setArmorType(ArmorType type)
 //		{ armorType = type; }
@@ -78,8 +79,10 @@ public:
         friend std::ostream& operator<<(std::ostream& os, const Item& i)
         {
             os << i.itemName << " (" << i.itemType;
-            if(i.itemType == "WEAPON") os << ", Damage = " << i.damage;
-            if(i.itemType == "RANGED WEAPON") os << ", Ammo Count = " << i.ammoCount;
+            if(i.itemType == "RECOVERY") os << ", HP Gain = " << i.hpRestore;
+            else if(i.itemType == "ARMOR") os << ", Damage Resistance = " << i.damageResistance;
+            else if(i.itemType == "MELEE WEAPON") os << ", Damage = " << i.damage;
+            else if(i.itemType == "RANGED WEAPON") os << ", Damage = " << i.damage << ", Ammo Count = " << i.ammoCount;
             os << ")";
             return os;
         }
@@ -96,11 +99,11 @@ public:
 	int damage;
 
 	// For recovery items
-//	int hpRestore; // For stimpaks, amount of HP restored
+	int hpRestore; // For stimpaks, amount of HP restored
 //	PakType pakType;
 
 	// For Armor Items
-//	int damageResistance; // Scalar value that modifies damage taken from a hit
+	int damageResistance; // Scalar value that modifies damage taken from a hit
 //	ArmorType armorType;
 };
 

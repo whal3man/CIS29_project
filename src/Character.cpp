@@ -3,6 +3,7 @@
 
 Character::Character(int startingX, int startingY, int startingZ)
 {
+    alive = true;
     hp = 100;
     age = 0;
     name = "Undefined";
@@ -17,12 +18,7 @@ Character::Character(int startingX, int startingY, int startingZ)
     x = startingX;
     y = startingY;
     z = startingZ;
-}
-
-void Character::takeDamageFrom(Item& i)
-{
-    if(i.itemType == "RANGED WEAPON") i.ammoCount--;
-    hp -= i.damage;
+    enemiesKilled = 0;
 }
 
 void Character::use(string name)
@@ -196,4 +192,60 @@ void Character::setAgility(int agility_)
 void Character::setLuck(int luck_)
 {
     luck = luck_;
+}
+
+void Character::equip(int i)
+{
+    Item item = inventory[i];
+    if(item.itemType == "RANGED WEAPON" || item.itemType == "MELEE WEAPON")
+    {
+        equippedWeapon = item;
+    }
+    else if(item.itemType == "ARMOR")
+    {
+        equippedArmor = item;
+    }
+    else
+    {
+        cout << "Can't equip that.\n";
+        system("pause");
+    }
+}
+
+void Character::unequip(int choice)
+{
+    if(choice == 0)
+    {
+        equippedWeapon = defaultWeapon;
+    }
+    else if(choice == 1)
+    {
+        equippedArmor = defaultArmor;
+    }
+}
+
+int Character::takeDamageFrom(Item& i, bool kill)
+{
+    int damageCount = i.damage;
+    damageCount -= equippedArmor.damageResistance;
+    if(damageCount < 0)
+    {
+        damageCount = 0;
+    }
+    if(kill) damageCount = 999999;
+    if(!kill && i.itemType == "RANGED WEAPON") i.ammoCount--;
+    hp -= damageCount;
+    if(hp <= 0)
+    {
+        alive = false;
+    }
+    return damageCount;
+}
+
+// returns damage done
+int Character::attack(Character& e, bool kill)
+{
+    int dam = e.takeDamageFrom(equippedWeapon, kill);
+    if(!e.isAlive()) enemiesKilled++;
+    return dam;
 }

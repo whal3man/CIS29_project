@@ -2,6 +2,7 @@
 #define CHARACTER_H
 
 #include "../include/Inventory.h"
+#include "../include/Item.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -49,21 +50,57 @@ public:
 
     void use(string itemName);
 
-    void removeFromInventory(const Item& i) { inventory.remove(i); }
-    void addToInventory(const Item i) { inventory.add(i); }
+    void removeFromInventory(const Item& i)
+    {
+        inventory.remove(i);
+    }
+    void addToInventory(const Item i)
+    {
+        inventory.add(i);
+    }
     void printInventory();
-    bool hasItemsInInventory() { return inventory.containsItems(); }
-    int numItemsInInventory() { return inventory.getNumItems(); }
+    bool hasItemsInInventory()
+    {
+        return inventory.containsItems();
+    }
+    int numItemsInInventory()
+    {
+        return inventory.getNumItems();
+    }
 
-    void takeDamageFrom(Item& i);
+    int takeDamageFrom(Item& i, bool kill = false);
+    int attack(Character& e, bool kill = false);
+
+    void equip(int i);
+    void unequip(int choice);
+    Item& getEquippedWeapon()
+    {
+        return equippedWeapon;
+    }
+    Item& getEquippedArmor()
+    {
+        return equippedArmor;
+    }
+
+    Item defaultWeapon = Item("Fists");
+    Item defaultArmor = Item("Pants");
+    Item equippedWeapon = defaultWeapon;
+    Item equippedArmor = defaultArmor;
+
+    bool isAlive() const
+    {
+        return alive;
+    }
 
     friend std::ostream& operator<<(ostream& os, const Character& c)
     {
-        os << c.name << ", HP = " << c.hp << ", Age = " << c.age;
+        os << c.name << ", HP = " << c.hp;
         return os;
     }
 
     Inventory inventory;
+
+    bool alive;
 
     int hp;
     int age;
@@ -80,6 +117,9 @@ public:
     int intelligence;
     int agility;
     int luck;
+
+    int numEnemiesKilled() { return enemiesKilled; }
+    int enemiesKilled;
 private:
 
 };

@@ -14,18 +14,18 @@ class Player : public Character
 
         void displayInventory();
 
-        void equip(int i);
-        void unequip();
-        Item& getEquippedItem() { return equipped; }
-
-        Item defaultItem = Item("No item equipped", "\"equip\" or \"e\" to equip from inventory");
-        Item equipped = defaultItem;
-
-        void attack(Character& e);
-
         void fillInventory();
 
+        bool use(int idx);
+
         bool wonGame() { return (z < 0); }
+        bool lostGame() { return !alive; }
+
+        friend std::ostream& operator<<(ostream& os, const Player& c)
+        {
+            os << c.name << ", HP = " << c.hp << ", Age = " << c.age << ", Enemies Killed = " << c.enemiesKilled;
+            return os;
+        }
 };
 
 #endif // PLAYER_H

@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Player.h"
 #include <vector>
 
 class Map
@@ -27,6 +28,8 @@ class Map
 
         bool moveEnemy(Enemy& e);
         void updateEnemyLocs();
+        void checkEnemyAttacks(Player& player);
+        void checkEnemyDeaths();
 
         void displayEnemiesInPlayerTile();
         void displayItemsInPlayerTile();

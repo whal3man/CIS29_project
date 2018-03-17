@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <cstdlib>
 using namespace std;
 
 void Inventory::remove(const Item& obj)
@@ -48,25 +49,27 @@ void Inventory::craft(const std::string& itemName)
         {
             remove("Steel");
             remove("Blood Pack");
-            add(Item("Stimpak", "RECOVERY"));
+            add(Item("Stimpak"));
         }
         else
         {
             std::cout << "You do not have the items to craft a Stimpak.\n";
+            system("pause");
         }
     }
-    else if(itemName == "Deathclaw Gauntlet")
+    else if(itemName == "DeathClaw Gauntlet")
     {
         if (contains("Leather") && contains("Steel") && contains("Claw"))
         {
             remove("Leather");
             remove("Steel");
             remove("Claw");
-            add(Item("Deathclaw Gauntlet", "WEAPON"));
+            add(Item("DeathClaw Gauntlet"));
         }
         else
         {
             cout << "You do not have the items to craft a Deathclaw Gauntlet.\n";
+            system("pause");
         }
     }
     else if(itemName == "Shishkebab")
@@ -76,11 +79,12 @@ void Inventory::craft(const std::string& itemName)
             remove("Steel");
             remove("Leather");
             remove("GasContainer");
-            add(Item("Shishkebab", "RECOVERY"));
+            add(Item("Shishkebab"));
         }
         else
         {
             cout << "You do not have the items to craft a Shishkebab.\n";
+            system("pause");
         }
     }
     else if(itemName == "Shortsword")
@@ -90,11 +94,12 @@ void Inventory::craft(const std::string& itemName)
         {
             remove("Steel");
             remove("Leather");
-            add(Item("Shortsword", "WEAPON"));
+            add(Item("Shortsword"));
         }
         else
         {
             cout << "You do not have the items to craft a Shortsword.\n";
+            system("pause");
         }
     }
     else if(itemName == "Longsword")
@@ -103,24 +108,27 @@ void Inventory::craft(const std::string& itemName)
         {
             remove("Steel");
             remove("Leather");
-            add(Item("Longsword", "WEAPON"));
+            add(Item("Longsword"));
         }
         else
         {
             cout << "You do not have the items to craft a Longsword.\n";
+            system("pause");
         }
     }
     else if(itemName == "Light Armor")
     {
+        cout << "YAASHHSH";
         if(contains("Steel") && contains("Leather")) //the items that are being removed are in the inventory
         {
             remove("Steel");
             remove("Leather");
-            add(Item("Light Armor", "ARMOR"));
+            add(Item("Light Armor"));
         }
         else
         {
             cout << "You do not have the items to craft Light Armor.\n";
+            system("pause");
         }
     }
     else if(itemName == "Heavy Armor")
@@ -129,12 +137,18 @@ void Inventory::craft(const std::string& itemName)
         {
             remove("Steel");
             remove("Leather");
-            add(Item("Heavy Armor", "ARMOR"));
+            add(Item("Heavy Armor"));
         }
         else
         {
             cout << "You do not have the items to craft Heavy Armor.\n";
+            system("pause");
         }
+    }
+    else if(itemName != "e")
+    {
+        cout << "Crafting recipe not found.\n";
+        system("pause");
     }
 }
 

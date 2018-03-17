@@ -37,6 +37,11 @@ public:
     void craft(const std::string& itemName);
     string getCraftingChoice();
 
+    int size()
+    {
+        return items.size();
+    }
+
     Item& operator[](int idx)
     {
         return items[idx];

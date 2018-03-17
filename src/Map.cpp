@@ -49,31 +49,43 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
 
                 if(x == playerX && y == playerY && z == playerZ)
                     t.playerIn();
-                else if(x == elevatorX && y == elevatorY) t.makeElevator();
+                else if(x == elevatorX && y == elevatorY)
+                    t.makeElevator();
                 else
                 {
                     // Monster Generation
-                    // Some bits randomly created,
+                    // Some bits randomly created
                     if(randDouble(0,1) < monsterSpawnRate)
                     {
                         vector<Item> loot; // Need to fill this
+                        int randWeaponIdx = randInt(0, Item::possibleWeapons.size()-1);
+                        Item randomWeapon = Item::possibleWeapons[randWeaponIdx];
+                        loot.push_back(randomWeapon);
                         int s = Enemy::possibleNames.size();
                         int randIndex = randInt(0, s-1);
                         int randDist = randInt(0, 3);
                         int nx = x, ny = y;
                         if (randInt(0, 1) == 0)
                         {
-                            if (randInt(0, 1) == 0) nx -= randDist;
-                            else nx += randDist;
-                            if (nx < 0) nx = 0;
-                            else if (nx > cols_ - 1) nx = cols_ - 1;
+                            if (randInt(0, 1) == 0)
+                                nx -= randDist;
+                            else
+                                nx += randDist;
+                            if (nx < 0)
+                                nx = 0;
+                            else if (nx > cols_ - 1)
+                                nx = cols_ - 1;
                         }
                         else
                         {
-                            if (randInt(0, 1) == 0) ny -= randDist;
-                            else ny += randDist;
-                            if (ny < 0) ny = 0;
-                            else if (ny > rows_ - 1) ny = rows_ - 1;
+                            if (randInt(0, 1) == 0)
+                                ny -= randDist;
+                            else
+                                ny += randDist;
+                            if (ny < 0)
+                                ny = 0;
+                            else if (ny > rows_ - 1)
+                                ny = rows_ - 1;
                         }
                         std::string newEnemyName = Enemy::possibleNames[randIndex];
                         int randHP = randInt(minMonsterHP, maxMonsterHP+1);
@@ -152,9 +164,12 @@ bool Map::moveEnemy(Enemy& enemy)
     int nx = x + enemy.getDX();
     int ny = y + enemy.getDY();
 
-    if (gameMap[x][y][z].checkWall(enemy.getDir())) return false;
-    if (nx < enemy.getAX() || nx > enemy.getBX()) return false;
-    if (ny < enemy.getAY() || ny > enemy.getBY()) return false;
+    if (gameMap[x][y][z].checkWall(enemy.getDir()))
+        return false;
+    if (nx < enemy.getAX() || nx > enemy.getBX())
+        return false;
+    if (ny < enemy.getAY() || ny > enemy.getBY())
+        return false;
 
     // Move the enemy.
     gameMap[x][y][z].enemyOut(enemy);
@@ -178,14 +193,57 @@ void Map::updateEnemyLocs()
                 int numEnemies = currentTile.getNumEnemies();
                 for(int i = numEnemies-1; i >= 0; i--)
                 {
-                    Enemy enemy = currentTile.enemies[i];
+                    Enemy& enemy = currentTile.enemies[i];
 
-                    // If movement fails for whatever reason, reverse direction.
-                    if (enemy.allowMove)
+                    if(randDouble(0, 1) < 0.5) // 50% chance to not move
                     {
-                        if (moveEnemy(enemy) == false)
+                        // 50% chance to either move randomly or in a direction until it hits something
+                        if(randDouble(0, 1) > 1)
                         {
-                            currentTile.enemies[i].revDir();
+                            if (enemy.allowMove)
+                            {
+                                // If movement fails for whatever reason, reverse direction.
+                                if (moveEnemy(enemy) == false)
+                                {
+                                    currentTile.enemies[i].revDir();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            double dir = randDouble(0,1);
+                            if(dir >= 0 && dir < .25 && !currentTile.checkWall("left"))
+                            {
+                                if(!gameMap[x-1][y][currentFloor].containsPlayer())
+                                {
+                                    gameMap[x-1][y][currentFloor].enemyIn(enemy);
+                                    gameMap[x][y][currentFloor].enemyOut(enemy);
+                                }
+                            }
+                            else if(dir >= .25 && dir < .50 && !currentTile.checkWall("right"))
+                            {
+                                if(!gameMap[x+1][y][currentFloor].containsPlayer())
+                                {
+                                    gameMap[x+1][y][currentFloor].enemyIn(enemy);
+                                    gameMap[x][y][currentFloor].enemyOut(enemy);
+                                }
+                            }
+                            else if(dir >= .50 && dir < .75 && !currentTile.checkWall("up"))
+                            {
+                                if(!gameMap[x][y-1][currentFloor].containsPlayer())
+                                {
+                                    gameMap[x][y-1][currentFloor].enemyIn(enemy);
+                                    gameMap[x][y][currentFloor].enemyOut(enemy);
+                                }
+                            }
+                            else if(dir >= .75 && dir < 1 && !currentTile.checkWall("down"))
+                            {
+                                if(!gameMap[x][y+1][currentFloor].containsPlayer())
+                                {
+                                    gameMap[x][y+1][currentFloor].enemyIn(enemy);
+                                    gameMap[x][y][currentFloor].enemyOut(enemy);
+                                }
+                            }
                         }
                     }
                 }
@@ -207,6 +265,57 @@ void Map::updateEnemyLocs()
                 {
                     currentTile.enemies[i].allowMove = true;
                 }
+            }
+        }
+    }
+}
+
+void Map::checkEnemyDeaths()
+{
+    for(int y = 0; y < numRows(); y++)
+    {
+        for(int x = 0; x < numCols(); x++)
+        {
+            Tile& currentTile = getTile(x, y, currentFloor);
+
+            if(currentTile.containsEnemy())
+            {
+                int numEnemies = currentTile.getNumEnemies();
+                for(int i = numEnemies-1; i >= 0; i--)
+                {
+                    Enemy& enemy = currentTile.enemies[i];
+
+                    if(!enemy.isAlive())
+                    {
+                        cout << enemy.name << " died.\n";
+                        system("pause");
+                        Inventory loot = enemy.getLoot();
+                        currentTile.enemyOut(enemy);
+                        for(int k = 0; k < loot.size(); k++)
+                        {
+                            currentTile.addItem(loot[k]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void Map::checkEnemyAttacks(Player& player)
+{
+    if(playerTile().containsEnemy())
+    {
+        int numEnemies = playerTile().getNumEnemies();
+        for(int i = numEnemies-1; i >= 0; i--)
+        {
+            Enemy enemy = playerTile().enemies[i];
+
+            if(enemy.isAlive())
+            {
+                int damageDone = enemy.attack(player);
+                cout << "\nWas dealt " << damageDone << " damage from " << enemy.name << endl;
+                system("pause");
             }
         }
     }
