@@ -59,10 +59,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                     // Some bits randomly created
                     if(randDouble(0,1) < monsterSpawnRate)
                     {
-                        vector<Item> loot; // Need to fill this
-                        int randWeaponIdx = randInt(0, Item::possibleWeapons.size()-1);
-                        Item randomWeapon = Item::possibleWeapons[randWeaponIdx];
-                        loot.push_back(randomWeapon);
+                        vector<Item> loot = generateLoots(Item::possibleItems);
                         int s = Enemy::possibleNames.size();
                         int randIndex = randInt(0, s-1);
                         int randDist = randInt(0, 3);
@@ -93,7 +90,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                         int randHP = randInt(minMonsterHP, maxMonsterHP+1);
                         Enemy newEnemy(x, y, z, nx, ny, newEnemyName, randHP, loot);
                         t.enemyIn(newEnemy);
-//                        std::cout << "Enemy generated at (" << x << ", " << y << ", " << z << "); will move to (" << nx << ", " << ny << ", " << z << ")\n";
+                        // (for debugging) std::cout << "Enemy generated at (" << x << ", " << y << ", " << z << "); will move to (" << nx << ", " << ny << ", " << z << ")\n";
                     }
 
                     // Item Generation

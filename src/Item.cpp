@@ -105,6 +105,19 @@ Item::~Item()
 
 }
 
+std::vector<Item> generateLoots(const std::vector<Item>& itemsPool, const double pickRate)
+{
+    std::vector<Item> loot;
+    for (int i = 0; i < itemsPool.size(); i++)
+    {
+        if (randDouble(0, 1) < pickRate)
+        {
+            loot.push_back(itemsPool[i]);
+        }
+    }
+    return loot;
+}
+
 // Most of the accessor functions have been defined inline in the specification file, since they're very short.
 
 // I'm assuming we're having health points going from 0 - 100. Can scale as project progresses.

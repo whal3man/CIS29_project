@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "RandNumber.h"
 
 class Item
 {
@@ -37,6 +38,9 @@ public:
 		{ itemName = name; }
 	void setItemType(std::string type)
 		{ itemType = type; }
+
+    // Item Generation Functions
+    friend std::vector<Item> generateLoots(const std::vector<Item>& itemsPool, const double pickRate = 0.8);
 
 	// Weapon Type Functions
 	int getAmmoCount() const

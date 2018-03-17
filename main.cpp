@@ -143,7 +143,7 @@ int main()
         else if((input == "l" || input == "unlock" || input == "lockpick") && currentTile.isChest())
         {
             int low = 1, high = 10;
-            if(guessingGame(low, high)) currentTile.unlockChest();
+//            if(guessingGame(low, high)) currentTile.unlockChest();
         }
         else if((input == "pick up" || input == "pick" || input == "p") && currentTile.containsItem())
         {

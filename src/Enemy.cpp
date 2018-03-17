@@ -25,7 +25,7 @@ Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::v
     agility = A;
     luck = L;
 
-    // Add loot to inventory
+    // Add current equipment as possible loot.
     bool equippedWeapon = false;
     bool equippedArmor = false;
     for(int i = 0; i < LOOT.size(); i++)
