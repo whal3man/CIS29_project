@@ -1,0 +1,121 @@
+# depslib dependency file v1.0
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\character.cpp
+	"../include/Character.h"
+	<iostream>
+
+1521255797 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\character.h
+	"../include/Inventory.h"
+	<string>
+	<iostream>
+
+1521253506 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\inventory.h
+	"../include/Item.h"
+	<vector>
+	<iostream>
+	<string>
+
+1521249162 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\item.h
+	<string>
+	<vector>
+	<iostream>
+
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\dialogue.cpp
+	"../include/Dialogue.h"
+
+1521247411 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\dialogue.h
+	"Player.h"
+	<iostream>
+	<string>
+
+1521247411 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\player.h
+	"Character.h"
+	<string>
+
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\enemy.cpp
+	"../include/Enemy.h"
+	<string>
+	<vector>
+
+1521247411 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\enemy.h
+	"Character.h"
+	"Item.h"
+	"RandNumber.h"
+	<vector>
+	<string>
+
+1521247411 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\randnumber.h
+	<random>
+	<ctime>
+
+1521256787 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\inventory.cpp
+	"../include/Inventory.h"
+	<algorithm>
+	<iostream>
+	<string>
+
+1521252807 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\item.cpp
+	"../include/Item.h"
+	<iostream>
+	<string>
+	<vector>
+
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\map.cpp
+	"../include/Item.h"
+	"../include/Map.h"
+	"../include/RandNumber.h"
+	<vector>
+	<iostream>
+	<iomanip>
+
+1521247411 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\map.h
+	"Tile.h"
+	"Enemy.h"
+	"Item.h"
+	<vector>
+
+1521247411 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\tile.h
+	"../include/Enemy.h"
+	"../include/Item.h"
+	<vector>
+	<map>
+
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\merchant.cpp
+	"../include/Merchant.h"
+
+1521247411 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\merchant.h
+	"Dialogue.h"
+	"Item.h"
+	<vector>
+	<iomanip>
+
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\player.cpp
+	"../include/Player.h"
+	<iostream>
+
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\randnumber.cpp
+	"../include/RandNumber.h"
+	<ctime>
+
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\randospeak.cpp
+	"../include/RandoSpeak.h"
+
+1521247411 c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\include\randospeak.h
+	"Dialogue.h"
+
+1521247411 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\src\tile.cpp
+	"../include/Tile.h"
+	"../include/RandNumber.h"
+	<vector>
+	<iostream>
+	<algorithm>
+
+1521256787 source:c:\users\lukas pc\desktop\cis29_project-master (7)\cis29_project-master\main.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+	"include/Player.h"
+	"include/Map.h"
+	"include/Inventory.h"
+	"include/Item.h"
+	<iomanip>
+
