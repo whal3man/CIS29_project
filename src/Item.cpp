@@ -12,24 +12,64 @@ const std::string defaultArmorName = "Pants";
 // Possible types: WEAPON, RECOVERY, ARMOR, MATERIAL, MISC
 // Stats:
 // Weapons: ammoCount, baseDamage
-Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sellValue_, int buyValue_)
+Item::Item(std::string itemName_, std::string itemType_)
 {
 	itemName = itemName_;
 	itemType = itemType_;
-	itemValue = itemValue_;
-	sellValue = sellValue_;
-	buyValue = buyValue_;
 
 	damage = 0;
 	hpRestore = 0;
 	damageResistance = 0;
 
-    if(itemName == "Hunting Rifle")
+	if (itemType == "RANGED WEAPON")
+	{
+		if (itemName == "Molotov Bomb")
+		{
+			ammoCount = 10;
+			damage = 25;
+			buyValue = 20;
+			sellValue = 12;
+		}
+	}
+	else if (itemType == "MELEE WEAPON")
+	{
+		if (itemName == "Large Club")
+		{
+			ammoCount = 10;
+			damage = 20;
+			buyValue = 15;
+			sellValue = 8;
+		}
+		if (itemName == "Sword")
+		{
+			ammoCount = 12;
+			damage = 40;
+			buyValue = 60;
+			sellValue = 25;
+		}
+	}
+	else if (itemType == "HEAL")
+	{
+		if (itemName == "Potion")
+		{
+			hpRestore = 20;
+			buyValue = 15;
+			sellValue = 8;
+		}
+		if (itemName == "Revive")
+		{
+			hpRestore = 60;
+			buyValue = 20;
+			sellValue = 10;
+		}
+	}
+    else if(itemName == "Hunting Rifle")
     {
         itemType = "RANGED WEAPON";
         ammoCount = 20;
         damage = 40;
     }
+	
     else if(itemName == "Mini Nuke")
     {
         itemType = "RANGED WEAPON";
