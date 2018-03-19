@@ -8,6 +8,7 @@
 #include "include/Enemy.h"
 #include "include/RandNumber.h"
 #include "include/Minigames.h"
+#include "include/Mastermind.h"
 #include <iomanip>
 using namespace std;
 
@@ -135,11 +136,6 @@ int main()
         {
             pchar.moveRight();
             justMoved = true;
-            if (gameMap.playerTile().isMine() && !gameMap.playerTile().isRevealed())
-            {
-                gameMap.playerTile().makeRevealed();
-                pchar.takeDamage(10);
-            }
         }
         else if((input == "elevator" || input == "v" || input == "upe") && currentTile.containsElevator())
         {
@@ -149,8 +145,18 @@ int main()
         }
         else if((input == "l" || input == "unlock" || input == "lockpick") && currentTile.isChest())
         {
-            int low = 1, high = 10;
-            if(guessingGame(low, high)) currentTile.unlockChest();
+            int rand = randInt(0, 10);
+            if (rand < 5)
+            {
+                int low = 1, high = 10;
+                if(guessingGame(low, high)) currentTile.unlockChest();
+            } else
+            {
+                rand = randInt(0, 9999);
+                Mastermind game = Mastermind(rand);
+                if (game.playGame()) currentTile.unlockChest();
+            }
+
         }
         else if((input == "pick up" || input == "pick" || input == "p") && currentTile.containsItem())
         {
