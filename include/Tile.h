@@ -10,6 +10,7 @@ class Tile
 {
     public:
         Tile();
+        Tile(int mines);
 
         int getCaps() { return caps; }
         void setCaps(int val) { caps = val; }
@@ -20,6 +21,14 @@ class Tile
         bool isChest() { return chest; }
         void makeChest() { chest = true; }
         void unlockChest() { chest = false; }
+
+        bool isMine() { return mine; }
+        void makeMine() { mine = true; }
+        bool isMinesweeperNumber() { return minesweeperNumber; }
+        void makeMinesweeperNumber(int number);
+        int getNumAdjacentMines() { return numAdjacentMines; }
+        bool isRevealed() { return revealed; }
+        void makeRevealed() { revealed = true; }
 
         bool containsPlayer() { return player; }
         void playerIn() { player = true; }
@@ -47,6 +56,10 @@ class Tile
         bool elevator;
         bool player;
         bool chest;
+        bool mine;
+        bool minesweeperNumber;
+        int numAdjacentMines;
+        bool revealed;
         std::map<std::string, bool> walls;
 };
 

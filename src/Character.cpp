@@ -224,6 +224,21 @@ void Character::unequip(int choice)
     }
 }
 
+int Character::takeDamage(int attack)
+{
+    int damageCount = attack - equippedArmor.damageResistance;
+    if(damageCount < 0)
+    {
+        damageCount = 0;
+    }
+    hp -= damageCount;
+    if(hp <= 0)
+    {
+        alive = false;
+    }
+    return damageCount;
+}
+
 int Character::takeDamageFrom(Item& i, bool kill)
 {
     int damageCount = i.damage;

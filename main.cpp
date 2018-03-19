@@ -72,7 +72,7 @@ int main()
     const bool moveEnemies = false;
 
     // Map generation settings
-    int rows = 5, cols = 5, floors = 2;
+    int rows = 5, cols = 5, floors = 3;
     int startingX = 0, startingY = 0, startingZ = floors-1;
     double monsterSpawnRate = .10;
     double chestSpawnRate = .15;
@@ -115,6 +115,7 @@ int main()
         cin >> input;
         input = clean(input);
         bool justMoved = false;
+        bool justMovedUp = false;
         if((input == "up" || input == "north" || input == "w") && !currentTile.checkWall("up"))
         {
             pchar.moveUp();
@@ -134,11 +135,17 @@ int main()
         {
             pchar.moveRight();
             justMoved = true;
+            if (gameMap.playerTile().isMine() && !gameMap.playerTile().isRevealed())
+            {
+                gameMap.playerTile().makeRevealed();
+                pchar.takeDamage(10);
+            }
         }
         else if((input == "elevator" || input == "v" || input == "upe") && currentTile.containsElevator())
         {
             pchar.goUpFloor();
             justMoved = true;
+            justMovedUp = true;
         }
         else if((input == "l" || input == "unlock" || input == "lockpick") && currentTile.isChest())
         {
@@ -244,13 +251,21 @@ int main()
             cout << "Thanks for playing!";
         }
 
+
         gameMap.checkEnemyDeaths();
 
         gameMap.updatePlayerLoc(pchar.getX(), pchar.getY(), pchar.getZ());
 
+        if(justMoved && !justMovedUp)
+        {
+            gameMap.checkMine(pchar);
+            gameMap.checkMinesweeperNumbers();
+        }
+
         if(moveEnemies) gameMap.updateEnemyLocs();
 
         if(!justMoved) gameMap.checkEnemyAttacks(pchar);
+
 
         system("cls");
     }

@@ -27,12 +27,75 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
     currentFloor = startingZ;
 
     gameMap.resize(cols_,std::vector<std::vector<Tile>>(rows_,std::vector<Tile>(floors_)));
+    // Generating a puzzle (minesweeper) room
+    // Elevator choice is restricted to only the top of the room
+    int elevatorX = randInt(0, cols_-1);
+    int elevatorY = 0;
+    double mineSpawnRate = 0.20;
 
-    for(int z = 0; z < floors_; z++)
+    int z = 0;
+    for(int y = 0; y < rows_; y++)
+    {
+        for(int x = 0; x < cols_; x++)
+        {
+            Tile t;
+            if(x == 0)
+                t.setWall("left");
+            if(y == 0)
+                t.setWall("up");
+            if(x == cols_-1)
+                t.setWall("right");
+            if(y == rows_-1)
+                t.setWall("down");
+
+            if(x == playerX && y == playerY && z == playerZ)
+                t.playerIn();
+            else if(x == elevatorX && y == elevatorY)
+                t.makeElevator();
+            else
+            {
+                // Generate mines
+                if(y > 0 && y < rows_ - 1 && randDouble(0, 1) <= mineSpawnRate)
+                    t.makeMine();
+            }
+            setTile(x, y, z, t);
+        }
+    }
+    // Generate the number hints
+    for(int y = 1; y < rows_ - 1; y++)
+    {
+        for(int x = 0; x < cols_; x++)
+        {
+            int numMines = 0;
+            Tile tile = getTile(x, y, z);
+            for(int x2 = x - 1; x2 < x + 2; x2++)
+            {
+                for(int y2 = y - 1; y2 < y + 2; y2++)
+                {
+                    if(x2 >= 0 && x2 < colCount && y2 >= 0 && y2 < rowCount
+                            && getTile(x2, y2, z).isMine())
+                    {
+                        numMines++;
+                    }
+                }
+
+            }
+            if (numMines != 0 && !tile.isMine())
+                    getTile(x, y, z).makeMinesweeperNumber(numMines);
+        }
+    }
+
+    //Generating the rest of the levels.
+    for(z = 1; z < floors_; z++)
     {
         // Elevator choice
+        //The room before the puzzle room can only
+        //have the elevator at the bottom of the room
         int elevatorX = randInt(0, cols_-1);
-        int elevatorY = randInt(0, rows_-1);
+        if (z != 1)
+            elevatorY = randInt(0, rows_-1);
+        else
+            elevatorY = rowCount - 1;
 
         for(int y = 0; y < rows_; y++)
         {
@@ -117,6 +180,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
             }
         }
     }
+
 //    gameMap[playerX][playerY][playerZ].playerIn();
 }
 
@@ -140,6 +204,14 @@ void Map::print()
                 std::cout << std::setw(spacesBetweenTiles) << "[C]";
             else if(currentTile.containsItem())
                 std::cout << std::setw(spacesBetweenTiles) << "[I]";
+            else if(currentTile.isMine() && currentTile.isRevealed())
+                std::cout << std::setw(spacesBetweenTiles) << "[*]";
+            else if(currentTile.isMinesweeperNumber() && currentTile.isRevealed())
+            {
+                std::string display = "[" + std::to_string(currentTile.getNumAdjacentMines()) + "]";
+                std:: cout << std::setw(spacesBetweenTiles) << display;
+            }
+
             else
                 std::cout << std::setw(spacesBetweenTiles) << "[ ]";
         }
@@ -325,6 +397,33 @@ void Map::checkEnemyAttacks(Player& player)
                 cout << "\nWas dealt " << damageDone << " damage from " << enemy.name << endl;
                 system("pause");
             }
+        }
+    }
+}
+
+void Map::checkMine(Player& player)
+{
+    if(playerTile().isMine() && !playerTile().isRevealed())
+    {
+        playerTile().makeRevealed();
+        cout << "\nYou step on a trap and take " << player.takeDamage(10) << " damage." << endl;
+        system("pause");
+    }
+}
+
+void Map::checkMinesweeperNumbers()
+{
+    for(int x = playerX - 1; x < playerX + 2; x++)
+    {
+        for(int y = playerY - 1; y < playerY + 2; y++)
+        {
+            if(x >= 0 && x < colCount && y >= 0 && y < rowCount)
+            {
+                Tile tile = getTile(x, y, playerZ);
+                if(tile.isMinesweeperNumber() && !tile.isRevealed())
+                    getTile(x, y, playerZ).makeRevealed();
+            }
+
         }
     }
 }

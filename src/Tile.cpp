@@ -11,6 +11,26 @@ Tile::Tile()
     elevator = false;
     player = false;
     chest = false;
+    mine = false;
+    minesweeperNumber = false;
+    revealed = false;
+    numAdjacentMines = 0;
+    setWall("up", false);
+    setWall("down", false);
+    setWall("left", false);
+    setWall("right", false);
+}
+
+Tile::Tile(int mines)
+{
+    caps = randInt(1, 100);
+    elevator = false;
+    player = false;
+    chest = false;
+    mine = false;
+    minesweeperNumber = true;
+    revealed = false;
+    numAdjacentMines = mines;
     setWall("up", false);
     setWall("down", false);
     setWall("left", false);
@@ -32,4 +52,10 @@ void Tile::removeItem(const Item& i)
 void Tile::removeItem(int i)
 {
     items.erase(items.begin() + i);
+}
+
+void Tile::makeMinesweeperNumber(int number)
+{
+     minesweeperNumber = true;
+     numAdjacentMines = number;
 }

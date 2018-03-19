@@ -31,6 +31,9 @@ class Map
         void checkEnemyAttacks(Player& player);
         void checkEnemyDeaths();
 
+        void checkMine(Player& player);
+        void checkMinesweeperNumbers();
+
         void displayEnemiesInPlayerTile();
         void displayItemsInPlayerTile();
 
