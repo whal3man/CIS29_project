@@ -5,7 +5,7 @@ Borrows from Item class and uses a vector
 ==========================================*/
 #ifndef MERCH_H
 #define MERCH_H
-
+#include "Inventory.h"
 #include "Dialogue.h"
 #include "Item.h"
 #include <vector>
@@ -15,19 +15,22 @@ class Merchant :
 	public Dialogue
 {
 public:
+	Inventory makeInventory();
 	Merchant() { };
 	~Merchant() { };
-	void hello();	// Greets user
-	void goodbye();	// Bought something, so thank message
-	void changeofmind();	// Did not buy anything, so this differs from goodbye() obviously
-	vector<Item> purchase();	// Transaction management
-	void showVector();	// Show what user bought from transaction
-	
+	void hello();			// Greets user (inherited from Dialogue)
+	void goodbye();			// Bought something, so thank message (inherited from Dialogue)
+	void changeOfmind();	// Did not buy anything, so this differs from goodbye() obviously
+	Character Purchase(Character play, Inventory store_lit);	// Transaction management
+	void runThemerch(Character & play);							// Interactive program
+	void merchantintro();	// Player knows merchant is there
+	friend char yesOrno();		// Data validation (Yes, No, error input)
+	friend void itemMenu();	// Display items and their prices
+	friend Inventory fiveAddtimes(Item obj, Inventory store);
 private:
-	char yesOrno();		// Data validation (Yes, No, error input)
-	vector<Item> Load;	// Stores Item objects during a transaction
-	void itemMenu();	// Display items and their prices
-	bool tran, flag, end;	// In transaction or not, confirmation, want to purchase more items
+	Inventory store;	// Initialize store when player encounter
+protected:
+	//CharacterType MSpeech = merchant;
 };
 
 #endif // MERCH_H
