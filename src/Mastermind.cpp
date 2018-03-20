@@ -43,15 +43,11 @@ bool Mastermind::playGame()
 
     while(!isCracked && currRound < rows)
     {
-//        std::cout << "The master code is " << mastercode << std::endl;
-//        system("pause");
         printBoard();
         std::cout << "\nYou have " << rows - currRound << " guesses remaining." << std::endl;
         input = getInput();
-
+        if(stoi(input) < 0) break;
         board[currRound] = input;
-//        board[currRound][1] = checkCode(mastercode, input);
-//        int numBulls = std::stoi(checkCode(input)[0]);
 
         if(input == "mmbk" || input == mastercode) isCracked = true;
         currRound++;
@@ -67,10 +63,9 @@ bool Mastermind::playGame()
 
 void Mastermind::printBoard()
 {
-//    bool rowHasGuess;
     system("cls");
     std::cout << "You find a chest with a 4 digit pin."
-              << "\nEnter in a 4 digit number to try unlocking it."
+              << "\nEnter in a 4 digit number to try unlocking it. (-# to exit)"
               << "\nHint:\n\t#B = # of correct digits in right position"
               << "\n\t#C = # of correct digits in wrong position\n";
     for(int i = 0; i < rows; i++)
@@ -93,10 +88,13 @@ std::string Mastermind::getInput()
     std::string input;
     std::cout << "Enter a code. ";
     std::cin >> input;
-    while(!isValidMastermindCode(input))
+    if(stoi(input) >= 0)
     {
-        std::cout << "That's not a valid input. Enter a new code. " << std::endl;
-        std::cin >> input;
+        while(!isValidMastermindCode(input))
+        {
+            std::cout << "That's not a valid input. Enter a new code. " << std::endl;
+            std::cin >> input;
+        }
     }
     return input;
 }
@@ -127,7 +125,6 @@ std::string Mastermind::checkCode(std::string code)
         size_t position = code.find(mastercode[i]);
         while(isSearching && position != std::string::npos)
         {
-//            std::cout << "MC: " << mastercode << " C: " << code << std::endl;
             if(mastercode[i] == code[i])
             {
                 numBulls++;
