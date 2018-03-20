@@ -8,6 +8,7 @@ using namespace std;
 class Player : public Character
 {
     public:
+        Player() = default;
         Player(int startingX = 0, int startingY = 0, int startingZ = 9) : Character(startingX, startingY, startingZ) { shouldOutput = true; }
 
         void runCharacterCreation(const bool DEBUG);
