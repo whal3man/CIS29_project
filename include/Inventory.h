@@ -11,8 +11,15 @@ using namespace std;
 class Inventory
 {
 public:
-    Inventory() {}
+    int caps;
+
+    Inventory() : caps(0) {}
     ~Inventory() {}
+
+    int getCaps() const { return caps; }
+    void setCaps(int c) { caps = c; }
+    void addCaps(int c) { caps += c; }
+    void subCaps(int c) { caps -= c; }
 
     vector<Item> items;
     void add(Item obj)

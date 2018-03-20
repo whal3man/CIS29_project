@@ -1,5 +1,4 @@
 #include "../include/Tile.h"
-#include "../include/RandNumber.h"
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -12,6 +11,7 @@ Tile::Tile()
     player = false;
     chest = false;
     mine = false;
+    merchant = false;
     minesweeperNumber = false;
     revealed = false;
     numAdjacentMines = 0;
@@ -28,6 +28,7 @@ Tile::Tile(int mines)
     player = false;
     chest = false;
     mine = false;
+    merchant = false;
     minesweeperNumber = true;
     revealed = false;
     numAdjacentMines = mines;
@@ -58,4 +59,20 @@ void Tile::makeMinesweeperNumber(int number)
 {
      minesweeperNumber = true;
      numAdjacentMines = number;
+}
+
+void Tile::displayTileInfo()
+{
+    if (containsElevator()) {
+			cout << "\nDing Dong, the elevator is here! Enter \"v\" to use the elevator\n";
+    }
+    if (containsMerchant())
+    {
+        cout << "\nMerchant: \n\t";
+        vendor.merchantIntro();
+    }
+    if (isChest())
+    {
+        cout << "\nYou find a forgotten chest. Maybe there's something useful inside? (\"l\" to attempt unlocking)\n";
+    }
 }

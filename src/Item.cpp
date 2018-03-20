@@ -45,6 +45,7 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     {
         itemType = "MELEE WEAPON";
         damage = 60;
+        itemValue = 65;
     }
     else if(itemName == "Shortsword")
     {
@@ -55,6 +56,7 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     {
         itemType = "MELEE WEAPON";
         damage = 55;
+        itemValue = 50;
     }
     else if(itemName == "Light Armor")
     {
@@ -70,11 +72,18 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     {
         itemType = "RECOVERY";
         hpRestore = 50;
+        itemValue = 30;
     }
     else if(itemName == "Shishkebab")
     {
         itemType = "RECOVERY";
         hpRestore = 30;
+    }
+    else if(itemName == "Apple")
+    {
+        itemType = "RECOVERY";
+        hpRestore = 15;
+        itemValue = 15;
     }
     else if(itemName == "Blood Pack")
     {

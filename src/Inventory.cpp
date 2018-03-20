@@ -14,12 +14,18 @@ void Inventory::remove(const Item& obj)
         items.erase(idx);
 }
 
+// Removes one instance of an item
 void Inventory::remove(const std::string& name)
 {
-    for(int i = 0; i < items.size(); i++)
+    int i = 0;
+    for(auto item : items)
     {
-        if(items[i].itemName == name)
+        if(item.itemName == name)
+        {
             items.erase(items.begin() + i);
+            return;
+        }
+        i++;
     }
 }
 
@@ -33,9 +39,9 @@ bool Inventory::contains(const Item& obj)
 
 bool Inventory::contains(const std::string& name)
 {
-    for(int i = 0; i < items.size(); i++)
+    for(auto item : items)
     {
-        if(items[i].itemName == name)
+        if(item.itemName == name)
             return true;
     }
     return false;

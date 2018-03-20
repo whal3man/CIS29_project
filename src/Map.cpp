@@ -1,6 +1,5 @@
 #include "../include/Item.h"
 #include "../include/Map.h"
-#include "../include/RandNumber.h"
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -11,6 +10,8 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
     // Settings not important enough to include in constructor
     int maxMonsterHP = 100;
     int minMonsterHP = 80;
+    int maxMonsterCaps = 60;
+    int minMonsterCaps = 20;
     int minItemsPerChest = 3;
     int maxItemsPerChest = 6;
 
@@ -97,6 +98,25 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
         else
             elevatorY = rowCount - 1;
 
+        // Merchant choice
+        // One per floor that isn't the last floor
+        // Can't be in the same tile as an elevator
+        // (Except in a 1x1 floor)
+        int merchantX, merchantY;
+        if (z != 0)
+        {
+            merchantX = randInt(0, cols_-1);
+            merchantY = randInt(0, rows_-1);
+            if(cols_ != 1 && rows_ != 1)
+            {
+                while(merchantX == elevatorX && merchantY == elevatorY)
+                {
+                    merchantX = randInt(0, cols_-1);
+                    merchantY = randInt(0, rows_-1);
+                }
+            }
+        }
+
         for(int y = 0; y < rows_; y++)
         {
             for(int x = 0; x < cols_; x++)
@@ -116,6 +136,8 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                     t.playerIn();
                 else if(x == elevatorX && y == elevatorY)
                     t.makeElevator();
+                else if(z != 0 && x == merchantX && y == merchantY)
+                    t.makeMerchant();
                 else
                 {
                     // Monster Generation
@@ -153,8 +175,9 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                                 ny = rows_ - 1;
                         }
                         std::string newEnemyName = Enemy::possibleNames[randIndex];
-                        int randHP = randInt(minMonsterHP, maxMonsterHP+1);
-                        Enemy newEnemy(x, y, z, nx, ny, newEnemyName, randHP, loot);
+                        int randHP = randInt(minMonsterHP, maxMonsterHP);
+                        int randCaps = randInt(minMonsterCaps, maxMonsterCaps);
+                        Enemy newEnemy(x, y, z, nx, ny, newEnemyName, randHP, loot, randCaps);
                         t.enemyIn(newEnemy);
 //                        std::cout << "Enemy generated at (" << x << ", " << y << ", " << z << "); will move to (" << nx << ", " << ny << ", " << z << ")\n";
                     }
@@ -198,6 +221,8 @@ void Map::print()
                 std::cout << std::setw(spacesBetweenTiles) << "[P]";
             else if(currentTile.containsEnemy())
                 std::cout << std::setw(spacesBetweenTiles) << "[M]";
+            else if(currentTile.containsMerchant())
+                std::cout << std::setw(spacesBetweenTiles) << "[V]";
             else if(currentTile.containsElevator())
                 std::cout << std::setw(spacesBetweenTiles) << "[E]";
             else if(currentTile.isChest())
@@ -268,7 +293,7 @@ void Map::updateEnemyLocs()
         {
             Tile& currentTile = getTile(x, y, currentFloor);
 
-            if(currentTile.containsEnemy())
+            if(currentTile.containsEnemy() && x != playerX && y != playerY)
             {
                 int numEnemies = currentTile.getNumEnemies();
                 for(int i = numEnemies-1; i >= 0; i--)
@@ -367,8 +392,6 @@ void Map::checkEnemyDeaths()
 
                     if(!enemy.isAlive())
                     {
-                        cout << enemy.name << " died.\n";
-                        system("pause");
                         Inventory loot = enemy.getLoot();
                         currentTile.enemyOut(enemy);
                         for(int k = 0; k < loot.size(); k++)

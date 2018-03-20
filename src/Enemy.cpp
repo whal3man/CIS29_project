@@ -6,7 +6,7 @@ const std::vector<std::string> Enemy::possibleNames = {"Grognak The Destroyer", 
 
 Enemy::Enemy() : Character() {}
 
-Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::vector <Item> LOOT, int Age,
+Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::vector <Item> LOOT, int CAPS, int Age,
              int S, int P, int E, int C, int I, int A, int L)
 {
     x = ax = X;
@@ -17,6 +17,7 @@ Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::v
     name = N;
     hp = HP;
     age = Age;
+    inventory.caps = CAPS;
     strength = S;
     perception = P;
     endurance = E;
@@ -24,6 +25,7 @@ Enemy::Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP,  std::v
     intelligence = I;
     agility = A;
     luck = L;
+    shouldOutput = false;
 
     // Add loot to inventory
     bool equippedWeapon = false;

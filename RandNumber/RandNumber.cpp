@@ -1,4 +1,4 @@
-#include "../include/RandNumber.h"
+#include "RandNumber.h"
 #include <ctime>
 
 double randDouble(double a, double b)

@@ -5,7 +5,6 @@
 
 #include "Character.h"
 #include "Item.h"
-#include "RandNumber.h"
 #include <vector>
 #include <string>
 
@@ -21,7 +20,7 @@ public:
     Enemy();
     ~Enemy() {}
 
-    Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP, std::vector <Item> LOOT, int Age = 20,
+    Enemy(int X, int Y, int Z, int BX, int BY, std::string N, int HP, std::vector <Item> LOOT, int CAPS, int Age = 20,
           int S = 5, int P = 5, int E = 5, int C = 5, int I = 5, int A = 5, int L = 5);
 
     Inventory getLoot() { return inventory; }
@@ -50,7 +49,7 @@ public:
         os << e.name;
         if(e.isAlive()) cout << "(Alive)";
         else cout << "(Dead)";
-        os << "\n\tHP: " << e.hp << ", Equipped:\n\t\tWeapon: " << e.equippedWeapon << "\n\t\tArmor: " << e.equippedArmor;
+        os << "\n\tHP: " << e.hp << ", Caps: " << e.inventory.getCaps() << ", Equipped:\n\t\tWeapon: " << e.equippedWeapon << "\n\t\tArmor: " << e.equippedArmor;
         return os;
     }
 };

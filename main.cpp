@@ -1,87 +1,104 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <iomanip>
+#include <algorithm>
 #include "include/Player.h"
 #include "include/Map.h"
 #include "include/Inventory.h"
 #include "include/Item.h"
 #include "include/Enemy.h"
-#include "include/RandNumber.h"
 #include "include/Minigames.h"
 #include "include/Mastermind.h"
-#include <iomanip>
+#include "include/BadInputException.h"
+#include "RandNumber.h"
 using namespace std;
 
-void displayHelp()
+namespace utility
 {
-    system("cls");
-    cout << "Tile codes: [P] = Player. [M] = Enemy. [C] = Chest. [I] = Item. [E] = Elevator. \nCommands:\n";
-    cout << "[w] north: move north\n";
-    cout << "[s] south: move south\n";
-    cout << "[a] west: move west\n";
-    cout << "[d] east: move east\n";
-    cout << "[v] elevator: use an elevator to travel up a floor\n";
-    cout << "[b] buy: buy from Merchant\n";
-    cout << "[p] pick: pick up an item\n";
-    cout << "[l] unlock: try to unlock a chest\n";
-    cout << "[e] equip: equip an item\n";
-    cout << "[n] unequip: unequip an item\n";
-    cout << "[u] use: attempt  to use an item\n";
-    cout << "[f] attack: attack an enemy\n";
-    cout << "[c] craft: open crafting menu\n";
-    cout << "[q] help: display the list of valid commands\n";
-    cout << "[x] quit: quit the game\n";
-    cout << "Cheat codes:\n";
-    cout << "fill: gives a bunch of goodies\n";
-    cout << "kill: kill an enemy\n";
+    vector<string> validCommands = {"w", "a", "s", "d", "up", "down", "left", "right", "v", "elevator", "upe", "b", "buy", "p", "pick", "pick up", "l", "unlock", "lockpick", "e", "equip", "u", "unequip", "u", "use", "f", "fight", "attack", "c", "craft", "q", "help", "x", "exit", "wait", "fill", "kill", "givecaps"};
 
-    system("pause");
-}
-
-// A function to strip non-alphabetic characters from the start and end of the string.
-// It will also convert all the remaining characters into lowercase.
-string clean(const string& s)
-{
-    string r = "";
-    for (int start = 0; start < s.length(); start++)
+    void displayHelp() noexcept
     {
-        if (isalpha(s[start]))
+        system("cls");
+        cout << "Tile codes: [P] = Player. [M] = Enemy.  [V] = Merchant. [C] = Chest. [I] = Item. [E] = Elevator. \nCommands:\n";
+        cout << "[w] north: move north\n";
+        cout << "[s] south: move south\n";
+        cout << "[a] west: move west\n";
+        cout << "[d] east: move east\n";
+        cout << "[v] elevator: use an elevator to travel up a floor\n";
+        cout << "[b] buy: buy from Merchant\n";
+        cout << "[p] pick: pick up an item\n";
+        cout << "[l] unlock: try to unlock a chest\n";
+        cout << "[e] equip: equip an item\n";
+        cout << "[n] unequip: unequip an item\n";
+        cout << "[u] use: attempt  to use an item\n";
+        cout << "[f] attack: attack an enemy\n";
+        cout << "[c] craft: open crafting menu\n";
+        cout << "[q] help: display the list of valid commands\n";
+        cout << "[x] quit: quit the game\n";
+        cout << "Cheat codes:\n";
+        cout << "fill: gives a bunch of goodies\n";
+        cout << "kill: kill an enemy\n";
+        cout << "givecaps: gives a bunch of caps\n";
+        cout << "wait: pass time\n";
+
+        system("pause");
+    }
+
+    // A function to strip non-alphabetic characters from the start and end of the string.
+    // It will also convert all the remaining characters into lowercase.
+    string clean(const string& s)
+    {
+        string r = "";
+        for (int start = 0; start < s.length(); start++)
         {
-            for (int end = s.length()-1; end >= start; end--)
+            if (isalpha(s[start]))
             {
-                if (isalpha(s[end]))
+                for (int end = s.length()-1; end >= start; end--)
                 {
-                    r = s.substr(start, end - start + 1);
-                    break;
+                    if (isalpha(s[end]))
+                    {
+                        r = s.substr(start, end - start + 1);
+                        break;
+                    }
                 }
+                break;
             }
-            break;
         }
+
+        for(int i = 0; i < r.size(); i++)
+        {
+            r[i] = tolower(r[i]);
+        }
+
+        return r;
     }
 
-    for(int i = 0; i < r.size(); i++)
+    string getInput() throw(BadInputException)
     {
-        r[i] = tolower(r[i]);
+        string input;
+        cin >> input;
+        input = utility::clean(input);
+        if(std::find(utility::validCommands.begin(), utility::validCommands.end(), input) == utility::validCommands.end()) throw(BadInputException(input));
+        else return input;
     }
-
-    return r;
 }
 
 int main()
 {
 
     const bool DEBUG = true;
-    const bool moveEnemies = false;
+    const bool moveEnemies = true;
 
     // Map generation settings
-    int rows = 5, cols = 5, floors = 3;
+    int rows = 5, cols = 5, floors = 2;
     int startingX = 0, startingY = 0, startingZ = floors-1;
     double monsterSpawnRate = .10;
     double chestSpawnRate = .15;
     Player pchar(startingX, startingY, startingZ);
     pchar.runCharacterCreation(DEBUG);
     Map gameMap(rows, cols, floors, startingX, startingY, startingZ, monsterSpawnRate, chestSpawnRate);
-    Merchant vendor;
 
     string input = "";
     while(input != "quit" && input != "x" && !pchar.wonGame() && !pchar.lostGame())
@@ -113,182 +130,183 @@ int main()
 
         cout << "\nPlayer stats:\n";
         cout << pchar << endl;
-        
-        if (currentTile.containsElevator()) {
-			cout << "\nDing Dong, the elevator is here! Press \"v\" to use the elevator\n";
-		}
 
-		if (currentTile.containsMerchant())
-		{
-			cout << "\nMerchant Search: \n\t";
-			vendor.merchantintro();
-		}
+        currentTile.displayTileInfo();
 
         cout << "\nPlease enter a command. (\"help\" or \"q\" for help)\n";
-        cin >> input;
-        input = clean(input);
-        bool justMoved = false;
-        bool justMovedUp = false;
-        if((input == "up" || input == "north" || input == "w") && !currentTile.checkWall("up"))
-        {
-            pchar.moveUp();
-            justMoved = true;
-        }
-        else if((input == "down" || input == "south" || input == "s") && !currentTile.checkWall("down"))
-        {
-            pchar.moveDown();
-            justMoved = true;
-        }
-        else if((input == "left" || input == "west" || input == "a") && !currentTile.checkWall("left"))
-        {
-            pchar.moveLeft();
-            justMoved = true;
-        }
-        else if((input == "right" || input == "east" || input == "d") && !currentTile.checkWall("right"))
-        {
-            pchar.moveRight();
-            justMoved = true;
-        }
-        else if((input == "elevator" || input == "v" || input == "upe") && currentTile.containsElevator())
-        {
-            pchar.goUpFloor();
-            justMoved = true;
-            justMovedUp = true;
-        }
-        else if((input == "l" || input == "unlock" || input == "lockpick") && currentTile.isChest())
-        {
-            int rand = randInt(0, 10);
-            if (rand < 5)
+        try {
+            input = utility::getInput();
+            bool justMoved = false;
+            bool justMovedUp = false;
+            if((input == "up" || input == "north" || input == "w") && !currentTile.checkWall("up"))
             {
-                int low = 1, high = 10;
-                if(guessingGame(low, high)) currentTile.unlockChest();
-            } else
-            {
-                rand = randInt(0, 9999);
-                Mastermind game = Mastermind(rand);
-                if (game.playGame()) currentTile.unlockChest();
+                pchar.moveUp();
+                justMoved = true;
             }
-
-        }
-        else if((input == "pick up" || input == "pick" || input == "p") && currentTile.containsItem())
-        {
-            int itemNumber;
-            cout << "Please enter the list number of the item to pick up (0 to cancel). ";
-            cin >> itemNumber;
-            int idx = itemNumber-1;
-            if(idx >= 0 && idx < gameMap.playerTile().getNumItems())
+            else if((input == "down" || input == "south" || input == "s") && !currentTile.checkWall("down"))
             {
-                pchar.addToInventory(gameMap.playerTile().getItem(idx));
-                gameMap.playerTile().removeItem(idx);
+                pchar.moveDown();
+                justMoved = true;
             }
-        }
-        else if((input == "equip" || input == "e") && pchar.hasItemsInInventory())
-        {
-            int itemNumber;
-            cout << "Please enter the list number of the item to equip (0 to cancel). ";
-            cin >> itemNumber;
-            int idx = itemNumber-1;
-            if(idx >= 0 && idx < pchar.numItemsInInventory())
+            else if((input == "left" || input == "west" || input == "a") && !currentTile.checkWall("left"))
             {
-                pchar.equip(idx);
+                pchar.moveLeft();
+                justMoved = true;
             }
-        }
-        else if(input == "unequip" || input == "n")
-        {
-            int itemNumber;
-            cout << "Please enter the list number of the item to unequip (0 to cancel). ";
-            cin >> itemNumber;
-            int idx = itemNumber-1;
-            if(idx == 0 || idx == 1)
+            else if((input == "right" || input == "east" || input == "d") && !currentTile.checkWall("right"))
             {
-                pchar.unequip(idx);
+                pchar.moveRight();
+                justMoved = true;
             }
-        }
-        else if(input == "use" || input == "u")
-        {
-            int itemNumber;
-            cout << "Please enter the list number of the item to use (0 to cancel). ";
-            cin >> itemNumber;
-            int idx = itemNumber-1;
-            if(idx >= 0 && idx < pchar.inventory.size())
+            else if((input == "elevator" || input == "v" || input == "upe") && currentTile.containsElevator())
             {
-                if(!pchar.use(idx))
+                pchar.goUpFloor();
+                justMoved = true;
+                justMovedUp = true;
+            }
+            else if((input == "l" || input == "unlock" || input == "lockpick") && currentTile.isChest())
+            {
+                int rand = randInt(0, 10);
+                if (rand < 5)
                 {
-                    cout << "\nCan't use that.\n";
-                    system("pause");
+                    int low = 1, high = 10;
+                    if(guessingGame(low, high)) currentTile.unlockChest();
+                } else
+                {
+                    rand = randInt(0, 9999);
+                    Mastermind game = Mastermind(rand);
+                    if (game.playGame()) currentTile.unlockChest();
+                }
+
+            }
+            else if((input == "pick up" || input == "pick" || input == "p") && currentTile.containsItem())
+            {
+                int itemNumber;
+                cout << "Please enter the list number of the item to pick up (0 to cancel). ";
+                cin >> itemNumber;
+                int idx = itemNumber-1;
+                if(idx >= 0 && idx < gameMap.playerTile().getNumItems())
+                {
+                    pchar.addToInventory(gameMap.playerTile().getItem(idx));
+                    gameMap.playerTile().removeItem(idx);
                 }
             }
-        }
-        else if((input == "attack" || input == "fight" || input == "f") && currentTile.containsEnemy())
-        {
-            int enemyNumber;
-            cout << "Please enter the list number of the enemy to attack (0 to cancel). ";
-            cin >> enemyNumber;
-            int idx = enemyNumber-1;
-            if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
+            else if((input == "equip" || input == "e") && pchar.hasItemsInInventory())
             {
-                Enemy& enemy = gameMap.playerTile().getEnemy(idx);
-                int damageDone = pchar.attack(enemy);
-                cout << "Dealt " << damageDone << " damage to " << enemy.name << endl;
-                system("pause");
+                int itemNumber;
+                cout << "Please enter the list number of the item to equip (0 to cancel). ";
+                cin >> itemNumber;
+                int idx = itemNumber-1;
+                if(idx >= 0 && idx < pchar.numItemsInInventory())
+                {
+                    pchar.equip(idx);
+                }
             }
-        }
-       else if ((input == "buy" || input == "b") && currentTile.containsMerchant())
-		{
-			vendor.runThemerch(pchar);
-		}
-        else if(input == "help" || input == "q")
-        {
-            displayHelp();
-        }
-        else if (input == "c" || input == "craft" || input == "Crafting")
-        {
-            string choice = pchar.inventory.getCraftingChoice(); // "e" to exit
-            if(choice != "e")
+            else if(input == "unequip" || input == "n")
             {
-                pchar.inventory.craft(choice);
+                int itemNumber;
+                cout << "Please enter the list number of the item to unequip (0 to cancel). ";
+                cin >> itemNumber;
+                int idx = itemNumber-1;
+                if(idx == 0 || idx == 1)
+                {
+                    pchar.unequip(idx);
+                }
             }
-        }
-        else if (input == "fill")
-        {
-            pchar.fillInventory();
-        }
-        else if (input == "kill")
-        {
-            int enemyNumber;
-            cout << "Please enter the list number of the enemy to kill (0 to cancel). ";
-            cin >> enemyNumber;
-            int idx = enemyNumber-1;
-            if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
+            else if(input == "use" || input == "u")
             {
-                Enemy& enemy = gameMap.playerTile().getEnemy(idx);
-                int damageDone = pchar.attack(enemy, true);
-                cout << "Dealt " << damageDone << " damage to " << enemy.name << endl;
-                system("pause");
+                int itemNumber;
+                cout << "Please enter the list number of the item to use (0 to cancel). ";
+                cin >> itemNumber;
+                int idx = itemNumber-1;
+                if(idx >= 0 && idx < pchar.inventory.size())
+                {
+                    if(!pchar.use(idx))
+                    {
+                        cout << "\nCan't use that.\n";
+                        system("pause");
+                    }
+                }
             }
+            else if((input == "attack" || input == "fight" || input == "f") && currentTile.containsEnemy())
+            {
+                int enemyNumber;
+                cout << "Please enter the list number of the enemy to attack (0 to cancel). ";
+                cin >> enemyNumber;
+                int idx = enemyNumber-1;
+                if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
+                {
+                    Enemy& enemy = gameMap.playerTile().getEnemy(idx);
+                    pchar.attack(enemy);
+                }
+            }
+           else if ((input == "buy" || input == "b") && currentTile.containsMerchant())
+            {
+                currentTile.vendor.runTheMerch(pchar);
+            }
+            else if(input == "help" || input == "q")
+            {
+                utility::displayHelp();
+            }
+            else if (input == "c" || input == "craft" || input == "Crafting")
+            {
+                string choice = pchar.inventory.getCraftingChoice(); // "e" to exit
+                if(choice != "e")
+                {
+                    pchar.inventory.craft(choice);
+                }
+            }
+            else if (input == "fill")
+            {
+                pchar.fillInventory();
+            }
+            else if (input == "kill")
+            {
+                int enemyNumber;
+                cout << "Please enter the list number of the enemy to kill (0 to cancel). ";
+                cin >> enemyNumber;
+                int idx = enemyNumber-1;
+                if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
+                {
+                    Enemy& enemy = gameMap.playerTile().getEnemy(idx);
+                    int damageDone = pchar.attack(enemy, true);
+                }
+            }
+            else if (input == "givecaps")
+            {
+                pchar.inventory.setCaps(9999999);
+            }
+            else if (input == "wait")
+            {
+                // Literally nothing
+            }
+            else if(input == "x")
+            {
+                system("cls");
+                cout << "Thanks for playing!";
+            }
+
+
+            gameMap.checkEnemyDeaths();
+
+            gameMap.updatePlayerLoc(pchar.getX(), pchar.getY(), pchar.getZ());
+
+            if(justMoved && !justMovedUp)
+            {
+                gameMap.checkMine(pchar);
+                gameMap.checkMinesweeperNumbers();
+            }
+
+            if(moveEnemies) gameMap.updateEnemyLocs();
+
+            if(!justMoved) gameMap.checkEnemyAttacks(pchar);
+
         }
-        else if(input == "x")
+        catch(BadInputException e)
         {
-            system("cls");
-            cout << "Thanks for playing!";
+            cout << e.what();
+            system("pause");
         }
-
-
-        gameMap.checkEnemyDeaths();
-
-        gameMap.updatePlayerLoc(pchar.getX(), pchar.getY(), pchar.getZ());
-
-        if(justMoved && !justMovedUp)
-        {
-            gameMap.checkMine(pchar);
-            gameMap.checkMinesweeperNumbers();
-        }
-
-        if(moveEnemies) gameMap.updateEnemyLocs();
-
-        if(!justMoved) gameMap.checkEnemyAttacks(pchar);
-
-
         system("cls");
     }
 

@@ -20,13 +20,13 @@ public:
 	~Merchant() { };
 	void hello();			// Greets user (inherited from Dialogue)
 	void goodbye();			// Bought something, so thank message (inherited from Dialogue)
-	void changeOfmind();	// Did not buy anything, so this differs from goodbye() obviously
-	Character Purchase(Character play, Inventory store_lit);	// Transaction management
-	void runThemerch(Character & play);							// Interactive program
-	void merchantintro();	// Player knows merchant is there
-	friend char yesOrno();		// Data validation (Yes, No, error input)
-	friend void itemMenu();	// Display items and their prices
-	friend Inventory fiveAddtimes(Item obj, Inventory store);
+	void changeOfMind();	// Did not buy anything, so this differs from goodbye() obviously
+	Character purchase(Character play, Inventory store_lit);	// Transaction management
+	void runTheMerch(Character & play);							// Interactive program
+	void merchantIntro();	// Player knows merchant is there
+	friend char yesOrNo();		// Data validation (Yes, No, error input)
+    void itemMenu();	// Display items and their prices
+	friend Inventory fiveAddTimes(Item obj, Inventory store);
 private:
 	Inventory store;	// Initialize store when player encounter
 protected:

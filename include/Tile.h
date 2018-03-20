@@ -4,6 +4,7 @@
 #include "../include/Enemy.h"
 #include "../include/Item.h"
 #include "../include/Merchant.h"
+#include "RandNumber.h"
 #include <vector>
 #include <map>
 
@@ -18,9 +19,9 @@ class Tile
 
         bool containsElevator() { return elevator; }
         void makeElevator() { elevator = true; }
-    
+
     	bool containsMerchant() { return merchant; }
-	    void merchantIn() { merchant = true; }
+	    void makeMerchant() { merchant = true; }
 
         bool isChest() { return chest; }
         void makeChest() { chest = true; }
@@ -54,12 +55,15 @@ class Tile
         void setWall(std::string dir, bool val = true) { walls[dir] = val; }
         bool checkWall(std::string dir) { return walls[dir]; }
 
+        void displayTileInfo();
+
         std::vector<Enemy> enemies;
         std::vector<Item> items;
         int caps;
         bool elevator;
         bool player;
     	bool merchant;
+    	Merchant vendor;
         bool chest;
         bool mine;
         bool minesweeperNumber;

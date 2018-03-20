@@ -5,14 +5,16 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "Player.h"
+#include "RandNumber.h"
 #include <vector>
 
+using tile3dVec = std::vector<std::vector<std::vector<Tile>>>;
 class Map
 {
     public:
         Map(int rows_ = 10, int cols_ = 10, int floors_ = 10, int startingX = 0, int startingY = 0, int startingZ = 9, double monsterSpawnRate_ = .30, double itemSpawnRate = .30);
 
-        std::vector<std::vector<std::vector<Tile>>> getMap() { return gameMap; }
+        tile3dVec getMap() { return gameMap; }
         Tile& getTile(int x, int y, int z) { return gameMap[x][y][z]; }
         void setTile(int x, int y, int z, Tile t) { gameMap[x][y][z] = t; }
         void setMap(std::vector<std::vector<std::vector<Tile>>> val) { gameMap = val; }
@@ -40,7 +42,7 @@ class Map
     protected:
 
     private:
-        std::vector<std::vector<std::vector<Tile>>> gameMap;
+        tile3dVec gameMap;
         double monsterSpawnRate;
         double chestSpawnRate;
         int rowCount;

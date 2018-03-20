@@ -121,6 +121,8 @@ public:
 
     int numEnemiesKilled() { return enemiesKilled; }
     int enemiesKilled;
+
+    bool shouldOutput;
 private:
 
 };

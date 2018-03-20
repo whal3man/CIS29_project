@@ -19,6 +19,7 @@ Character::Character(int startingX, int startingY, int startingZ)
     y = startingY;
     z = startingZ;
     enemiesKilled = 0;
+    shouldOutput = false;
 }
 
 void Character::use(string name)
@@ -261,6 +262,14 @@ int Character::takeDamageFrom(Item& i, bool kill)
 int Character::attack(Character& e, bool kill)
 {
     int dam = e.takeDamageFrom(equippedWeapon, kill);
-    if(!e.isAlive()) enemiesKilled++;
+    if(shouldOutput) cout << "Dealt " << dam << " damage to " << e.name << endl;
+    if(!e.isAlive())
+    {
+        int caps = e.inventory.getCaps();
+        if(shouldOutput) cout << e.name << " died.\nCollected " << caps << " caps.\n";
+        inventory.addCaps(caps);
+        enemiesKilled++;
+    }
+    system("pause");
     return dam;
 }
