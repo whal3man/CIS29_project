@@ -236,6 +236,7 @@ int Character::takeDamage(int attack)
     if(hp <= 0)
     {
         alive = false;
+        hp = 0;
     }
     return damageCount;
 }
@@ -254,6 +255,7 @@ int Character::takeDamageFrom(Item& i, bool kill)
     if(hp <= 0)
     {
         alive = false;
+        hp = 0;
     }
     return damageCount;
 }
