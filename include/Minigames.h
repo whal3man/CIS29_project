@@ -4,6 +4,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <cctype>
 #include "RandNumber.h"
 
 bool guessingGame(int low, int high);

@@ -24,17 +24,21 @@ bool guessingGame(int low, int high)
     {
         cout << "\nYou have " << numGuesses << " guesses remaining. ";
         cin >> guess;
-        if(guess == numToGuess)
+        if(isdigit(guess))
         {
-            cout << "You got it, with " << numGuesses << " guesses remaining!\n";
-            system("pause");
-            return true;
+            if(guess == numToGuess)
+            {
+                cout << "You got it, with " << numGuesses << " guesses remaining!\n";
+                system("pause");
+                return true;
+            }
+            else
+            {
+                cout << "Try again.\n";
+                numGuesses--;
+            }
         }
-        else
-        {
-            cout << "Try again.\n";
-            numGuesses--;
-        }
+        else cout << "Error: invalid input. Please input a single number.\n"
     }
     cout << "You ran out of guesses. Better luck next time!\n";
     system("pause");
