@@ -138,6 +138,7 @@ int main()
             input = utility::getInput();
             bool justMoved = false;
             bool justMovedUp = false;
+            bool inputWasValid = true;
             if((input == "up" || input == "north" || input == "w") && !currentTile.checkWall("up"))
             {
                 pchar.moveUp();
@@ -285,6 +286,7 @@ int main()
                 system("cls");
                 cout << "Thanks for playing!";
             }
+            else inputWasValid = false;
 
 
             gameMap.checkEnemyDeaths();
@@ -297,9 +299,9 @@ int main()
                 gameMap.checkMinesweeperNumbers();
             }
 
-            if(moveEnemies) gameMap.updateEnemyLocs();
+            if(moveEnemies && inputWasValid) gameMap.updateEnemyLocs();
 
-            if(!justMoved) gameMap.checkEnemyAttacks(pchar);
+            if(!justMoved && inputWasValid) gameMap.checkEnemyAttacks(pchar);
 
         }
         catch(BadInputException e)
