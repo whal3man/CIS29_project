@@ -69,7 +69,7 @@ public:
     }
 
     int takeDamage(int attack);
-    int takeDamageFrom(Item& i, bool kill = false);
+    int takeDamageFrom(Item& i, bool kill = false, int damageModifier = 0);
     int attack(Character& e, bool kill = false);
 
     void equip(int i);

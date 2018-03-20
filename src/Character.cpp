@@ -240,10 +240,12 @@ int Character::takeDamage(int attack)
     return damageCount;
 }
 
-int Character::takeDamageFrom(Item& i, bool kill)
+int Character::takeDamageFrom(Item& i, bool kill, int damageModifier)
 {
     int damageCount = i.damage;
+    damageCount += damageModifier;
     damageCount -= equippedArmor.damageResistance;
+    damageCount -= (endurance*2)+luck;
     if(damageCount < 0)
     {
         damageCount = 0;
@@ -261,7 +263,14 @@ int Character::takeDamageFrom(Item& i, bool kill)
 // returns damage done
 int Character::attack(Character& e, bool kill)
 {
-    int dam = e.takeDamageFrom(equippedWeapon, kill);
+    int damageModifier;
+    if(equippedWeapon.getItemType()=="MELEE WEAPON"){
+        damageModifier=(strength*2)+luck;
+    }
+    if(equippedWeapon.getItemType()=="RANGED WEAPON"){
+        damageModifier=(perception*4)+luck;
+    }
+    int dam = e.takeDamageFrom(equippedWeapon, kill, damageModifier);
     if(shouldOutput) cout << "Dealt " << dam << " damage to " << e.name << endl;
     if(!e.isAlive())
     {
