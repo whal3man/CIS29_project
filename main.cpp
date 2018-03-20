@@ -21,6 +21,7 @@ void displayHelp()
     cout << "[a] west: move west\n";
     cout << "[d] east: move east\n";
     cout << "[v] elevator: use an elevator to travel up a floor\n";
+    cout << "[b] buy: buy from Merchant\n";
     cout << "[p] pick: pick up an item\n";
     cout << "[l] unlock: try to unlock a chest\n";
     cout << "[e] equip: equip an item\n";
@@ -80,6 +81,7 @@ int main()
     Player pchar(startingX, startingY, startingZ);
     pchar.runCharacterCreation(DEBUG);
     Map gameMap(rows, cols, floors, startingX, startingY, startingZ, monsterSpawnRate, chestSpawnRate);
+    Merchant vendor;
 
     string input = "";
     while(input != "quit" && input != "x" && !pchar.wonGame() && !pchar.lostGame())
@@ -111,6 +113,16 @@ int main()
 
         cout << "\nPlayer stats:\n";
         cout << pchar << endl;
+        
+        if (currentTile.containsElevator()) {
+			cout << "\nDing Dong, the elevator is here! Press \"v\" to use the elevator\n";
+		}
+
+		if (currentTile.containsMerchant())
+		{
+			cout << "\nMerchant Search: \n\t";
+			vendor.merchantintro();
+		}
 
         cout << "\nPlease enter a command. (\"help\" or \"q\" for help)\n";
         cin >> input;
@@ -221,6 +233,10 @@ int main()
                 system("pause");
             }
         }
+       else if ((input == "buy" || input == "b") && currentTile.containsMerchant())
+		{
+			vendor.runThemerch(pchar);
+		}
         else if(input == "help" || input == "q")
         {
             displayHelp();
