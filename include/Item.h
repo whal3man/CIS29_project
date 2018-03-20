@@ -17,7 +17,7 @@ public:
     static const std::vector<Item> possibleWeapons;
 
     Item() {}
-	Item(std::string itemName_, std::string itemType_ = "MISC", int itemValue = 10, int sellValue = 10, int buyValue = 10);
+	Item(std::string itemName_, std::string itemType_ = "MISC");
 	~Item();
 
 	// General Item Functions
@@ -88,8 +88,7 @@ public:
         }
 
 	std::string itemName;
-    int itemValue;
-    std::string itemType;
+    	std::string itemType;
 	int sellValue;
 	int buyValue;
 
