@@ -11,6 +11,7 @@
 #include "include/Minigames.h"
 #include "include/Mastermind.h"
 #include "include/BadInputException.h"
+#include "include/Commands.h"
 #include "RandNumber.h"
 using namespace std;
 
@@ -20,7 +21,7 @@ namespace utility
 
     void displayHelp() noexcept
     {
-        system("cls");
+        system(clsCommand.c_str());
         cout << "Tile codes: [P] = Player. [M] = Enemy.  [V] = Merchant. [C] = Chest. [I] = Item. [E] = Elevator. \nCommands:\n";
         cout << "[w] north: move north\n";
         cout << "[s] south: move south\n";
@@ -43,7 +44,7 @@ namespace utility
         cout << "givecaps: gives a bunch of caps\n";
         cout << "wait: pass time\n";
 
-        system("pause");
+        system(pauseCommand.c_str());
     }
 
     // A function to strip non-alphabetic characters from the start and end of the string.
@@ -228,7 +229,7 @@ int main()
                         if(!pchar.use(idx))
                         {
                             cout << "\nCan't use that.\n";
-                            system("pause");
+                            system(pauseCommand.c_str());
                         }
                     }
                 }
@@ -286,7 +287,7 @@ int main()
                 }
                 else if(input == "x")
                 {
-                    system("cls");
+                    system(clsCommand.c_str());
                     cout << "Thanks for playing!";
                 }
                 else inputWasValid = false;
@@ -310,9 +311,9 @@ int main()
             catch(BadInputException e)
             {
                 cout << e.what();
-                system("pause");
+                system(pauseCommand.c_str());
             }
-            system("cls");
+            system(clsCommand.c_str());
         }
 
         if(pchar.wonGame())
