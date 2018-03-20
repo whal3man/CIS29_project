@@ -28,7 +28,7 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     {
         itemType = "RANGED WEAPON";
         ammoCount = 20;
-        damage = 40;
+        damage = 30;
     }
     else if(itemName == "Mini Nuke")
     {
@@ -45,18 +45,18 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     {
         itemType = "MELEE WEAPON";
         damage = 60;
-        itemValue = 65;
+        itemValue = 50;
     }
     else if(itemName == "Shortsword")
     {
         itemType = "MELEE WEAPON";
-        damage = 45;
+        damage = 35;
     }
     else if(itemName == "Longsword")
     {
         itemType = "MELEE WEAPON";
         damage = 55;
-        itemValue = 50;
+        itemValue = 40;
     }
     else if(itemName == "Light Armor")
     {
