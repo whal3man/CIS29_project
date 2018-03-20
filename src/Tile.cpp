@@ -3,7 +3,6 @@
 #include <iostream>
 #include <algorithm>
 
-//TODO: populate monster vector
 Tile::Tile()
 {
     caps = randInt(1, 100);

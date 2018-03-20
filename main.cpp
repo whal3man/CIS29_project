@@ -88,13 +88,13 @@ namespace utility
 int main()
 {
 
-    const bool DEBUG = true;
+    const bool DEBUG = false;
     const bool moveEnemies = true;
 
     // Map generation settings
-    int rows = 5, cols = 5, floors = 2;
+    int rows = 5, cols = 5, floors = 3;
     int startingX = 0, startingY = 0, startingZ = floors-1;
-    double monsterSpawnRate = .10;
+    double monsterSpawnRate = .30;
     double chestSpawnRate = .15;
     Player pchar(startingX, startingY, startingZ);
     pchar.runCharacterCreation(DEBUG);

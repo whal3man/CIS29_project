@@ -67,6 +67,10 @@ void Player::runCharacterCreation(const bool DEBUG)
                 std::cout << "Please try again.\n";
             std::cout << pointsLeft << " points left to assign. Current distribution:\n\tStrength: " << getStrength() << " Perception: " << getPerception() << " Endurance: " << getEndurance() << " Charisma: " << getCharisma() << "\n\tIntelligence: " << getIntelligence() << " Agility: " << getAgility() << " Luck: " << getLuck() << std::endl;
         }
+
+        cout << "\nYou clamber out of the cryochamber and start your journey out of the vault...\n";
+        system("pause");
+        system("cls");
     }
     else
     {

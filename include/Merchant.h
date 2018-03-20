@@ -1,18 +1,16 @@
 /*=========================================
 Merchant class - Speech of Merchant for game
-(child class of Dialogue)
 Borrows from Item class and uses a vector
 ==========================================*/
 #ifndef MERCH_H
 #define MERCH_H
+#include "Character.h"
 #include "Inventory.h"
-#include "Dialogue.h"
 #include "Item.h"
 #include <vector>
 #include <iomanip>
 
-class Merchant :
-	public Dialogue
+class Merchant
 {
 public:
 	Inventory makeInventory();
@@ -30,7 +28,6 @@ public:
 private:
 	Inventory store;	// Initialize store when player encounter
 protected:
-	//CharacterType MSpeech = merchant;
 };
 
 #endif // MERCH_H

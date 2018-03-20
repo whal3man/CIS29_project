@@ -49,22 +49,12 @@ public:
 		{ damage = number; }
 
 	// Recovery Type Functions
-//	int getHpRestore() const
-//		{ return hpRestore; }
-//	void setHpRestore(); // Defined in item.h
-//	void setPakType(PakType type)
-//		{ pakType = type; }
-//    PakType getPakType() const
-//    { return pakType; }
+	int getHpRestore() const
+		{ return hpRestore; }
 
 	// Armor Type Functions
-//	ArmorType getArmorType() const
-//		{ return armorType; }
 	int getDamageResistance() const
 		{ return damageResistance; }
-//	void setDamageResistance(); // Defined in item.h, dependent on armorType
-//	void setArmorType(ArmorType type)
-//		{ armorType = type; }
 
 		friend bool operator==(const Item& lhs, const Item& rhs)
         {
@@ -100,11 +90,9 @@ public:
 
 	// For recovery items
 	int hpRestore; // For stimpaks, amount of HP restored
-//	PakType pakType;
 
 	// For Armor Items
 	int damageResistance; // Scalar value that modifies damage taken from a hit
-//	ArmorType armorType;
 };
 
 #endif // ITEM_H

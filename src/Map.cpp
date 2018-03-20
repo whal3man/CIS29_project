@@ -179,7 +179,6 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                         int randCaps = randInt(minMonsterCaps, maxMonsterCaps);
                         Enemy newEnemy(x, y, z, nx, ny, newEnemyName, randHP, loot, randCaps);
                         t.enemyIn(newEnemy);
-//                        std::cout << "Enemy generated at (" << x << ", " << y << ", " << z << "); will move to (" << nx << ", " << ny << ", " << z << ")\n";
                     }
 
                     // Item Generation

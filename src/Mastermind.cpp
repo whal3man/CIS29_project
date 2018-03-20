@@ -82,15 +82,6 @@ void Mastermind::printBoard()
         {
             std::cout << "     | " << std::endl;;
         }
-//        rowHasGuess = false;
-//        for(int j = 0; j < rows; j++)
-//        {
-//
-//            if(code[j] != ' ') rowHasGuess = true;
-//            std::cout << " " << code[j];
-//        }
-//        std::cout << " | " << checkCode(code) << std::endl;
-//        if (rowHasGuess) std::cout << board[i][1][0] << "B " << board[i][1][1] << "C";
     }
 
 }
@@ -147,41 +138,9 @@ std::string Mastermind::checkCode(std::string code)
                 code[position] = '$';
             }
 
-//            std::cout << "MC: " << mastercode[i] << " C: " << code[position] << std::endl;
-//            std::cout << "Cows" << numCows << std::endl;
-//            std::cout << numBulls << "B " << numCows << "C" << std::endl;
-//            std::cout << "Position: " << position << std::endl;
             position = code.find(mastercode[i], position + 1);
-//            std::cout << "MC: " << mastercode << " C: " << code << std::endl;
         }
-
-
-
-
-
-//        position = code.find(mastercode[i]);
-//        if(mastercode[i] == code[i])
-//        {
-//            numBulls++;
-//            code[i] = ' ';
-//        }
-//        else
-//        {
-//            bool isSearching = true;
-//            while(position != string::npos && isSearching)
-//            {
-//                if(mastercode[position] != code[position])
-//                {
-//                    numCows++;
-//                    code[position] = ' ';
-//                    isSearching = false;
-//                }
-//                position = code.find(mastercode[i], position+1);
-//            }
-//        }
     }
     //returns a string "#B #C", where the B is the numBulls and C is numCows
     return std::to_string(numBulls) + "B " + std::to_string(numCows) + "C";
-//    return numBulls;
-
 }
