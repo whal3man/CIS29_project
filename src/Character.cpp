@@ -1,4 +1,5 @@
 #include "../include/Character.h"
+#include "../include/Commands.h"
 #include <iostream>
 
 Character::Character(int startingX, int startingY, int startingZ)
@@ -209,7 +210,7 @@ void Character::equip(int i)
     else
     {
         cout << "Can't equip that.\n";
-        system("pause");
+        system(pauseCommand.c_str());
     }
 }
 
@@ -272,6 +273,6 @@ int Character::attack(Character& e, bool kill)
         inventory.addCaps(caps);
         enemiesKilled++;
     }
-    system("pause");
+    system(pauseCommand.c_str());
     return dam;
 }
