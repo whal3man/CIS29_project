@@ -8,11 +8,6 @@
 class Item
 {
 public:
-//    enum ItemType {WEAPON, RECOVERY, ARMOR, MISC};
-
-//	enum PakType {REGULAR, SUPER, ULTRA};  // In order of power
-
-//	enum ArmorType {JUMPSUIT, COMBATARMOR, POWERARMOR};
     static const std::vector<Item> possibleItems;
     static const std::vector<Item> possibleWeapons;
 
@@ -25,6 +20,8 @@ public:
 		{ return itemName; }
 	std::string getItemType() const
 		{ return itemType; }
+    int getItemValue() const
+        { return itemValue; }
 	int getSellValue() const
 		{ return sellValue; }
 	int getBuyValue() const
