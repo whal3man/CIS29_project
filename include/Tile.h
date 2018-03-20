@@ -3,6 +3,7 @@
 
 #include "../include/Enemy.h"
 #include "../include/Item.h"
+#include "../include/Merchant.h"
 #include <vector>
 #include <map>
 
@@ -17,6 +18,9 @@ class Tile
 
         bool containsElevator() { return elevator; }
         void makeElevator() { elevator = true; }
+    
+    	bool containsMerchant() { return merchant; }
+	    void merchantIn() { merchant = true; }
 
         bool isChest() { return chest; }
         void makeChest() { chest = true; }
@@ -55,6 +59,7 @@ class Tile
         int caps;
         bool elevator;
         bool player;
+    	bool merchant;
         bool chest;
         bool mine;
         bool minesweeperNumber;
