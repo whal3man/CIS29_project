@@ -60,7 +60,7 @@ bool Mastermind::playGame()
     if (isCracked)
         std::cout << "You managed to find the code." << std::endl;
     else
-        std::cout << "You failed to find the code." << std::endl;
+        std::cout << "You failed to find the code: " << mastercode << std::endl;
     system("pause");
     return isCracked;
 }
@@ -70,7 +70,9 @@ void Mastermind::printBoard()
 //    bool rowHasGuess;
     system("cls");
     std::cout << "You find a chest with a 4 digit pin."
-              << "\nEnter in a 4 digit number to try unlocking it.\n";
+              << "\nEnter in a 4 digit number to try unlocking it."
+              << "\nHint:\n\t#B = # of correct digits in right position"
+              << "\n\t#C = # of correct digits in wrong position\n";
     for(int i = 0; i < rows; i++)
     {
         std::string code = board[i];
