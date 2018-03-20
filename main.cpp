@@ -94,8 +94,8 @@ int main()
     // Map generation settings
     int rows = 5, cols = 5, floors = 3;
     int startingX = 0, startingY = 0, startingZ = floors-1;
-    double monsterSpawnRate = .30;
-    double chestSpawnRate = .15;
+    double monsterSpawnRate = .20;
+    double chestSpawnRate = .20;
     Player pchar(startingX, startingY, startingZ);
     pchar.runCharacterCreation(DEBUG);
     Map gameMap(rows, cols, floors, startingX, startingY, startingZ, monsterSpawnRate, chestSpawnRate);
@@ -169,7 +169,7 @@ int main()
                 int rand = randInt(0, 10);
                 if (rand < 5)
                 {
-                    int low = 1, high = 10;
+                    int low = 0, high = 9;
                     if(guessingGame(low, high)) currentTile.unlockChest();
                 } else
                 {
