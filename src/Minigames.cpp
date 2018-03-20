@@ -19,33 +19,40 @@ bool guessingGame(int low, int high)
     cout << "\nGuess the single positive number password, between " << low << " and " << high << ". (-# to exit)\n";
     int numToGuess = randInt(low, high);
     int numGuesses = 10;
+    string guessStr;
     char guess;
-    while(numGuesses >= 0)
+    while(numGuesses > 0)
     {
         auto printNumGuesses = [=]()
         {
             cout << "\nYou have " << numGuesses << " guesses remaining. ";
         };
         printNumGuesses();
-        cin >> guess;
-        if(guess - 48 < 0) break;
-        if(isdigit(guess))
+        cin >> guessStr;
+
+        if(guessStr.size() == 1)
         {
-            if(guess - 48 == numToGuess)
+            guess = guessStr[0];
+            if(guess - 48 < 0) break;
+            if(isdigit(guess))
             {
-                cout << "You got it, with " << numGuesses << " guesses remaining!\n";
-                system("pause");
-                return true;
+                if(guess - 48 == numToGuess)
+                {
+                    cout << "You got it, with " << numGuesses << " guesses remaining!\n";
+                    system("pause");
+                    return true;
+                }
+                else
+                {
+                    cout << "Try again.\n";
+                    numGuesses--;
+                }
             }
-            else
-            {
-                cout << "Try again.\n";
-                numGuesses--;
-            }
+            else cout << "Error: invalid input. Please input a single number.\n";
         }
         else cout << "Error: invalid input. Please input a single number.\n";
     }
-    if(numGuesses = 0) cout << "You ran out of guesses. Better luck next time!\n";
+    cout << "You didn't guess the password: " << numToGuess << ". Better luck next time!\n";
     system("pause");
     return false;
 }
