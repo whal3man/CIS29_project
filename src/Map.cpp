@@ -32,6 +32,11 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
     int elevatorX = randInt(0, cols_-1);
     int elevatorY = 0;
     double mineSpawnRate = 0.20;
+    
+    merchantX = randInt(0, cols_ - 1);
+	if (merchantX == elevatorX) merchantX = randInt(0, cols_ - 1);
+	merchantY = randInt(0, rows_ - 1);
+	if (merchantY == elevatorY) merchantY = randInt(0, rows_ - 1);
 
     int z = 0;
     for(int y = 0; y < rows_; y++)
