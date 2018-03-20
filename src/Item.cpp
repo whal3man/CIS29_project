@@ -5,7 +5,7 @@
 
 const std::vector<Item> Item::possibleItems = {Item("Hunting Rifle"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword"), Item("Light Armor"), Item("Heavy Armor"), Item("Stimpak"), Item("Shishkebab"), Item("Apple"), Item("Blood Pack"), Item("Steel"), Item("Leather")};
 
-const std::vector<Item> Item::possibleWeapons = {Item("Hunting Rifle"), Item("Mini Nuke"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword")};
+const std::vector<Item> Item::possibleWeapons = {Item("Hunting Rifle"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword")};
 
 const std::string defaultWeaponName = "Fists";
 const std::string defaultArmorName = "Pants";
@@ -113,30 +113,3 @@ Item::~Item()
 {
 
 }
-
-// Most of the accessor functions have been defined inline in the specification file, since they're very short.
-
-// I'm assuming we're having health points going from 0 - 100. Can scale as project progresses.
-//void Item::setHpRestore() {
-//	switch(pakType) {
-//		case (REGULAR): hpRestore = 20;
-//			break;
-//		case (SUPER): hpRestore = 40;
-//			break;
-//		case (ULTRA):  hpRestore = 60;
-//		// This kind of stimpak didn't exist in the older games, but I figure we might as well have a third type. <3 - Remy
-//			break;
-//	}
-//}
-
-// I arbitrarily chose these scalars; can be redefined as needed
-//void Item::setDamageResistance() {
-//	switch(armorType) {
-//		case (JUMPSUIT): damageResistance = 0.1;
-//			break;
-//		case (COMBATARMOR): damageResistance = 0.4;
-//			break;
-//		case (POWERARMOR): damageResistance = 0.7;
-//			break;
-//	}
-//}
