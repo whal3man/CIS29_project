@@ -1,4 +1,5 @@
 #include "../include/Inventory.h"
+#include "../include/Commands.h"
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -60,7 +61,7 @@ void Inventory::craft(const std::string& itemName)
         else
         {
             std::cout << "You do not have the items to craft a Stimpak.\n";
-            system("pause");
+            system(pauseCommand.c_str());
         }
     }
     else if(itemName == "DeathClaw Gauntlet")
@@ -75,7 +76,7 @@ void Inventory::craft(const std::string& itemName)
         else
         {
             cout << "You do not have the items to craft a Deathclaw Gauntlet.\n";
-            system("pause");
+            system(pauseCommand.c_str());
         }
     }
     else if(itemName == "Shishkebab")
@@ -90,7 +91,7 @@ void Inventory::craft(const std::string& itemName)
         else
         {
             cout << "You do not have the items to craft a Shishkebab.\n";
-            system("pause");
+            system(pauseCommand.c_str());
         }
     }
     else if(itemName == "Shortsword")
@@ -105,7 +106,7 @@ void Inventory::craft(const std::string& itemName)
         else
         {
             cout << "You do not have the items to craft a Shortsword.\n";
-            system("pause");
+            system(pauseCommand.c_str());
         }
     }
     else if(itemName == "Longsword")
@@ -119,7 +120,7 @@ void Inventory::craft(const std::string& itemName)
         else
         {
             cout << "You do not have the items to craft a Longsword.\n";
-            system("pause");
+            system(pauseCommand.c_str());
         }
     }
     else if(itemName == "Light Armor")
@@ -134,7 +135,7 @@ void Inventory::craft(const std::string& itemName)
         else
         {
             cout << "You do not have the items to craft Light Armor.\n";
-            system("pause");
+            system(pauseCommand.c_str());
         }
     }
     else if(itemName == "Heavy Armor")
@@ -148,19 +149,19 @@ void Inventory::craft(const std::string& itemName)
         else
         {
             cout << "You do not have the items to craft Heavy Armor.\n";
-            system("pause");
+            system(pauseCommand.c_str());
         }
     }
     else if(itemName != "e")
     {
         cout << "Crafting recipe not found.\n";
-        system("pause");
+        system(pauseCommand.c_str());
     }
 }
 
 string Inventory::getCraftingChoice()
 {
-    system("cls");
+    system(clsCommand.c_str());
     string option;
     cout << "List of items that can be crafted: " <<endl;
     cout <<setw(20)<<left <<"ITEM"<<setw(5) <<"|" << "REAGENTS NEEDED" <<setw(10)<<endl;

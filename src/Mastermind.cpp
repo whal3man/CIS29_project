@@ -1,4 +1,5 @@
 #include "../include/Mastermind.h"
+#include "../include/Commands.h"
 #include <iostream>
 
 Mastermind::Mastermind(int code_) : rows(10)
@@ -57,13 +58,13 @@ bool Mastermind::playGame()
         std::cout << "You managed to find the code." << std::endl;
     else
         std::cout << "You failed to find the code: " << mastercode << std::endl;
-    system("pause");
+    system(pauseCommand.c_str());
     return isCracked;
 }
 
 void Mastermind::printBoard()
 {
-    system("cls");
+    system(clsCommand.c_str());
     std::cout << "You find a chest with a 4 digit pin."
               << "\nEnter in a 4 digit number to try unlocking it. (-# to exit)"
               << "\nHint:\n\t#B = # of correct digits in right position"

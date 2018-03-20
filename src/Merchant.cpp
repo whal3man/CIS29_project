@@ -6,6 +6,7 @@ Inherits from Dialogue class, and has a function that use the Item class
 ***********************222222222222222222222222222222222222222222*******/
 
 #include "../include/Merchant.h"
+#include "../include/Commands.h"
 
 /*&&&&&&&&&&&&&&&&&&&==================================
 fiveAddtimes(Item obj, Inventory & store)
@@ -133,7 +134,7 @@ Character Merchant::purchase(Character play, Inventory store_lit)
 	char choice;
 	static int count = 0;
 
-	system("cls");
+	system(clsCommand.c_str());
 
 	hello();
 		// Checks for interaction (Yes for continue, and no will exit interaction)
@@ -178,7 +179,7 @@ Character Merchant::purchase(Character play, Inventory store_lit)
 				// NO will exit interaction)
 				while (!flag)
 				{
-					cout << "\nAre you sure that you want " << temp.getItemName() << " for " << temp.getBuyValue() << "?\n";
+					cout << "\nAre you sure that you want " << temp.getItemName() << " for " << temp.getItemValue() << "?\n";
 					choice = yesOrNo();
 
 					if (choice == 'y' || choice == 'n')
@@ -204,7 +205,7 @@ Character Merchant::purchase(Character play, Inventory store_lit)
 						else cout << "This is discarded...\n";
 					}
 					else std::cout << "That made no sense, please answer with valid input!\n";
-					system("pause");
+					system(pauseCommand.c_str());
 				}
 
 
@@ -222,7 +223,7 @@ Character Merchant::purchase(Character play, Inventory store_lit)
 							else { end = 0; cout << "Wow big trip eh?\n"; }
 						}
 						else std::cout << "What? I did not understand...\n";
-						system("cls");
+						system(clsCommand.c_str());
 					}
 
 			}

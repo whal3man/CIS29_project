@@ -1,9 +1,10 @@
 #include "../include/Minigames.h"
+#include "../include/Commands.h"
 using namespace std;
 
 bool guessingGame(int low, int high)
 {
-    system("cls");
+    system(clsCommand.c_str());
     for(int i = 0; i < 3; i++)
     {
         cout << ". ";
@@ -39,7 +40,7 @@ bool guessingGame(int low, int high)
                 if(guess - 48 == numToGuess)
                 {
                     cout << "You got it, with " << numGuesses << " guesses remaining!\n";
-                    system("pause");
+                    system(pauseCommand.c_str());
                     return true;
                 }
                 else
@@ -53,6 +54,6 @@ bool guessingGame(int low, int high)
         else cout << "Error: invalid input. Please input a single number.\n";
     }
     cout << "You didn't guess the password: " << numToGuess << ". Better luck next time!\n";
-    system("pause");
+    system(pauseCommand.c_str());
     return false;
 }

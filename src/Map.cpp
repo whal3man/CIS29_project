@@ -1,9 +1,9 @@
 #include "../include/Item.h"
 #include "../include/Map.h"
+#include "../include/Commands.h"
 #include <vector>
 #include <iostream>
 #include <iomanip>
-
 
 Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int startingZ, double monsterSpawnRate_, double chestSpawnRate_)
 {
@@ -417,7 +417,7 @@ void Map::checkEnemyAttacks(Player& player)
             {
                 int damageDone = enemy.attack(player);
                 cout << "\nWas dealt " << damageDone << " damage from " << enemy.name << endl;
-                system("pause");
+                system(pauseCommand.c_str());
             }
         }
     }
@@ -429,7 +429,7 @@ void Map::checkMine(Player& player)
     {
         playerTile().makeRevealed();
         cout << "\nYou step on a trap and take " << player.takeDamage(10) << " damage." << endl;
-        system("pause");
+        system(pauseCommand.c_str());
     }
 }
 

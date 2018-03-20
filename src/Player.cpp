@@ -1,4 +1,5 @@
 #include "../include/Player.h"
+#include "../include/Commands.h"
 #include <iostream>
 
 void Player::runCharacterCreation(const bool DEBUG)
@@ -69,8 +70,8 @@ void Player::runCharacterCreation(const bool DEBUG)
         }
 
         cout << "\nYou clamber out of the cryochamber and start your journey out of the vault...\n";
-        system("pause");
-        system("cls");
+        system(pauseCommand.c_str());
+        system(clsCommand.c_str());
     }
     else
     {
@@ -110,7 +111,7 @@ bool Player::use(int idx)
         hp += toUse.hpRestore;
         removeFromInventory(toUse);
         cout << "Restored " << toUse.hpRestore << " hp.\n";
-        system("pause");
+        system(pauseCommand.c_str());
         return true;
     }
     else return false;
