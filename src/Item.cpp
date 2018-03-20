@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-const std::vector<Item> Item::possibleItems = {Item("Hunting Rifle"), Item("Mini Nuke"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword"), Item("Light Armor"), Item("Heavy Armor"), Item("Stimpak"), Item("Shishkebab"), Item("Apple"), Item("Blood Pack"), Item("Steel"), Item("Leather")};
+const std::vector<Item> Item::possibleItems = {Item("Hunting Rifle"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword"), Item("Light Armor"), Item("Heavy Armor"), Item("Stimpak"), Item("Shishkebab"), Item("Apple"), Item("Blood Pack"), Item("Steel"), Item("Leather")};
 
 const std::vector<Item> Item::possibleWeapons = {Item("Hunting Rifle"), Item("Mini Nuke"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword")};
 
