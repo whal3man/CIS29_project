@@ -35,7 +35,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
     
     merchantX = randInt(0, cols_ - 1);
 	if (merchantX == elevatorX) merchantX = randInt(0, cols_ - 1);
-	merchantY = randInt(0, rows_ - 1);
+    merchantY = randInt(0, rows_ - 1);
 	if (merchantY == elevatorY) merchantY = randInt(0, rows_ - 1);
 
     int z = 0;
@@ -57,6 +57,8 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                 t.playerIn();
             else if(x == elevatorX && y == elevatorY)
                 t.makeElevator();
+	    else if (x == merchantX && y == merchantY)
+		 t.merchantIn();
             else
             {
                 // Generate mines
@@ -209,6 +211,8 @@ void Map::print()
                 std::cout << std::setw(spacesBetweenTiles) << "[C]";
             else if(currentTile.containsItem())
                 std::cout << std::setw(spacesBetweenTiles) << "[I]";
+	    else if (currentTile.containsMerchant())
+		std::cout << std::setw(spacesBetweenTiles) << "[$]";
             else if(currentTile.isMine() && currentTile.isRevealed())
                 std::cout << std::setw(spacesBetweenTiles) << "[*]";
             else if(currentTile.isMinesweeperNumber() && currentTile.isRevealed())
