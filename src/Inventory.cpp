@@ -30,6 +30,17 @@ void Inventory::remove(const std::string& name)
     }
 }
 
+// Returns the count of an item
+int Inventory::count(const Item& item)
+{
+    int c = 0;
+    for(auto potential : items)
+    {
+        if(potential == item) c++;
+    }
+    return c;
+}
+
 bool Inventory::contains(const Item& obj)
 {
     auto idx = find(items.begin(), items.end(), obj);
@@ -81,11 +92,10 @@ void Inventory::craft(const std::string& itemName)
     }
     else if(itemName == "Shishkebab")
     {
-        if(contains("Steel") && contains("Leather") && contains("GasContainer"))
+        if(contains("Steel") && contains("Leather"))
         {
             remove("Steel");
             remove("Leather");
-            remove("GasContainer");
             add(Item("Shishkebab"));
         }
         else
@@ -125,7 +135,6 @@ void Inventory::craft(const std::string& itemName)
     }
     else if(itemName == "Light Armor")
     {
-        cout << "YAASHHSH";
         if(contains("Steel") && contains("Leather")) //the items that are being removed are in the inventory
         {
             remove("Steel");
@@ -168,7 +177,7 @@ string Inventory::getCraftingChoice()
     cout << "-----------------------------------------------------------------------------\n";
     cout <<setw(20)<<left <<"Stimpak"<<setw(5) <<"|" << "Blood Pack , Steel" <<endl;
     cout <<setw(20)<< left<<"DeathClaw Gauntlet"<<setw(5) <<"|" << "Leather , Steel , Claw" <<endl;
-    cout <<setw(20)<< left<<"ShishKebab"<<setw(5) <<"|" << "Steel , Leather , Gas Container" <<endl;
+    cout <<setw(20)<< left<<"Shishkebab"<<setw(5) <<"|" << "Steel , Leather" <<endl;
     cout <<setw(20)<< left<<"Shortsword"<<setw(5) <<"|" << "Steel, Leather" <<endl;
     cout <<setw(20)<< left<<"Longsword"<<setw(5) <<"|" << "Steel , Leather" <<endl;
     cout <<setw(20)<< left<<"Light Armor"<<setw(5) <<"|" << "Leather , Buckles" <<endl;

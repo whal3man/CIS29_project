@@ -89,11 +89,11 @@ namespace utility
 int main()
 {
 
-    const bool DEBUG = true;
+    const bool DEBUG = false;
     const bool moveEnemies = true;
 
     // Map generation settings
-    int rows = 5, cols = 5, floors = 3;
+    int rows = 6, cols = 6, floors = 3;
     int startingX = 0, startingY = 0, startingZ = floors-1;
     double monsterSpawnRate = .15;
     double chestSpawnRate = .20;

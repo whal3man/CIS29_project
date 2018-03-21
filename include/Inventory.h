@@ -40,6 +40,7 @@ public:
 
     bool contains(const Item& obj);
     bool contains(const string& name);
+    int count(const Item& item);
 
     void craft(const std::string& itemName);
     string getCraftingChoice();

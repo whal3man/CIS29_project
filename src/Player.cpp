@@ -1,6 +1,8 @@
 #include "../include/Player.h"
 #include "../include/Commands.h"
 #include <iostream>
+#include <algorithm>
+#include <vector>
 
 void Player::runCharacterCreation(const bool DEBUG)
 {
@@ -86,17 +88,33 @@ void Player::runCharacterCreation(const bool DEBUG)
 
 void Player::displayInventory()
 {
+    std::vector<Item> displayOnce;
     for(int i = 0; i < inventory.getNumItems(); i++)
     {
-        cout << "\t" << i+1 << ". " << inventory[i] << endl;
+        Item currentItem = inventory[i];
+        int numSame = inventory.count(currentItem);
+        if(numSame == 1)
+        {
+            std::cout << "\t" << i+1 << ". " << inventory[i] << std::endl;
+        }
+        else if(std::find(displayOnce.begin(), displayOnce.end(), currentItem) == displayOnce.end())
+        {
+            displayOnce.push_back(currentItem);
+            std::cout << "\t" << i+1 << ". " << inventory[i] << " (x" << numSame << ")" << std::endl;
+        }
     }
 }
 
 void Player::fillInventory()//to be used for demonstration to show that crafting works , will fill inventory with crafting reagents, call it with "fillInventory"
 {
-    addToInventory(Item("Blood Pack"));
-    addToInventory(Item("Steel"));
-    addToInventory(Item("Leather"));
+    for(int i = 0; i < 3; i++)
+   {
+       addToInventory(Item("Blood Pack"));
+       addToInventory(Item("Steel"));
+       addToInventory(Item("Leather"));
+       addToInventory(Item("Claw"));
+       addToInventory(Item("Buckles"));
+   }
     addToInventory(Item("Mini Nuke"));
     addToInventory(Item("Heavy Armor"));
     addToInventory(Item("Stimpak"));

@@ -97,6 +97,18 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     {
         itemType = "MATERIAL";
     }
+    else if(itemName == "Stick")
+    {
+        itemType = "MATERIAL";
+    }
+    else if(itemName == "Buckles")
+    {
+        itemType = "MATERIAL";
+    }
+    else if(itemName == "Claw")
+    {
+        itemType = "MATERIAL";
+    }
     else if(itemName == defaultWeaponName)
     {
         itemType = "MELEE WEAPON";

@@ -203,12 +203,12 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
         }
     }
 
-//    gameMap[playerX][playerY][playerZ].playerIn();
 }
 
 void Map::print()
 {
     int spacesBetweenTiles = 5;
+    int spacesBeforeMap = 25;
 
     for(int y = 0; y < numRows(); y++)
     {
@@ -243,9 +243,9 @@ void Map::print()
     }
     for(int i = 0; i < numCols()-2; i++)
     {
-        std::cout << std::setw(spacesBetweenTiles) << "   ";
+        std::cout << std::setw(spacesBetweenTiles) << " ";
     }
-    std::cout << " Floor: " << currentFloor+1 << std::endl;
+    std::cout << "Floor: " << currentFloor+1 << std::endl;
 }
 
 void Map::updatePlayerLoc(int x, int y, int z)
