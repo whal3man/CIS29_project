@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Character.h"
+#include "COIN.h"
 #include <string>
 using namespace std;
 
@@ -21,12 +22,20 @@ class Player : public Character
 
         bool wonGame() { return (z < 0); }
         bool lostGame() { return !alive; }
-
+        
+        int getCap() const { return personal.getValue(); }
+	    void setCap(int number) { personal.setValue(number); }
+        
         friend std::ostream& operator<<(ostream& os, const Player& c)
         {
-            os << c.name << ", HP = " << c.hp << ", Caps: " << c.inventory.getCaps() << ", Age = " << c.age << ", Enemies Killed = " << c.enemiesKilled;
+            os << c.name << ", HP = " << c.hp << ", Caps: " << c.inventory.getCaps() << ", Age = " << c.age << ", Enemies Killed = " << c.enemiesKilled
+            << "\n You have " << c.getCap() << " caps right now!";
+            
             return os;
         }
+        
+    private:
+    Cap personal;
 };
 
 #endif // PLAYER_H
