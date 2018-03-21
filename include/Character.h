@@ -3,6 +3,7 @@
 
 #include "../include/Inventory.h"
 #include "../include/Item.h"
+#include "../include/COIN.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -123,7 +124,8 @@ public:
     int enemiesKilled;
 
     bool shouldOutput;
-private:
+protected:
+	Cap coins;
 
 };
 
