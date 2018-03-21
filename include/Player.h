@@ -24,7 +24,7 @@ class Player : public Character
 
         friend std::ostream& operator<<(ostream& os, const Player& c)
         {
-            os << c.name << ", HP = " << c.hp << ", Caps: " << c.inventory.getCaps() << ", Age = " << c.age << ", Enemies Killed = " << c.enemiesKilled;
+            os << c.name << ", HP = " << c.hp << ", Caps: " << c.inventory.getCaps() << ", Age = " << c.age << ", Enemies Killed = " << c.enemiesKilled << "\nMoney: " << c.inventory.caps;
             return os;
         }
 };
