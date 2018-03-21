@@ -391,6 +391,9 @@ void Map::checkEnemyDeaths()
 
                     if(!enemy.isAlive())
                     {
+                        Boogeyman.goodbye();
+						cout << enemy.name << " died.\n";
+						system(pauseCommand.c_str());
                         Inventory loot = enemy.getLoot();
                         currentTile.enemyOut(enemy);
                         for(int k = 0; k < loot.size(); k++)
@@ -416,6 +419,7 @@ void Map::checkEnemyAttacks(Player& player)
             if(enemy.isAlive())
             {
                 int damageDone = enemy.attack(player);
+                Boogeyman.hello();
                 cout << "\nWas dealt " << damageDone << " damage from " << enemy.name << endl;
                 system(pauseCommand.c_str());
             }
@@ -461,6 +465,7 @@ void Map::displayEnemiesInPlayerTile()
     for(int i = 0; i < t.enemies.size(); i++)
     {
         cout << "\t" << i+1 << ". " << t.enemies[i] << endl;
+        Boogeyman.enemy_greeting(t.enemies[i]);
     }
 }
 
