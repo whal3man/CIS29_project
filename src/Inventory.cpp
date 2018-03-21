@@ -1,11 +1,8 @@
 #include "../include/Inventory.h"
 #include "../include/Commands.h"
 #include <algorithm>
-#include <iostream>
-#include <string>
 #include <iomanip>
 #include <cstdlib>
-using namespace std;
 
 void Inventory::remove(const Item& obj)
 {
