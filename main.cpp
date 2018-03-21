@@ -89,17 +89,18 @@ namespace utility
 int main()
 {
 
-    const bool DEBUG = false;
+    const bool DEBUG = true;
     const bool moveEnemies = true;
 
     // Map generation settings
     int rows = 5, cols = 5, floors = 3;
     int startingX = 0, startingY = 0, startingZ = floors-1;
-    double monsterSpawnRate = .20;
+    double monsterSpawnRate = .15;
     double chestSpawnRate = .20;
     bool playAgain = true;
-    while(playAgain = true)
+    while(playAgain)
     {
+        system(clsCommand.c_str());
         Player pchar(startingX, startingY, startingZ);
         pchar.runCharacterCreation(DEBUG);
         Map gameMap(rows, cols, floors, startingX, startingY, startingZ, monsterSpawnRate, chestSpawnRate);
@@ -292,20 +293,22 @@ int main()
                 }
                 else inputWasValid = false;
 
-
-                gameMap.checkEnemyDeaths();
-
-                gameMap.updatePlayerLoc(pchar.getX(), pchar.getY(), pchar.getZ());
-
-                if(justMoved && !justMovedUp)
+                if(!pchar.wonGame() && !pchar.lostGame())
                 {
-                    gameMap.checkMine(pchar);
-                    gameMap.checkMinesweeperNumbers();
+                    gameMap.checkEnemyDeaths();
+
+                    gameMap.updatePlayerLoc(pchar.getX(), pchar.getY(), pchar.getZ());
+
+                    if(justMoved && !justMovedUp)
+                    {
+                        gameMap.checkMine(pchar);
+                        gameMap.checkMinesweeperNumbers();
+                    }
+
+                    if(moveEnemies && inputWasValid) gameMap.updateEnemyLocs();
+
+                    if(!justMoved && inputWasValid) gameMap.checkEnemyAttacks(pchar);
                 }
-
-                if(moveEnemies && inputWasValid) gameMap.updateEnemyLocs();
-
-                if(!justMoved && inputWasValid) gameMap.checkEnemyAttacks(pchar);
 
             }
             catch(BadInputException e)
@@ -333,7 +336,7 @@ int main()
             cout << "Would you like to play again? (y/n)\n";
             cin >> input;
             input = utility::clean(input);
-            cout << "Error: invalid input.\n";
+            if(input != "y" && input != "n") cout << "Error: invalid input.\n";
         }
         if(input == "y")
         {
@@ -342,6 +345,7 @@ int main()
         else if(input == "n")
         {
             playAgain = false;
+            cout << "Thanks for playing!\n";
         }
     }
 

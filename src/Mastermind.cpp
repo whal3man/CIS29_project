@@ -47,10 +47,13 @@ bool Mastermind::playGame()
         printBoard();
         std::cout << "\nYou have " << rows - currRound << " guesses remaining." << std::endl;
         input = getInput();
+        if(input == "mmbk" || input == mastercode)        {
+            isCracked = true;
+            break;
+        }
         if(stoi(input) < 0) break;
         board[currRound] = input;
 
-        if(input == "mmbk" || input == mastercode) isCracked = true;
         currRound++;
     }
     printBoard();
@@ -89,13 +92,10 @@ std::string Mastermind::getInput()
     std::string input;
     std::cout << "Enter a code. ";
     std::cin >> input;
-    if(stoi(input) >= 0)
+    while(!isValidMastermindCode(input))
     {
-        while(!isValidMastermindCode(input))
-        {
-            std::cout << "That's not a valid input. Enter a new code. " << std::endl;
-            std::cin >> input;
-        }
+        std::cout << "That's not a valid input. Enter a new code. " << std::endl;
+        std::cin >> input;
     }
     return input;
 }
@@ -106,7 +106,7 @@ bool Mastermind::isValidMastermindCode(std::string input)
     if(input ==  "mmbk") return true; //backdoor solution
     for(int i = 0; i < input.size(); i++)
     {
-        if(!isdigit(input[i])) return false;
+        if(!isdigit(input[i]) && input[i] != '-') return false;
     }
     return true;
 }

@@ -13,9 +13,9 @@ fiveAddtimes(Item obj, Inventory & store)
 Filling 5 spots of merchant's inventory for each item
 For initial populasation of store at beginning of game
 &&&&&&&&&&&&&&&&&====================================*/
-Inventory fiveAddTimes(Item obj, Inventory store)
+Inventory addTimes(const Item obj, Inventory& store, int numItems)
 {
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < numItems; i++) {
 	store.add(obj);
 	}
 
@@ -37,19 +37,19 @@ Inventory Merchant::makeInventory()
 
 	item = Item("Stimpak");
 
-	store = fiveAddTimes(item, store);
+	store = addTimes(item, store, 3);
 
 	item = Item("Apple");
 
-	store =  fiveAddTimes(item, store);
+	store =  addTimes(item, store, 3);
 
 	item = Item("DeathClaw Gauntlet");
 
-	store = fiveAddTimes(item, store);
+	store = addTimes(item, store, 3);
 
 	item = Item("Longsword");
 
-	store = fiveAddTimes(item, store);
+	store = addTimes(item, store, 3);
 
 	return store;
 }
@@ -125,7 +125,7 @@ Transaction management (main fntn of Merchant class)
 Comprised of various functions, private and public.
 Returns a vector of Items that user 'bought'
 ===================++++++++++++++++===============*/
-Character Merchant::purchase(Character play, Inventory store_lit)
+Character Merchant::purchase(Character play)
 {
 	char yesOrNo();
 
@@ -188,13 +188,13 @@ Character Merchant::purchase(Character play, Inventory store_lit)
 						end = 1;
 						if (choice == 'y')
 						{
-							if (store_lit.contains(temp))
+							if (store.contains(temp))
 							{
 							    if(play.inventory.getCaps() >= temp.itemValue)
 								{
 								    play.inventory.subCaps(temp.itemValue);
 								    play.addToInventory(temp);
-                                    store_lit.remove(temp);
+                                    store.remove(temp);
                                     cout << "This item " << temp.getItemName() << " is in the shopping cart now!\n";
                                     count++;
 								}
@@ -242,6 +242,5 @@ Overall function for main function
 */
 void Merchant::runTheMerch(Character & play)
 {
-	store = makeInventory();
-	play = purchase(play, store);
+	play = purchase(play);
 }

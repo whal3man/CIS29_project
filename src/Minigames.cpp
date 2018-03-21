@@ -31,10 +31,12 @@ bool guessingGame(int low, int high)
         printNumGuesses();
         cin >> guessStr;
 
+
+        guess = guessStr[0];
+        if(guess - 48 < 0)
+            break;
         if(guessStr.size() == 1)
         {
-            guess = guessStr[0];
-            if(guess - 48 < 0) break;
             if(isdigit(guess))
             {
                 if(guess - 48 == numToGuess)
@@ -49,9 +51,11 @@ bool guessingGame(int low, int high)
                     numGuesses--;
                 }
             }
-            else cout << "Error: invalid input. Please input a single number.\n";
+            else
+                cout << "Error: invalid input. Please input a single number.\n";
         }
-        else cout << "Error: invalid input. Please input a single number.\n";
+        else
+            cout << "Error: invalid input. Please input a single number.\n";
     }
     cout << "You didn't guess the password: " << numToGuess << ". Better luck next time!\n";
     system(pauseCommand.c_str());

@@ -51,7 +51,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
 
             if(x == playerX && y == playerY && z == playerZ)
                 t.playerIn();
-            else if(x == elevatorX && y == elevatorY)
+            if(x == elevatorX && y == elevatorY)
                 t.makeElevator();
             else
             {
