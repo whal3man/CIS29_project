@@ -12,13 +12,11 @@ const std::string defaultArmorName = "Pants";
 // Possible types: WEAPON, RECOVERY, ARMOR, MATERIAL, MISC
 // Stats:
 // Weapons: ammoCount, baseDamage
-Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sellValue_, int buyValue_)
+Item::Item(std::string itemName_, std::string itemType_, int itemValue_)
 {
 	itemName = itemName_;
 	itemType = itemType_;
 	itemValue = itemValue_;
-	sellValue = sellValue_;
-	buyValue = buyValue_;
 
 	damage = 0;
 	hpRestore = 0;
@@ -29,17 +27,27 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
         itemType = "RANGED WEAPON";
         ammoCount = 20;
         damage = 30;
+	itemValue = 100;
     }
     else if(itemName == "Mini Nuke")
     {
         itemType = "RANGED WEAPON";
         ammoCount = 5;
         damage = 100;
+	itemValue = 200;
+    }
+    else if (itemName == "Molotov Bomb")
+    {
+	itemType = "RANGED WEAPON";
+	ammoCount = 10;
+	damage = 25;
+	itemValue = 20;
     }
     else if(itemName == "Large Club")
     {
         itemType = "MELEE WEAPON";
         damage = 20;
+	itemValue = 20;
     }
     else if(itemName == "DeathClaw Gauntlet")
     {
@@ -51,23 +59,32 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     {
         itemType = "MELEE WEAPON";
         damage = 35;
+	itemValue = 55;
     }
     else if(itemName == "Longsword")
     {
         itemType = "MELEE WEAPON";
         damage = 55;
-        itemValue = 40;
+        itemValue = 70;
     }
     else if(itemName == "Light Armor")
     {
         itemType = "ARMOR";
         damageResistance = 30;
+	    itemValue = 50;
     }
     else if(itemName == "Heavy Armor")
     {
         itemType = "ARMOR";
         damageResistance = 40;
+	    itemValue = 100;
     }
+	else if (itemName == "Potion")
+		{
+			itemType = "RECOVERY";
+			hpRestore = 20;
+			itemValue = 15;
+		}
     else if(itemName == "Stimpak")
     {
         itemType = "RECOVERY";
@@ -92,10 +109,12 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     else if(itemName == "Steel")
     {
         itemType = "MATERIAL";
+	    itemValue = 50;
     }
     else if(itemName == "Leather")
     {
         itemType = "MATERIAL";
+	    itemValue = 50;
     }
     else if(itemName == "Stick")
     {
@@ -105,10 +124,26 @@ Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sel
     {
         itemType = "MATERIAL";
     }
-    else if(itemName == "Claw")
+    else if (itemName == "GasContainer")
     {
-        itemType = "MATERIAL";
+	itemType = "MATERIAL";
+	itemValue = 20;
     }
+    else if (itemName == "Claw")
+    {
+	itemType = "MATERIAL";
+	itemValue = 10;
+    }
+    else if (itemName == "Ruby")
+    {
+	itemType = "MATERIAL";
+	itemValue = 100;
+    }
+    else if (itemName == "Wizard Gem")
+	{
+		itemType = "MATERIAL";
+		itemValue = 100;
+	}
     else if(itemName == defaultWeaponName)
     {
         itemType = "MELEE WEAPON";
