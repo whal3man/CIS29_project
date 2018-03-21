@@ -391,6 +391,9 @@ void Map::checkEnemyDeaths()
 
                     if(!enemy.isAlive())
                     {
+                        Boogeyman.goodbye();
+						cout << enemy.name << " died.\n";
+						system(pauseCommand.c_str());
                         Inventory loot = enemy.getLoot();
                         currentTile.enemyOut(enemy);
                         for(int k = 0; k < loot.size(); k++)
@@ -461,6 +464,7 @@ void Map::displayEnemiesInPlayerTile()
     for(int i = 0; i < t.enemies.size(); i++)
     {
         cout << "\t" << i+1 << ". " << t.enemies[i] << endl;
+        MonsterDialogue.enemy_greeting(t.enemies[i]);
     }
 }
 
