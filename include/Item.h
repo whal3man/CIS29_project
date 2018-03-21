@@ -12,7 +12,7 @@ public:
     static const std::vector<Item> possibleWeapons;
 
     Item() {}
-	Item(std::string itemName_, std::string itemType_ = "MISC", int itemValue = 10, int sellValue = 10, int buyValue = 10);
+	Item(std::string itemName_, std::string itemType_ = "MISC", int itemValue = 10);
 	~Item();
 
 	// General Item Functions
@@ -20,16 +20,8 @@ public:
 		{ return itemName; }
 	std::string getItemType() const
 		{ return itemType; }
-    int getItemValue() const
-        { return itemValue; }
-	int getSellValue() const
-		{ return sellValue; }
-	int getBuyValue() const
-		{ return buyValue; }
-	void setBuyValue(int number)
-		{ buyValue = number; }
-	void setSellValue(int number)
-		{ sellValue = number; }
+    	int getItemValue() const
+        	{ return itemValue; }
 	void setItemName(std::string name)
 		{ itemName = name; }
 	void setItemType(std::string type)
@@ -75,10 +67,8 @@ public:
         }
 
 	std::string itemName;
-    int itemValue;
-    std::string itemType;
-	int sellValue;
-	int buyValue;
+    	int itemValue;
+    	std::string itemType;
 
 	// For Weapons
 	int ammoCount;
