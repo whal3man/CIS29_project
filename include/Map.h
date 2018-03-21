@@ -4,6 +4,8 @@
 #include "Tile.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Merchant.h"
+#include "Monstar.h"
 #include "Player.h"
 #include "RandNumber.h"
 #include <vector>
@@ -42,6 +44,7 @@ class Map
     protected:
 
     private:
+        Monstar Boogeyman;
         tile3dVec gameMap;
         double monsterSpawnRate;
         double chestSpawnRate;
