@@ -56,7 +56,7 @@ string clean(const string& s)
     {
         if (isalpha(s[start]))
         {
-            for (int end = s.length()-1; end >= start; end--)
+            for (unsigned int end = s.length()-1; end >= start; end--)
             {
                 if (isalpha(s[end]))
                 {
