@@ -4,8 +4,6 @@
 #include "Tile.h"
 #include "Enemy.h"
 #include "Item.h"
-#include "Merchant.h"
-#include "MonsterDialogue.h"
 #include "Player.h"
 #include "RandNumber.h"
 #include <vector>
@@ -44,7 +42,6 @@ class Map
     protected:
 
     private:
-        MonsterDialogue monsterDialogue;
         tile3dVec gameMap;
         double monsterSpawnRate;
         double chestSpawnRate;
