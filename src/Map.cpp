@@ -428,7 +428,7 @@ void Map::checkMine(Player& player)
     if(playerTile().isMine() && !playerTile().isRevealed())
     {
         playerTile().makeRevealed();
-        cout << "\nYou step on a trap and take " << player.takeDamage(10) << " damage." << endl;
+        cout << "\nYou step on a trap and take " << player.takeDamage(10, true) << " damage." << endl;
         system(pauseCommand.c_str());
     }
 }

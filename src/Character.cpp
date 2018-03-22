@@ -226,9 +226,10 @@ void Character::unequip(int choice)
     }
 }
 
-int Character::takeDamage(int attack)
+int Character::takeDamage(int dam, bool ignoreArmor)
 {
-    int damageCount = attack - equippedArmor.damageResistance;
+    int damageCount = dam;
+    if(!ignoreArmor) damageCount -= equippedArmor.damageResistance;
     if(damageCount < 0)
     {
         damageCount = 0;
