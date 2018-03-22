@@ -26,7 +26,7 @@ Character::Character(int startingX, int startingY, int startingZ)
 
 void Character::use(string name)
 {
-    for(int i = 0; i < inventory.items.size(); i++)
+    for(unsigned int i = 0; i < inventory.items.size(); i++)
     {
         if(inventory.items[i].itemName == name)
         {

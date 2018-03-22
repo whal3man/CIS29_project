@@ -22,7 +22,7 @@ Mastermind::Mastermind(int code_) : rows(10)
     board = new string[rows];
 }
 
-Mastermind::Mastermind(string code_) : mastercode(code_), rows(10)
+Mastermind::Mastermind(string code_) : rows(10), mastercode(code_)
 {
     board = new string[rows];
 }
@@ -109,7 +109,7 @@ bool Mastermind::isValidMastermindCode(string input)
         return false;
     if(input ==  "mmbk")
         return true; //backdoor solution
-    for(int i = 0; i < input.size(); i++)
+    for(unsigned int i = 0; i < input.size(); i++)
     {
         if(!isdigit(input[i]) && input[i] != '-')
             return false;
@@ -126,7 +126,7 @@ string Mastermind::checkCode(string code)
 
 
 
-    for(int i = 0; i < mastercode.size(); i++)
+    for(unsigned int i = 0; i < mastercode.size(); i++)
     {
         bool isSearching = true;;
         size_t position = code.find(mastercode[i]);

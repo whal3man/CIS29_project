@@ -209,7 +209,6 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
 void Map::print()
 {
     int spacesBetweenTiles = 5;
-    int spacesBeforeMap = 25;
 
     for(int y = 0; y < numRows(); y++)
     {
@@ -459,7 +458,7 @@ Tile& Map::playerTile()
 void Map::displayEnemiesInPlayerTile()
 {
     Tile t = playerTile();
-    for(int i = 0; i < t.enemies.size(); i++)
+    for(unsigned int i = 0; i < t.enemies.size(); i++)
     {
         cout << "\t" << i+1 << ". " << t.enemies[i] << endl;
     }
@@ -474,7 +473,7 @@ void Map::displayItemsInPlayerTile()
     }
     else
     {
-        for(int i = 0; i < t.items.size(); i++)
+        for(unsigned int i = 0; i < t.items.size(); i++)
         {
             cout << "\t" << i+1 << ". " << t.items[i] << endl;
         }

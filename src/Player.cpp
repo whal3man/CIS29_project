@@ -23,7 +23,7 @@ void Player::runCharacterCreation(const bool DEBUG)
             goodAge = true;
             cout << "How old am I?\n";
             cin >> input;
-            for(int i = 0; i < input.size(); i++)
+            for(unsigned int i = 0; i < input.size(); i++)
             {
                 if(!isdigit(input[i]))
                     goodAge = false;
@@ -40,7 +40,7 @@ void Player::runCharacterCreation(const bool DEBUG)
         while(pointsLeft > 0)
         {
             cin >> input;
-            for(int i = 0; i < input.size(); i++)
+            for(unsigned int i = 0; i < input.size(); i++)
             {
                 input[i] = tolower(input[i]);
             }

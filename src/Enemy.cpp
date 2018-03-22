@@ -31,10 +31,10 @@ Enemy::Enemy(int X, int Y, int Z, int BX, int BY, string N, int HP,  vector <Ite
     // Add loot to inventory
     bool equippedWeapon = false;
     bool equippedArmor = false;
-    for(int i = 0; i < LOOT.size(); i++)
+    for(unsigned int i = 0; i < LOOT.size(); i++)
     {
         inventory.add(LOOT[i]);
-        if(!equippedWeapon && LOOT[i].itemType == "MELEE WEAPON" || LOOT[i].itemType == "RANGED WEAPON")
+        if(!equippedWeapon && (LOOT[i].itemType == "MELEE WEAPON" || LOOT[i].itemType == "RANGED WEAPON"))
         {
             equip(i);
             equippedWeapon = true;
