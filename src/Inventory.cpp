@@ -185,7 +185,9 @@ string Inventory::getCraftingChoice()
     cout <<setw(20)<< left<<"Heavy Armor"<<setw(5) <<"|" << "Steel , Buckles" <<endl;
 
     cout << "\nWhat would you like to craft? (Type e to exit) \n" <<endl;
-    cin >> option;
+    cin.ignore();
+    getline(cin, option);
+    system(pauseCommand.c_str());
 
     return option;
 }
