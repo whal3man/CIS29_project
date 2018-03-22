@@ -16,8 +16,18 @@ void Player::runCharacterCreation(const bool DEBUG)
         std::cout << "Who am I?\n";
         std::cin >> input;
         setName(input);
-        std::cout << "How old am I?\n";
-        std::cin >> input;
+        bool goodAge = false;
+        while(!goodAge)
+        {
+            goodAge = true;
+            std::cout << "How old am I?\n";
+            std::cin >> input;
+            for(int i = 0; i < input.size(); i++)
+            {
+                if(!isdigit(input[i])) goodAge = false;
+            }
+            if(!goodAge) std::cout << "Error: invalid age\n";
+        }
         setAge(stoi(input));
         std::cout << "What am I skilled in?\n";
         std::cout << "In strength, perception, endurance, charisma, intelligence, agility, luck?\n";
