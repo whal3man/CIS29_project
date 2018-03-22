@@ -31,6 +31,8 @@ public:
         return !alive;
     }
 
+    void printSPECIAL();
+
     friend ostream& operator<<(ostream& os, const Player& c)
     {
         os << c.name << ", HP = " << c.hp << ", Caps: " << c.inventory.getCaps() << ", Age = " << c.age << ", Enemies Killed = " << c.enemiesKilled;

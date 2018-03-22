@@ -149,3 +149,8 @@ bool Player::use(int idx)
     else
         return false;
 }
+
+void Player::printSPECIAL()
+{
+    cout << "\tS: " << getStrength() << " P: " << getPerception() << " E: " << getEndurance() << " C: " << getCharisma() << " I: " << getIntelligence() << " A: " << getAgility() << " L: " << getLuck() << endl;
+}

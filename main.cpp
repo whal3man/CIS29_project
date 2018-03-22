@@ -103,11 +103,11 @@ bool validateNumberInput(const string& input) throw(BadInputException)
 int main()
 {
 
-    const bool DEBUG = true;
+    const bool DEBUG = false;
     const bool moveEnemies = true;
 
     // Map generation settings
-    int rows = 6, cols = 6, floors = 3;
+    int rows = 5, cols = 5, floors = 5;
     int startingX = 0, startingY = 0, startingZ = floors-1;
     double monsterSpawnRate = .15;
     double chestSpawnRate = .20;
@@ -391,13 +391,14 @@ int main()
         if(pchar.wonGame())
         {
             cout << "~~~~~~~~ You win! Great job! Thanks for playing. ~~~~~~~~ \nStats: ";
-            cout << pchar << endl;
+
         }
         else if(pchar.lostGame())
         {
             cout << "~~~~~~~~ You lost! Good try! Thanks for playing. ~~~~~~~~ \nStats: ";
-            cout << pchar << endl;
         }
+        cout << pchar << endl;
+        pchar.printSPECIAL();
 
         input = "";
         while(input != "y" && input != "n")
