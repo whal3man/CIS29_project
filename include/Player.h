@@ -11,7 +11,7 @@ class Player : public Character
         Player() = default;
         Player(int startingX = 0, int startingY = 0, int startingZ = 9) : Character(startingX, startingY, startingZ) { shouldOutput = true; }
 
-        void runCharacterCreation(const bool DEBUG);
+        void runCharacterCreation(const bool DEBUG) override;
 
         void displayInventory();
 
