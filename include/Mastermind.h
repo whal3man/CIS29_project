@@ -7,8 +7,8 @@ using namespace std;
 class Mastermind
 {
 private:
-    string mastercode;
     int rows;
+    string mastercode;
     string* board;
 
     void printBoard();
