@@ -274,6 +274,28 @@ int Character::attack(Character& e, bool kill)
         damageModifier=(perception*4)+luck;
     }
     int dam = e.takeDamageFrom(equippedWeapon, kill, damageModifier);
+
+    if (name == "Grognak The Destroyer")
+		cout << name + ": \"Grogogo I am going to destroy you!\"\n";
+	else if (name == "Deathclaw")
+		cout << name + ": \"Ain't no ravenclaw. This ain't Harry Potter no mo\"\n";
+	else if (name == "Radscorpion")
+		cout << name + ": \"Wesley Snipes ain't got nothing on me sucka!\"\n";
+	else if (name == "Raider Clasher")
+		cout << name + ": \"I am part of Raider Nation!\"\n";
+	else if (name == "Ghoul")
+		cout << name + ": \"I am part of the ghoulish Army that will stop you!\"\n";
+	else if (name == "Rabid Dog")
+		cout << name + ": \"Grr I will bite your face off!\"\n";
+	else if (name == "Super Mutant")
+		cout << name + ": \"X-MEN once hit me up, but Wolverine was not down...\"\n";
+	else if (name == "Yao Guai")
+		cout << name + ": \"This ain't no ying and yang in this game!\"\n";
+	else if (name == "Assaultron")
+		cout << name + ": \"Transformers, robots in disguise...oh wait wrong series\"\n";
+	else if (name == "Mobile Turret")
+		cout << name + ": \"Rattatatat!\"\n";
+
     if(shouldOutput) cout << "Dealt " << dam << " damage to " << e.name << endl;
     if(!e.isAlive())
     {
