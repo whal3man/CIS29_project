@@ -46,7 +46,7 @@ public:
     void setAgility(int agility);
     void setLuck(int luck);
 
-    void runCharacterCreation(const bool DEBUG);
+    virtual void runCharacterCreation(const bool DEBUG) {};
 
     void use(string itemName);
 
