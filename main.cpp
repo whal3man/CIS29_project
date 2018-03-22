@@ -52,7 +52,7 @@ void displayHelp() noexcept
 string clean(const string& s)
 {
     string r = "";
-    for (int start = 0; start < s.length(); start++)
+    for (unsigned int start = 0; start < s.length(); start++)
     {
         if (isalpha(s[start]))
         {
@@ -68,7 +68,7 @@ string clean(const string& s)
         }
     }
 
-    for(int i = 0; i < r.size(); i++)
+    for(unsigned int i = 0; i < r.size(); i++)
     {
         r[i] = tolower(r[i]);
     }
@@ -89,7 +89,7 @@ string getInput() throw(BadInputException)
 
 bool validateNumberInput(const string& input) throw(BadInputException)
 {
-    for(int i = 0; i < input.size(); i++)
+    for(unsigned int i = 0; i < input.size(); i++)
     {
         if(!isdigit(input[i]))
         {
@@ -341,7 +341,7 @@ int main()
                     if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
                     {
                         Enemy& enemy = gameMap.playerTile().getEnemy(idx);
-                        int damageDone = pchar.attack(enemy, true);
+                        pchar.attack(enemy, true);
                     }
                 }
                 else if (input == "givecaps")
