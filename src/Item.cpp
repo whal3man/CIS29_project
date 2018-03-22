@@ -12,13 +12,11 @@ const std::string defaultArmorName = "Pants";
 // Possible types: WEAPON, RECOVERY, ARMOR, MATERIAL, MISC
 // Stats:
 // Weapons: ammoCount, baseDamage
-Item::Item(std::string itemName_, std::string itemType_, int itemValue_, int sellValue_, int buyValue_)
+Item::Item(std::string itemName_, std::string itemType_, int itemValue_)
 {
 	itemName = itemName_;
 	itemType = itemType_;
 	itemValue = itemValue_;
-	sellValue = sellValue_;
-	buyValue = buyValue_;
 
 	damage = 0;
 	hpRestore = 0;
