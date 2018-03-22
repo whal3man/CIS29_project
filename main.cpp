@@ -17,79 +17,93 @@ using namespace std;
 
 namespace utility
 {
-    vector<string> validCommands = {"w", "a", "s", "d", "up", "down", "left", "right", "v", "elevator", "upe", "b", "buy", "p", "pick", "pick up", "l", "unlock", "lockpick", "e", "equip", "u", "unequip", "u", "use", "f", "fight", "attack", "c", "craft", "q", "help", "x", "exit", "wait", "fill", "kill", "givecaps"};
+vector<string> validCommands = {"w", "a", "s", "d", "up", "down", "left", "right", "v", "elevator", "upe", "b", "buy", "p", "pick", "pick up", "l", "unlock", "lockpick", "e", "equip", "u", "n", "unequip", "u", "use", "f", "fight", "attack", "c", "craft", "q", "help", "x", "exit", "wait", "fill", "kill", "givecaps"};
 
-    void displayHelp() noexcept
+void displayHelp() noexcept
+{
+    system(clsCommand.c_str());
+    cout << "Tile codes: [P] = Player. [M] = Enemy.  [V] = Merchant. [C] = Chest. [I] = Item. [E] = Elevator. \nCommands:\n";
+    cout << "[w] north: move north\n";
+    cout << "[s] south: move south\n";
+    cout << "[a] west: move west\n";
+    cout << "[d] east: move east\n";
+    cout << "[v] elevator: use an elevator to travel up a floor\n";
+    cout << "[b] buy: buy from Merchant\n";
+    cout << "[p] pick: pick up an item\n";
+    cout << "[l] unlock: try to unlock a chest\n";
+    cout << "[e] equip: equip an item\n";
+    cout << "[n] unequip: unequip an item\n";
+    cout << "[u] use: attempt  to use an item\n";
+    cout << "[f] attack: attack an enemy\n";
+    cout << "[c] craft: open crafting menu\n";
+    cout << "[q] help: display the list of valid commands\n";
+    cout << "[x] quit: quit the game\n";
+    cout << "Cheat codes:\n";
+    cout << "fill: gives a bunch of goodies\n";
+    cout << "kill: kill an enemy\n";
+    cout << "givecaps: gives a bunch of caps\n";
+    cout << "wait: pass time\n";
+
+    system(pauseCommand.c_str());
+}
+
+// A function to strip non-alphabetic characters from the start and end of the string.
+// It will also convert all the remaining characters into lowercase.
+string clean(const string& s)
+{
+    string r = "";
+    for (int start = 0; start < s.length(); start++)
     {
-        system(clsCommand.c_str());
-        cout << "Tile codes: [P] = Player. [M] = Enemy.  [V] = Merchant. [C] = Chest. [I] = Item. [E] = Elevator. \nCommands:\n";
-        cout << "[w] north: move north\n";
-        cout << "[s] south: move south\n";
-        cout << "[a] west: move west\n";
-        cout << "[d] east: move east\n";
-        cout << "[v] elevator: use an elevator to travel up a floor\n";
-        cout << "[b] buy: buy from Merchant\n";
-        cout << "[p] pick: pick up an item\n";
-        cout << "[l] unlock: try to unlock a chest\n";
-        cout << "[e] equip: equip an item\n";
-        cout << "[n] unequip: unequip an item\n";
-        cout << "[u] use: attempt  to use an item\n";
-        cout << "[f] attack: attack an enemy\n";
-        cout << "[c] craft: open crafting menu\n";
-        cout << "[q] help: display the list of valid commands\n";
-        cout << "[x] quit: quit the game\n";
-        cout << "Cheat codes:\n";
-        cout << "fill: gives a bunch of goodies\n";
-        cout << "kill: kill an enemy\n";
-        cout << "givecaps: gives a bunch of caps\n";
-        cout << "wait: pass time\n";
-
-        system(pauseCommand.c_str());
-    }
-
-    // A function to strip non-alphabetic characters from the start and end of the string.
-    // It will also convert all the remaining characters into lowercase.
-    string clean(const string& s)
-    {
-        string r = "";
-        for (int start = 0; start < s.length(); start++)
+        if (isalpha(s[start]))
         {
-            if (isalpha(s[start]))
+            for (int end = s.length()-1; end >= start; end--)
             {
-                for (int end = s.length()-1; end >= start; end--)
+                if (isalpha(s[end]))
                 {
-                    if (isalpha(s[end]))
-                    {
-                        r = s.substr(start, end - start + 1);
-                        break;
-                    }
+                    r = s.substr(start, end - start + 1);
+                    break;
                 }
-                break;
             }
+            break;
         }
-
-        for(int i = 0; i < r.size(); i++)
-        {
-            r[i] = tolower(r[i]);
-        }
-
-        return r;
     }
 
-    string getInput() throw(BadInputException)
+    for(int i = 0; i < r.size(); i++)
     {
-        string input;
-        cin >> input;
-        input = utility::clean(input);
-        if(std::find(utility::validCommands.begin(), utility::validCommands.end(), input) == utility::validCommands.end()) throw(BadInputException(input));
-        else return input;
+        r[i] = tolower(r[i]);
     }
+
+    return r;
+}
+
+string getInput() throw(BadInputException)
+{
+    string input;
+    cin >> input;
+    input = utility::clean(input);
+    if(find(utility::validCommands.begin(), utility::validCommands.end(), input) == utility::validCommands.end())
+        throw(BadInputException("Error: " + input + " is an invalid input. Have you tried entering \"help\"?\n"));
+    else
+        return input;
+}
+
+bool validateNumberInput(const string& input) throw(BadInputException)
+{
+    for(int i = 0; i < input.size(); i++)
+    {
+        if(!isdigit(input[i]))
+        {
+            return false;
+        }
+    }
+    return true;
+}
 }
 
 int main()
 {
 
-    const bool DEBUG = false;
+    const bool DEBUG = true;
     const bool moveEnemies = true;
 
     // Map generation settings
@@ -139,7 +153,8 @@ int main()
             currentTile.displayTileInfo();
 
             cout << "\nPlease enter a command. (\"help\" or \"q\" for help)\n";
-            try {
+            try
+            {
                 input = utility::getInput();
                 bool justMoved = false;
                 bool justMovedUp = false;
@@ -176,20 +191,31 @@ int main()
                     if (rand < 5)
                     {
                         int low = 0, high = 9;
-                        if(guessingGame(low, high)) currentTile.unlockChest();
-                    } else
+                        if(guessingGame(low, high))
+                            currentTile.unlockChest();
+                    }
+                    else
                     {
                         rand = randInt(0, 9999);
                         Mastermind game = Mastermind(rand);
-                        if (game.playGame()) currentTile.unlockChest();
+                        if (game.playGame())
+                            currentTile.unlockChest();
                     }
 
                 }
                 else if((input == "pick up" || input == "pick" || input == "p") && currentTile.containsItem())
                 {
                     int itemNumber;
-                    cout << "Please enter the list number of the item to pick up (0 to cancel). ";
-                    cin >> itemNumber;
+                    while(!utility::validateNumberInput(input))
+                    {
+                        cout << "Please enter the list number of the item to pick up (0 to cancel). ";
+                        cin >> input;
+                        if(!utility::validateNumberInput(input))
+                        {
+                            cout << "Error: not a number\n";
+                        }
+                    }
+                    itemNumber = stoi(input);
                     int idx = itemNumber-1;
                     if(idx >= 0 && idx < gameMap.playerTile().getNumItems())
                     {
@@ -200,8 +226,16 @@ int main()
                 else if((input == "equip" || input == "e") && pchar.hasItemsInInventory())
                 {
                     int itemNumber;
-                    cout << "Please enter the list number of the item to equip (0 to cancel). ";
-                    cin >> itemNumber;
+                    while(!utility::validateNumberInput(input))
+                    {
+                        cout << "Please enter the list number of the item to equip (0 to cancel). ";
+                        cin >> input;
+                        if(!utility::validateNumberInput(input))
+                        {
+                            cout << "Error: not a number\n";
+                        }
+                    }
+                    itemNumber = stoi(input);
                     int idx = itemNumber-1;
                     if(idx >= 0 && idx < pchar.numItemsInInventory())
                     {
@@ -211,8 +245,16 @@ int main()
                 else if(input == "unequip" || input == "n")
                 {
                     int itemNumber;
-                    cout << "Please enter the list number of the item to unequip (0 to cancel). ";
-                    cin >> itemNumber;
+                    while(!utility::validateNumberInput(input))
+                    {
+                        cout << "Please enter the list number of the item to unequip (1 for weapon, 2 for armor, 0 to cancel). ";
+                        cin >> input;
+                        if(!utility::validateNumberInput(input))
+                        {
+                            cout << "Error: not a number\n";
+                        }
+                    }
+                    itemNumber = stoi(input);
                     int idx = itemNumber-1;
                     if(idx == 0 || idx == 1)
                     {
@@ -222,8 +264,16 @@ int main()
                 else if(input == "use" || input == "u")
                 {
                     int itemNumber;
-                    cout << "Please enter the list number of the item to use (0 to cancel). ";
-                    cin >> itemNumber;
+                    while(!utility::validateNumberInput(input))
+                    {
+                        cout << "Please enter the list number of the item to use (0 to cancel). ";
+                        cin >> input;
+                        if(!utility::validateNumberInput(input))
+                        {
+                            cout << "Error: not a number\n";
+                        }
+                    }
+                    itemNumber = stoi(input);
                     int idx = itemNumber-1;
                     if(idx >= 0 && idx < pchar.inventory.size())
                     {
@@ -234,19 +284,7 @@ int main()
                         }
                     }
                 }
-                else if((input == "attack" || input == "fight" || input == "f") && currentTile.containsEnemy())
-                {
-                    int enemyNumber;
-                    cout << "Please enter the list number of the enemy to attack (0 to cancel). ";
-                    cin >> enemyNumber;
-                    int idx = enemyNumber-1;
-                    if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
-                    {
-                        Enemy& enemy = gameMap.playerTile().getEnemy(idx);
-                        pchar.attack(enemy);
-                    }
-                }
-               else if ((input == "buy" || input == "b") && currentTile.containsMerchant())
+                else if ((input == "buy" || input == "b") && currentTile.containsMerchant())
                 {
                     currentTile.vendor.runTheMerch(pchar);
                 }
@@ -266,11 +304,39 @@ int main()
                 {
                     pchar.fillInventory();
                 }
+                else if((input == "attack" || input == "fight" || input == "f") && currentTile.containsEnemy())
+                {
+                    int enemyNumber;
+                    while(!utility::validateNumberInput(input))
+                    {
+                        cout << "Please enter the list number of the enemy to attack (0 to cancel). ";
+                        cin >> input;
+                        if(!utility::validateNumberInput(input))
+                        {
+                            cout << "Error: not a number\n";
+                        }
+                    }
+                    enemyNumber = stoi(input);
+                    int idx = enemyNumber-1;
+                    if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
+                    {
+                        Enemy& enemy = gameMap.playerTile().getEnemy(idx);
+                        pchar.attack(enemy);
+                    }
+                }
                 else if (input == "kill")
                 {
                     int enemyNumber;
-                    cout << "Please enter the list number of the enemy to kill (0 to cancel). ";
-                    cin >> enemyNumber;
+                    while(!utility::validateNumberInput(input))
+                    {
+                        cout << "Please enter the list number of the enemy to kill (0 to cancel). ";
+                        cin >> input;
+                        if(!utility::validateNumberInput(input))
+                        {
+                            cout << "Error: not a number\n";
+                        }
+                    }
+                    enemyNumber = stoi(input);
                     int idx = enemyNumber-1;
                     if(idx >= 0 && idx < gameMap.playerTile().getNumEnemies())
                     {
@@ -291,7 +357,8 @@ int main()
                     system(clsCommand.c_str());
                     cout << "Thanks for playing!";
                 }
-                else inputWasValid = false;
+                else
+                    inputWasValid = false;
 
                 if(!pchar.wonGame() && !pchar.lostGame())
                 {
@@ -305,9 +372,11 @@ int main()
                         gameMap.checkMinesweeperNumbers();
                     }
 
-                    if(moveEnemies && inputWasValid) gameMap.updateEnemyLocs();
+                    if(moveEnemies && inputWasValid)
+                        gameMap.updateEnemyLocs();
 
-                    if(!justMoved && inputWasValid) gameMap.checkEnemyAttacks(pchar);
+                    if(!justMoved && inputWasValid)
+                        gameMap.checkEnemyAttacks(pchar);
                 }
 
             }
@@ -336,7 +405,8 @@ int main()
             cout << "Would you like to play again? (y/n)\n";
             cin >> input;
             input = utility::clean(input);
-            if(input != "y" && input != "n") cout << "Error: invalid input.\n";
+            if(input != "y" && input != "n")
+                cout << "Error: invalid input.\n";
         }
         if(input == "y")
         {

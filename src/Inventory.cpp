@@ -16,7 +16,7 @@ void Inventory::remove(const Item& obj)
 }
 
 // Removes one instance of an item
-void Inventory::remove(const std::string& name)
+void Inventory::remove(const string& name)
 {
     int i = 0;
     for(auto item : items)
@@ -36,7 +36,8 @@ int Inventory::count(const Item& item)
     int c = 0;
     for(auto potential : items)
     {
-        if(potential == item) c++;
+        if(potential == item)
+            c++;
     }
     return c;
 }
@@ -49,7 +50,7 @@ bool Inventory::contains(const Item& obj)
     return false;
 }
 
-bool Inventory::contains(const std::string& name)
+bool Inventory::contains(const string& name)
 {
     for(auto item : items)
     {
@@ -59,7 +60,7 @@ bool Inventory::contains(const std::string& name)
     return false;
 }
 
-void Inventory::craft(const std::string& itemName)
+void Inventory::craft(const string& itemName)
 {
     if(itemName == "Stimpak")
     {
@@ -71,7 +72,7 @@ void Inventory::craft(const std::string& itemName)
         }
         else
         {
-            std::cout << "You do not have the items to craft a Stimpak.\n";
+            cout << "You do not have the items to craft a Stimpak.\n";
             system(pauseCommand.c_str());
         }
     }

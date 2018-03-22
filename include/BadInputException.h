@@ -2,16 +2,16 @@
 #define BADINPUTEXCEPTION_H
 
 #include <stdexcept>
-
+using namespace std;
 
 class BadInputException : public invalid_argument
 {
-    public:
-        BadInputException(string input) : invalid_argument(("Error: " + input + " is an invalid input. Have you tried entering \"help\"?\n").c_str()) {}
+public:
+    BadInputException(string msg) : invalid_argument(msg.c_str()) {}
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 #endif // BADINPUTEXCEPTION_H

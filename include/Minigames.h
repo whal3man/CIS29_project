@@ -6,6 +6,7 @@
 #include <thread>
 #include <cctype>
 #include "RandNumber.h"
+using namespace std;
 
 bool guessingGame(int low, int high);
 

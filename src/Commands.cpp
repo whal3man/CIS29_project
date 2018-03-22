@@ -1,13 +1,15 @@
 #include "../include/Commands.h"
+#include <string>
+using namespace std;
 
 #ifdef _WIN32
-std::string clsCommand = "cls";
+string clsCommand = "cls";
 #else
-std::string clsCommand = "clear";
+string clsCommand = "clear";
 #endif
 
 #ifdef _WIN32
-std::string pauseCommand = "pause";
+string pauseCommand = "pause";
 #else
-std::string pauseCommand = "read -n 1 -s -p \"Press any key to continue...\"; echo";
+string pauseCommand = "read -n 1 -s -p \"Press any key to continue...\"; echo";
 #endif

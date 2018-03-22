@@ -5,7 +5,6 @@
 #include <vector>
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 class Inventory
@@ -16,10 +15,22 @@ public:
     Inventory() : caps(0) {}
     ~Inventory() {}
 
-    int getCaps() const { return caps; }
-    void setCaps(int c) { caps = c; }
-    void addCaps(int c) { caps += c; }
-    void subCaps(int c) { caps -= c; }
+    int getCaps() const
+    {
+        return caps;
+    }
+    void setCaps(int c)
+    {
+        caps = c;
+    }
+    void addCaps(int c)
+    {
+        caps += c;
+    }
+    void subCaps(int c)
+    {
+        caps -= c;
+    }
 
     vector<Item> items;
     void add(Item obj)
@@ -42,7 +53,7 @@ public:
     bool contains(const string& name);
     int count(const Item& item);
 
-    void craft(const std::string& itemName);
+    void craft(const string& itemName);
     string getCraftingChoice();
 
     int size()

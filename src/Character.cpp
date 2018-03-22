@@ -1,6 +1,7 @@
 #include "../include/Character.h"
 #include "../include/Commands.h"
 #include <iostream>
+using namespace std;
 
 Character::Character(int startingX, int startingY, int startingZ)
 {
@@ -229,7 +230,8 @@ void Character::unequip(int choice)
 int Character::takeDamage(int dam, bool ignoreArmor)
 {
     int damageCount = dam;
-    if(!ignoreArmor) damageCount -= equippedArmor.damageResistance;
+    if(!ignoreArmor)
+        damageCount -= equippedArmor.damageResistance;
     if(damageCount < 0)
     {
         damageCount = 0;
@@ -253,8 +255,10 @@ int Character::takeDamageFrom(Item& i, bool kill, int damageModifier)
     {
         damageCount = 0;
     }
-    if(kill) damageCount = 999999;
-    if(!kill && i.itemType == "RANGED WEAPON") i.ammoCount--;
+    if(kill)
+        damageCount = 999999;
+    if(!kill && i.itemType == "RANGED WEAPON")
+        i.ammoCount--;
     hp -= damageCount;
     if(hp <= 0)
     {
@@ -268,40 +272,44 @@ int Character::takeDamageFrom(Item& i, bool kill, int damageModifier)
 int Character::attack(Character& e, bool kill)
 {
     int damageModifier;
-    if(equippedWeapon.getItemType()=="MELEE WEAPON"){
+    if(equippedWeapon.getItemType()=="MELEE WEAPON")
+    {
         damageModifier=(strength*2)+luck;
     }
-    if(equippedWeapon.getItemType()=="RANGED WEAPON"){
+    if(equippedWeapon.getItemType()=="RANGED WEAPON")
+    {
         damageModifier=(perception*4)+luck;
     }
     int dam = e.takeDamageFrom(equippedWeapon, kill, damageModifier);
 
     if (name == "Grognak The Destroyer")
-		cout << name + ": \"Grogogo I am going to destroy you!\"\n";
-	else if (name == "Deathclaw")
-		cout << name + ": \"Ain't no ravenclaw. This ain't Harry Potter no mo\"\n";
-	else if (name == "Radscorpion")
-		cout << name + ": \"Wesley Snipes ain't got nothing on me sucka!\"\n";
-	else if (name == "Raider Clasher")
-		cout << name + ": \"I am part of Raider Nation!\"\n";
-	else if (name == "Ghoul")
-		cout << name + ": \"I am part of the ghoulish Army that will stop you!\"\n";
-	else if (name == "Rabid Dog")
-		cout << name + ": \"Grr I will bite your face off!\"\n";
-	else if (name == "Super Mutant")
-		cout << name + ": \"X-MEN once hit me up, but Wolverine was not down...\"\n";
-	else if (name == "Yao Guai")
-		cout << name + ": \"This ain't no ying and yang in this game!\"\n";
-	else if (name == "Assaultron")
-		cout << name + ": \"Transformers, robots in disguise...oh wait wrong series\"\n";
-	else if (name == "Mobile Turret")
-		cout << name + ": \"Rattatatat!\"\n";
+        cout << name + ": \"Grogogo I am going to destroy you!\"\n";
+    else if (name == "Deathclaw")
+        cout << name + ": \"Ain't no ravenclaw. This ain't Harry Potter no mo\"\n";
+    else if (name == "Radscorpion")
+        cout << name + ": \"Wesley Snipes ain't got nothing on me sucka!\"\n";
+    else if (name == "Raider Clasher")
+        cout << name + ": \"I am part of Raider Nation!\"\n";
+    else if (name == "Ghoul")
+        cout << name + ": \"I am part of the ghoulish Army that will stop you!\"\n";
+    else if (name == "Rabid Dog")
+        cout << name + ": \"Grr I will bite your face off!\"\n";
+    else if (name == "Super Mutant")
+        cout << name + ": \"X-MEN once hit me up, but Wolverine was not down...\"\n";
+    else if (name == "Yao Guai")
+        cout << name + ": \"This ain't no ying and yang in this game!\"\n";
+    else if (name == "Assaultron")
+        cout << name + ": \"Transformers, robots in disguise...oh wait wrong series\"\n";
+    else if (name == "Mobile Turret")
+        cout << name + ": \"Rattatatat!\"\n";
 
-    if(shouldOutput) cout << "Dealt " << dam << " damage to " << e.name << endl;
+    if(shouldOutput)
+        cout << "Dealt " << dam << " damage to " << e.name << endl;
     if(!e.isAlive())
     {
         int caps = e.inventory.getCaps();
-        if(shouldOutput) cout << e.name << " died.\nCollected " << caps << " caps.\n";
+        if(shouldOutput)
+            cout << e.name << " died.\nCollected " << caps << " caps.\n";
         inventory.addCaps(caps);
         enemiesKilled++;
     }

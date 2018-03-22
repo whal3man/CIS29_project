@@ -2,25 +2,26 @@
 #include <iostream>
 #include <string>
 #include <vector>
+using namespace std;
 
-const std::vector<Item> Item::possibleItems = {Item("Hunting Rifle"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword"), Item("Light Armor"), Item("Heavy Armor"), Item("Stimpak"), Item("Shishkebab"), Item("Apple"), Item("Blood Pack"), Item("Steel"), Item("Leather")};
+const vector<Item> Item::possibleItems = {Item("Hunting Rifle"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword"), Item("Light Armor"), Item("Heavy Armor"), Item("Stimpak"), Item("Shishkebab"), Item("Apple"), Item("Blood Pack"), Item("Steel"), Item("Leather")};
 
-const std::vector<Item> Item::possibleWeapons = {Item("Hunting Rifle"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword")};
+const vector<Item> Item::possibleWeapons = {Item("Hunting Rifle"), Item("Large Club"), Item("DeathClaw Gauntlet"), Item("Shortsword"), Item("Longsword")};
 
-const std::string defaultWeaponName = "Fists";
-const std::string defaultArmorName = "Pants";
+const string defaultWeaponName = "Fists";
+const string defaultArmorName = "Pants";
 // Possible types: WEAPON, RECOVERY, ARMOR, MATERIAL, MISC
 // Stats:
 // Weapons: ammoCount, baseDamage
-Item::Item(std::string itemName_, std::string itemType_, int itemValue_)
+Item::Item(string itemName_, string itemType_, int itemValue_)
 {
-	itemName = itemName_;
-	itemType = itemType_;
-	itemValue = itemValue_;
+    itemName = itemName_;
+    itemType = itemType_;
+    itemValue = itemValue_;
 
-	damage = 0;
-	hpRestore = 0;
-	damageResistance = 0;
+    damage = 0;
+    hpRestore = 0;
+    damageResistance = 0;
 
     if(itemName == "Hunting Rifle")
     {

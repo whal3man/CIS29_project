@@ -93,7 +93,7 @@ public:
         return alive;
     }
 
-    friend std::ostream& operator<<(ostream& os, const Character& c)
+    friend ostream& operator<<(ostream& os, const Character& c)
     {
         os << c.name << ", HP = " << c.hp;
         return os;
@@ -119,7 +119,10 @@ public:
     int agility;
     int luck;
 
-    int numEnemiesKilled() { return enemiesKilled; }
+    int numEnemiesKilled()
+    {
+        return enemiesKilled;
+    }
     int enemiesKilled;
 
     bool shouldOutput;

@@ -2,8 +2,9 @@
 #define COMMANDS_H
 
 #include <string>
+using namespace std;
 
-extern std::string clsCommand;
-extern std::string pauseCommand;
+extern string clsCommand;
+extern string pauseCommand;
 
 #endif // COMMANDS_H

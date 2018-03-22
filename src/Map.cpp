@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+using namespace std;
 
 Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int startingZ, double monsterSpawnRate_, double chestSpawnRate_)
 {
@@ -27,7 +28,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
     playerZ = playerStartingZ = startingZ;
     currentFloor = startingZ;
 
-    gameMap.resize(cols_,std::vector<std::vector<Tile>>(rows_,std::vector<Tile>(floors_)));
+    gameMap.resize(cols_,vector<vector<Tile>>(rows_,vector<Tile>(floors_)));
     // Generating a puzzle (minesweeper) room
     // Elevator choice is restricted to only the top of the room
     int elevatorX = randInt(0, cols_-1);
@@ -82,7 +83,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
 
             }
             if (numMines != 0 && !tile.isMine())
-                    getTile(x, y, z).makeMinesweeperNumber(numMines);
+                getTile(x, y, z).makeMinesweeperNumber(numMines);
         }
     }
 
@@ -174,7 +175,7 @@ Map::Map(int rows_, int cols_, int floors_, int startingX, int startingY, int st
                             else if (ny > rows_ - 1)
                                 ny = rows_ - 1;
                         }
-                        std::string newEnemyName = Enemy::possibleNames[randIndex];
+                        string newEnemyName = Enemy::possibleNames[randIndex];
                         int randHP = randInt(minMonsterHP, maxMonsterHP);
                         int randCaps = randInt(minMonsterCaps, maxMonsterCaps);
                         Enemy newEnemy(x, y, z, nx, ny, newEnemyName, randHP, loot, randCaps);
@@ -217,35 +218,35 @@ void Map::print()
             Tile currentTile = getTile(x, y, currentFloor);
 
             if(currentTile.containsPlayer())
-                std::cout << std::setw(spacesBetweenTiles) << "[P]";
+                cout << setw(spacesBetweenTiles) << "[P]";
             else if(currentTile.containsEnemy())
-                std::cout << std::setw(spacesBetweenTiles) << "[M]";
+                cout << setw(spacesBetweenTiles) << "[M]";
             else if(currentTile.containsMerchant())
-                std::cout << std::setw(spacesBetweenTiles) << "[V]";
+                cout << setw(spacesBetweenTiles) << "[V]";
             else if(currentTile.containsElevator())
-                std::cout << std::setw(spacesBetweenTiles) << "[E]";
+                cout << setw(spacesBetweenTiles) << "[E]";
             else if(currentTile.isChest())
-                std::cout << std::setw(spacesBetweenTiles) << "[C]";
+                cout << setw(spacesBetweenTiles) << "[C]";
             else if(currentTile.containsItem())
-                std::cout << std::setw(spacesBetweenTiles) << "[I]";
+                cout << setw(spacesBetweenTiles) << "[I]";
             else if(currentTile.isMine() && currentTile.isRevealed())
-                std::cout << std::setw(spacesBetweenTiles) << "[*]";
+                cout << setw(spacesBetweenTiles) << "[*]";
             else if(currentTile.isMinesweeperNumber() && currentTile.isRevealed())
             {
-                std::string display = "[" + std::to_string(currentTile.getNumAdjacentMines()) + "]";
-                std:: cout << std::setw(spacesBetweenTiles) << display;
+                string display = "[" + to_string(currentTile.getNumAdjacentMines()) + "]";
+                cout << setw(spacesBetweenTiles) << display;
             }
 
             else
-                std::cout << std::setw(spacesBetweenTiles) << "[ ]";
+                cout << setw(spacesBetweenTiles) << "[ ]";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
     for(int i = 0; i < numCols()-2; i++)
     {
-        std::cout << std::setw(spacesBetweenTiles) << " ";
+        cout << setw(spacesBetweenTiles) << " ";
     }
-    std::cout << "Floor: " << currentFloor+1 << std::endl;
+    cout << "Floor: " << currentFloor+1 << endl;
 }
 
 void Map::updatePlayerLoc(int x, int y, int z)

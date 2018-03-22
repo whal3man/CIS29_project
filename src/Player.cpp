@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+using namespace std;
 
 void Player::runCharacterCreation(const bool DEBUG)
 {
@@ -12,31 +13,33 @@ void Player::runCharacterCreation(const bool DEBUG)
         cout << "Welcome to Escape the Vault.\n";
         cout << "You wake up, cold and confused. You start to remember who you are...\n";
 
-        std::string input;
-        std::cout << "Who am I?\n";
-        std::cin >> input;
+        string input;
+        cout << "Who am I?\n";
+        cin >> input;
         setName(input);
         bool goodAge = false;
         while(!goodAge)
         {
             goodAge = true;
-            std::cout << "How old am I?\n";
-            std::cin >> input;
+            cout << "How old am I?\n";
+            cin >> input;
             for(int i = 0; i < input.size(); i++)
             {
-                if(!isdigit(input[i])) goodAge = false;
+                if(!isdigit(input[i]))
+                    goodAge = false;
             }
-            if(!goodAge) std::cout << "Error: invalid age\n";
+            if(!goodAge)
+                cout << "Error: invalid age\n";
         }
         setAge(stoi(input));
-        std::cout << "What am I skilled in?\n";
-        std::cout << "In strength, perception, endurance, charisma, intelligence, agility, luck?\n";
-        std::cout << "(5 points to each by default)\n";
+        cout << "What am I skilled in?\n";
+        cout << "In strength, perception, endurance, charisma, intelligence, agility, luck?\n";
+        cout << "(5 points to each by default)\n";
         int pointsLeft = 5;
-        std::cout << pointsLeft << " points left to assign. Current distribution:\n\tStrength: " << getStrength() << " Perception: " << getPerception() << " Endurance: " << getEndurance() << " Charisma: " << getCharisma() << "\n\tIntelligence: " << getIntelligence() << " Agility: " << getAgility() << " Luck: " << getLuck() << std::endl;
+        cout << pointsLeft << " points left to assign. Current distribution:\n\tStrength: " << getStrength() << " Perception: " << getPerception() << " Endurance: " << getEndurance() << " Charisma: " << getCharisma() << "\n\tIntelligence: " << getIntelligence() << " Agility: " << getAgility() << " Luck: " << getLuck() << endl;
         while(pointsLeft > 0)
         {
-            std::cin >> input;
+            cin >> input;
             for(int i = 0; i < input.size(); i++)
             {
                 input[i] = tolower(input[i]);
@@ -77,8 +80,8 @@ void Player::runCharacterCreation(const bool DEBUG)
                 pointsLeft--;
             }
             else
-                std::cout << "Please try again.\n";
-            std::cout << pointsLeft << " points left to assign. Current distribution:\n\tStrength: " << getStrength() << " Perception: " << getPerception() << " Endurance: " << getEndurance() << " Charisma: " << getCharisma() << "\n\tIntelligence: " << getIntelligence() << " Agility: " << getAgility() << " Luck: " << getLuck() << std::endl;
+                cout << "Please try again.\n";
+            cout << pointsLeft << " points left to assign. Current distribution:\n\tStrength: " << getStrength() << " Perception: " << getPerception() << " Endurance: " << getEndurance() << " Charisma: " << getCharisma() << "\n\tIntelligence: " << getIntelligence() << " Agility: " << getAgility() << " Luck: " << getLuck() << endl;
         }
 
         cout << "\nYou clamber out of the cryochamber and start your journey out of the vault...\n";
@@ -98,33 +101,34 @@ void Player::runCharacterCreation(const bool DEBUG)
 
 void Player::displayInventory()
 {
-    std::vector<Item> displayOnce;
+    vector<Item> displayOnce;
     for(int i = 0; i < inventory.getNumItems(); i++)
     {
         Item currentItem = inventory[i];
         int numSame = inventory.count(currentItem);
         if(numSame == 1)
         {
-            std::cout << "\t" << i+1 << ". " << inventory[i] << std::endl;
+            cout << "\t" << i+1 << ". " << inventory[i] << endl;
         }
-        else if(std::find(displayOnce.begin(), displayOnce.end(), currentItem) == displayOnce.end())
+        else if(find(displayOnce.begin(), displayOnce.end(), currentItem) == displayOnce.end())
         {
             displayOnce.push_back(currentItem);
-            std::cout << "\t" << i+1 << ". " << inventory[i] << " (x" << numSame << ")" << std::endl;
+            cout << "\t" << i+1 << ". " << inventory[i] << " (x" << numSame << ")" << endl;
         }
     }
 }
 
-void Player::fillInventory()//to be used for demonstration to show that crafting works , will fill inventory with crafting reagents, call it with "fillInventory"
+//to be used for demonstration to show that crafting works , will fill inventory with items including crafting reagents
+void Player::fillInventory()
 {
     for(int i = 0; i < 3; i++)
-   {
-       addToInventory(Item("Blood Pack"));
-       addToInventory(Item("Steel"));
-       addToInventory(Item("Leather"));
-       addToInventory(Item("Claw"));
-       addToInventory(Item("Buckles"));
-   }
+    {
+        addToInventory(Item("Blood Pack"));
+        addToInventory(Item("Steel"));
+        addToInventory(Item("Leather"));
+        addToInventory(Item("Claw"));
+        addToInventory(Item("Buckles"));
+    }
     addToInventory(Item("Mini Nuke"));
     addToInventory(Item("Heavy Armor"));
     addToInventory(Item("Stimpak"));
@@ -142,5 +146,6 @@ bool Player::use(int idx)
         system(pauseCommand.c_str());
         return true;
     }
-    else return false;
+    else
+        return false;
 }

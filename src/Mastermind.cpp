@@ -1,6 +1,7 @@
 #include "../include/Mastermind.h"
 #include "../include/Commands.h"
 #include <iostream>
+using namespace std;
 
 Mastermind::Mastermind(int code_) : rows(10)
 {
@@ -11,24 +12,24 @@ Mastermind::Mastermind(int code_) : rows(10)
         missingZeroes = 2;
     else if (code_ < 1000)
         missingZeroes = 3;
-    mastercode = std::to_string(code_);
+    mastercode = to_string(code_);
     while (missingZeroes > 0)
     {
         mastercode.insert(0, "0");
         missingZeroes--;
     }
 
-    board = new std::string[rows];
+    board = new string[rows];
 }
 
-Mastermind::Mastermind(std::string code_) : mastercode(code_), rows(10)
+Mastermind::Mastermind(string code_) : mastercode(code_), rows(10)
 {
-    board = new std::string[rows];
+    board = new string[rows];
 }
 
-Mastermind::Mastermind(int rows_, std::string code_) : rows(rows_), mastercode(code_)
+Mastermind::Mastermind(int rows_, string code_) : rows(rows_), mastercode(code_)
 {
-    board = new std::string[rows];
+    board = new string[rows];
 }
 
 Mastermind::~Mastermind()
@@ -38,29 +39,31 @@ Mastermind::~Mastermind()
 
 bool Mastermind::playGame()
 {
-    std::string input;
+    string input;
     bool isCracked = false;
     int currRound = 0;
 
     while(!isCracked && currRound < rows)
     {
         printBoard();
-        std::cout << "\nYou have " << rows - currRound << " guesses remaining." << std::endl;
+        cout << "\nYou have " << rows - currRound << " guesses remaining." << endl;
         input = getInput();
-        if(input == "mmbk" || input == mastercode)        {
+        if(input == "mmbk" || input == mastercode)
+        {
             isCracked = true;
             break;
         }
-        if(stoi(input) < 0) break;
+        if(stoi(input) < 0)
+            break;
         board[currRound] = input;
 
         currRound++;
     }
     printBoard();
     if (isCracked)
-        std::cout << "You managed to find the code." << std::endl;
+        cout << "You managed to find the code." << endl;
     else
-        std::cout << "You failed to find the code: " << mastercode << std::endl;
+        cout << "You failed to find the code: " << mastercode << endl;
     system(pauseCommand.c_str());
     return isCracked;
 }
@@ -68,50 +71,53 @@ bool Mastermind::playGame()
 void Mastermind::printBoard()
 {
     system(clsCommand.c_str());
-    std::cout << "You find a chest with a 4 digit pin."
-              << "\nEnter in a 4 digit number to try unlocking it. (-# to exit)"
-              << "\nHint:\n\t#B = # of correct digits in right position"
-              << "\n\t#C = # of correct digits in wrong position\n";
+    cout << "You find a chest with a 4 digit pin."
+         << "\nEnter in a 4 digit number to try unlocking it. (-# to exit)"
+         << "\nHint:\n\t#B = # of correct digits in right position"
+         << "\n\t#C = # of correct digits in wrong position\n";
     for(int i = 0; i < rows; i++)
     {
-        std::string code = board[i];
+        string code = board[i];
         if (code != "")
         {
-            std::cout << board[i] << " | " << checkCode(code) << std::endl;
+            cout << board[i] << " | " << checkCode(code) << endl;
         }
         else
         {
-            std::cout << "     | " << std::endl;;
+            cout << "     | " << endl;;
         }
     }
 
 }
 
-std::string Mastermind::getInput()
+string Mastermind::getInput()
 {
-    std::string input;
-    std::cout << "Enter a code. ";
-    std::cin >> input;
+    string input;
+    cout << "Enter a code. ";
+    cin >> input;
     while(!isValidMastermindCode(input))
     {
-        std::cout << "That's not a valid input. Enter a new code. " << std::endl;
-        std::cin >> input;
+        cout << "That's not a valid input. Enter a new code. " << endl;
+        cin >> input;
     }
     return input;
 }
 
-bool Mastermind::isValidMastermindCode(std::string input)
+bool Mastermind::isValidMastermindCode(string input)
 {
-    if(input.size() != 4) return false;
-    if(input ==  "mmbk") return true; //backdoor solution
+    if(input.size() != 4)
+        return false;
+    if(input ==  "mmbk")
+        return true; //backdoor solution
     for(int i = 0; i < input.size(); i++)
     {
-        if(!isdigit(input[i]) && input[i] != '-') return false;
+        if(!isdigit(input[i]) && input[i] != '-')
+            return false;
     }
     return true;
 }
 
-std::string Mastermind::checkCode(std::string code)
+string Mastermind::checkCode(string code)
 {
     //a bull is a correct character in the mastercode that is also in the right position
     //a cow is a correct character in the mastercode but in the wrong position
@@ -124,14 +130,15 @@ std::string Mastermind::checkCode(std::string code)
     {
         bool isSearching = true;;
         size_t position = code.find(mastercode[i]);
-        while(isSearching && position != std::string::npos)
+        while(isSearching && position != string::npos)
         {
             if(mastercode[i] == code[i])
             {
                 numBulls++;
                 isSearching = false;
                 code[position] = '@';
-            } else if(code[position] != mastercode[position])
+            }
+            else if(code[position] != mastercode[position])
             {
                 numCows++;
                 isSearching = false;
@@ -142,5 +149,5 @@ std::string Mastermind::checkCode(std::string code)
         }
     }
     //returns a string "#B #C", where the B is the numBulls and C is numCows
-    return std::to_string(numBulls) + "B " + std::to_string(numCows) + "C";
+    return to_string(numBulls) + "B " + to_string(numCows) + "C";
 }
