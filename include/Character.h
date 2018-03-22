@@ -68,7 +68,7 @@ public:
         return inventory.getNumItems();
     }
 
-    int takeDamage(int attack);
+    int takeDamage(int attack, bool ignoreArmor = false);
     int takeDamageFrom(Item& i, bool kill = false, int damageModifier = 0);
     int attack(Character& e, bool kill = false);
 
